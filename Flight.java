@@ -35,7 +35,7 @@ public class Flight
         this.date = date;
         this.destination = destination;
         this.departure = departure;
-        this.passengers = new Passenger[maximumNumberOfPassengers];
+        this.passenger = new Passenger[maximumNumberOfPassengers];
         this.plane = plane;
     } // end of constructor Flight()
 } // end of class Flight
