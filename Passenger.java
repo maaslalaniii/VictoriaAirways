@@ -14,38 +14,19 @@ public class Passenger
    
    /* constructors */
    /**
-    * Constructs a passenger with default values.
+    * Constructs a passenger with the specified characteristics.
+    * 
+    * @param name the name of the passenger
+    * @param age the age of the passenger
+    * @param hasTicket <code>true</code> if this passenger has
+    * a ticket; <code>false</code> otherwise
     */
-   public Passenger()
+   public Passenger(String name, int age, boolean hasTicket)
    {
       name = "";
       hasTicket = false;
       age = 0;
    } // end of constructor Passenger()
-
-   /**
-    * Constructs a passenger with the specified name.
-    * 
-    * @param name the name of the passenger
-    */
-   public Passenger(String name)
-   {
-      this.name = name;
-      hasTicket = false;
-      age = 0;
-   } // end of contructor Passenger(String name)
-
-   /**
-    * Constructs a passenger with the specification of whether it has a ticket or not.
-    * 
-    * @param hasTicket 
-    */
-   public Passenger(boolean hasTicket)
-   {
-      name = "";
-      this.hasTicket = hasTicket;
-      age = 0;
-   } // end of constructor Passenger(boolean hasTicket)
 
    /* accessors */  
    /**
