@@ -9,6 +9,7 @@ public class Passenger
 {
    /* instance fields */
    private int age;
+   private boolean hasPassport;
    private boolean hasTicket;
    private String name;
    
@@ -21,12 +22,13 @@ public class Passenger
     * @param hasTicket <code>true</code> if this passenger has
     * a ticket; <code>false</code> otherwise
     */
-   public Passenger(String name, int age, boolean hasTicket)
+   public Passenger(String name, int age, boolean hasTicket, boolean hasPassport)
    {
-      name = "";
-      hasTicket = false;
-      age = 0;
-   } // end of constructor Passenger()
+      this.name = name;
+      this.hasTicket = hasTicket;
+      this.age = age;
+      this.hasPassport = hasPassport;
+   } // end of constructor Passenger(String name, int age...)
 
    /* accessors */  
    /**
@@ -61,6 +63,18 @@ public class Passenger
        return hasTicket;
    } // end of method hasTicket()
    
+   /**
+    * Returns <code>true</code> if the passenger has a passport; otherwise
+    * <code>false</code>.
+    * 
+    * @return <code>true</code> if the passenger has a passport; otherwise
+    * <code>false</code>
+    */
+    public boolean hasPassport()
+   {
+       return hasPassport;
+   } // end of method hasPassport()
+   
    /* mutators */ 
    /**
     * Sets the age of the passenger.
@@ -83,7 +97,7 @@ public class Passenger
    } // end of method setName(String name)
    
    /**
-    * Sets the passenger's possession of a ticket
+    * Sets the passenger's possession of a ticket.
     * 
     * @param hasTicket <code>true</code> if this passenger has
     * a ticket; <code>false</code> otherwise
@@ -92,4 +106,15 @@ public class Passenger
    {
        this.hasTicket = hasTicket;
    } // end of method setPossessionOfTicket(boolean hasTicket)
+   
+   /**
+    * Sets the passenger's possession of a passport.
+    * 
+    * @param hasTicket <code>true</code> if this passenger has
+    * a passport; <code>false</code> otherwise
+    */
+    public void setPossessionOfPassport(boolean hasPassport)
+   {
+       this.hasPassport = hasPassport;
+   } // end of method setPossessionOfPassport(boolean hasPassport)
 } // end of class Passenger
