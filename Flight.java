@@ -76,7 +76,8 @@ public class Flight
         if (cargo == null) return;
 
         // Ensure there is enough space for the cargo item.
-        if (this.cargo.length >= this.plane.getMaximumNumberOfItemsOfCargo()) return;
+        if (this.cargo.length
+			>= this.plane.getMaximumNumberOfItemsOfCargo()) return;
 
         this.cargo[this.cargo.length] = cargo;
     } // end of method addCargo(Cargo cargo)
@@ -182,7 +183,8 @@ public class Flight
     public void setPassengers(Passenger[] passenger)
     {
         if (passenger == null) return;
-        if (this.passenger.length > plane.getMaximumNumberOfPassengers()) return;
+        if (this.passenger.length 
+			> plane.getMaximumNumberOfPassengers()) return;
 
         this.passenger = passenger;
     } // end method setPassengers()
@@ -196,7 +198,7 @@ public class Flight
     {
         return this.passenger;
     } // end method getPassengers()
-
+	
     /* plane */
     /**
      * Sets the plane of this flight.
