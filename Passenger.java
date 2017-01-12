@@ -26,6 +26,7 @@ public class Passenger
    {
       this.name = name;
       this.hasTicket = hasTicket;
+      if (age < 0) this.age = 0;
       this.age = age;
       this.hasPassport = hasPassport;
    } // end of constructor Passenger(String name, int age...)
@@ -83,6 +84,7 @@ public class Passenger
     */
     public void setAge(int age)
    {
+       if (age < 0) this.age = 0;
        this.age = age;
    } // end of method setAge(int age)
    
