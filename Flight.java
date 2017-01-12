@@ -9,13 +9,13 @@ import java.util.Date;
 public class Flight
 {
     /* instance fields */
-    Cargo[] cargo;
-    double cost;
-    Date date;
-    String destination;
-    String departure;
-    Passenger[] passenger;
-    Plane plane;
+    private Cargo[] cargo;
+    private double cost;
+    private Date date;
+    private String destination;
+    private String departure;
+    private Passenger[] passenger;
+    private Plane plane;
 
     /**
      * Constructs a flight with the specified characteristics.
@@ -28,10 +28,10 @@ public class Flight
      *  
      */
     public Flight(double cost,
-    Date date,
-    String destination,
-    String departure,
-    Plane plane)
+    		  Date date,
+    		  String destination,
+    		  String departure,
+    		  Plane plane)
     {
         this.cargo = new Cargo[plane.getMaximumNumberOfItemsOfCargo()];
         this.cost = cost;
