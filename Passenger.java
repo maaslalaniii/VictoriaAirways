@@ -1,122 +1,93 @@
 /**
- * A passenger who is capable of boarding a flight.
+ * A luggage belonging to one of the passengers.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
 
-public class Passenger
+public class Cargo
 {
    /* instance fields */
-   private int age;
-   private boolean hasPassport;
-   private boolean hasTicket;
-   private String name;
+   private boolean hasWheels;
+   private double size;
+   private double weight;
    
    /* constructors */
    /**
-    * Constructs a passenger with the specified characteristics.
+    * Constructs a cargo with the specified characteristics.
     * 
-    * @param name the name of the passenger
-    * @param age the age of the passenger
-    * @param hasTicket <code>true</code> if this passenger has
-    * a ticket; <code>false</code> otherwise
+    * @param weight the weight of the cargo in kilograms
+    * @param hasWheels <code>true</code> if this cargo has
+    * wheels; <code>false</code> otherwise
+    * @param size the size of the cargo in centimetres
     */
-   public Passenger(String name, int age, boolean hasTicket, boolean hasPassport)
+   public Cargo(double weight, boolean hasWheels, double size)
    {
-      this.name = name;
-      this.hasTicket = hasTicket;
-      if (age < 0) this.age = 0;
-      this.age = age;
-      this.hasPassport = hasPassport;
-   } // end of constructor Passenger(String name, int age...)
-
+      this.weight = weight;
+      this.hasWheels = hasWheels;
+      this.size = size;
+   } // end of constructor Cargo(double weight, boolean hasWheels)
+   
    /* accessors */  
    /**
-    * Returns the age of the passenger.
+    * Returns the weight of the cargo.
     * 
-    * @return the age of the passenger
+    * @return the weight the weight of the cargo
     */
-   public int getAge()
+   public double getWeight()
    {
-       return age;
-   } // end of method getAge()
+       return weight;
+   } // end of method getWeight()
    
    /**
-    * Returns the name of the passenger.
+    * Returns the cargo's possession of wheels.
     * 
-    * @return the name of the passenger
+    * @return the cargo's possession of wheels
     */
-    public String getName()
+    public boolean getPossessionOfWheels()
    {
-       return name;
-   } // end of method getName()
+       return hasWheels;
+   } // end of method getPossessionOfWheels()
    
    /**
-    * Returns <code>true</code> if the passenger has a ticket; otherwise
-    * <code>false</code>.
+    * Returns the size of the cargo in centimetres.
     * 
-    * @return <code>true</code> if the passenger has a ticket; otherwise
-    * <code>false</code>
+    * @return the size of the cargo in centimetres
     */
-    public boolean hasTicket()
+   public double getSize()
    {
-       return hasTicket;
-   } // end of method hasTicket()
-   
-   /**
-    * Returns <code>true</code> if the passenger has a passport; otherwise
-    * <code>false</code>.
-    * 
-    * @return <code>true</code> if the passenger has a passport; otherwise
-    * <code>false</code>
-    */
-    public boolean hasPassport()
-   {
-       return hasPassport;
-   } // end of method hasPassport()
+       return size;
+   } // end of method getSize()
    
    /* mutators */ 
    /**
-    * Sets the age of the passenger.
+    * Sets the weight of the cargo.
     * 
-    * @param age the age of the passenger
+    * @param weight the weight of the cargo
     */
-    public void setAge(int age)
+    public void setWeight(int weight)
    {
-       if (age < 0) this.age = 0;
-       this.age = age;
-   } // end of method setAge(int age)
+       this.weight = weight;
+   } // end of method setWeight(int weight)
    
    /**
-    * Sets the name of the passenger.
+    * Sets the cargo's possession of wheels.
     * 
-    * @param name the name of the passenger
+    * @param hasWheels <code>true</code> if this cargo has
+    * wheels; <code>false</code> otherwise
     */
-    public void setName(String name)
+    public void setPossessionOfWheels(boolean hasWheels)
    {
-       this.name = name;
-   } // end of method setName(String name)
+       this.hasWheels = hasWheels;
+   } // end of method setPossessionOfWheels(boolean hasWheels)
    
-   /**
-    * Sets the passenger's possession of a ticket.
+    /**
+    * Sets the size of the cargo.
     * 
-    * @param hasTicket <code>true</code> if this passenger has
-    * a ticket; <code>false</code> otherwise
+    * @param size the size of the cargo in centimetres
     */
-    public void setPossessionOfTicket(boolean hasTicket)
+    public void setSize(double size)
    {
-       this.hasTicket = hasTicket;
-   } // end of method setPossessionOfTicket(boolean hasTicket)
-   
-   /**
-    * Sets the passenger's possession of a passport.
-    * 
-    * @param hasTicket <code>true</code> if this passenger has
-    * a passport; <code>false</code> otherwise
-    */
-    public void setPossessionOfPassport(boolean hasPassport)
-   {
-       this.hasPassport = hasPassport;
-   } // end of method setPossessionOfPassport(boolean hasPassport)
-} // end of class Passenger
+       this.size = size;
+   } // end of method setSize(double size)
+} // end of class Cargo
