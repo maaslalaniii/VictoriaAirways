@@ -6,10 +6,11 @@
  */
 public class Seat
 {
-    // instace fields
+    // instance fields
     private String seatName;
     private String seatType;
     private boolean isTaken;
+    private Passenger passenger;
 
     /**
      * Constructs a seat with the specified charateristics.
@@ -18,13 +19,18 @@ public class Seat
      * @param seatType the type of class to be set for this seat
      * @param isTaken <code>true</code> if this seat is taken, 
      * otherwise <code>false</code>
+     * @param passenger the passenger of this seat
      */
-    public Seat(String seatName, String seatType, boolean isTaken)
+    public Seat(String seatName, 
+				String seatType, 
+				boolean isTaken, 
+				Passenger passenger)
     {
         this.seatName = seatName;
         this.seatType = seatType;
         this.isTaken = isTaken;
-    } // end of constructor Seat(String seatName, String seatClass, boolean isTaken)
+        this.passenger = passenger;
+    } // end of constructor Seat(String seatName, String seatClass...)
 
     /**
      * Returns the name of this seat.
@@ -48,7 +54,7 @@ public class Seat
 
     /**
      * Returns <code>true</code> if this seat 
-     * is taken, otherwise <code>false</code>
+     * is taken, otherwise <code>false</code>.
      * 
      * @return <code>true</code> if this seat 
      * is taken, otherwise <code>false</code>
@@ -57,6 +63,16 @@ public class Seat
     {
         return this.isTaken;
     } // end of method isTaken()
+
+    /**
+     * Returns the passenger of this seat.
+     * 
+     * @return the passenger of this seat
+     */
+    public Passenger getPassenger()
+    {
+        return this.passenger;
+    } // end of method getPassenger()
 
     /**
      * Sets the name of this seat.
@@ -92,4 +108,14 @@ public class Seat
     {
         this.isTaken = isTaken;
     } // end of method setAvailability(boolean isTaken)
+    
+    /**
+     * Sets the passenger of this seat.
+     * 
+     * @param passenger the passenger to be set to this seat.
+     */
+    public void setPassenger(Passenger passenger)
+    {
+        this.passenger = passenger;
+    } // end of method setPassenger(Passenger passenger)
 } // end of class Seat
