@@ -9,7 +9,7 @@ public class Plane
     // instance fields 
     private String name;
     private int maximumNumberOfPassengers;
-    private int maximumNumberOfItemsCargo;
+    private int maximumNumberOfItemsOfCargo;
     private String aircraftType;
     private Seat [][] seat;
     private boolean isScheduled;
@@ -22,9 +22,9 @@ public class Plane
      * 
      * @param name the name of this plane <br><i>pre-condition: </i>
      * name may not be <code>null </code>
-     * @param maximumNumberOfItemsCargo the cargo limit
+     * @param maximumNumberOfItemsOfCargo the cargo limit
      * of this plane <br><i>pre-condition: </i>
-     * maximumNumberOfItemsCargo must be >= 0 
+     * maximumNumberOfItemsOfCargo must be >= 0 
      * @param aircraftType the aircraft type of this plane
      * <br><i>pre-condition: </i> aircraftType may not be 
      * @param rowsOfSeats the number of rows of seats in this
@@ -36,7 +36,7 @@ public class Plane
      * range may not be <code>null </code>
      */
     public Plane(String name, 
-                 int maximumNumberOfItemsCargo, 
+                 int maximumNumberOfItemsOfCargo, 
                  String aircraftType, 
                  int rowsOfSeats,
                  int seatsInRow,
@@ -46,7 +46,7 @@ public class Plane
     {
         // Check validity of parameters.
         if (name == null) return;
-        if (maximumNumberOfItemsCargo <0) return;
+        if (maximumNumberOfItemsOfCargo <0) return;
         if (aircraftType == null) return;
         if (rowsOfSeats <= 0) return;
         if (seatsInRow <= 0) return; 
@@ -58,7 +58,7 @@ public class Plane
          * number of seats available on this plane. 
          */ 
         this.maximumNumberOfPassengers = rowsOfSeats * seatsInRow;
-        this.maximumNumberOfItemsCargo = maximumNumberOfItemsCargo;
+        this.maximumNumberOfItemsOfCargo = maximumNumberOfItemsOfCargo;
         this.aircraftType = aircraftType;
         this. seat = new Seat[rowsOfSeats][seatsInRow];
         this.isScheduled = isScheduled;
@@ -96,9 +96,9 @@ public class Plane
      * 
      * @return the maximum number of cargo of this plane
      */
-    public int getMaximumNumberOfCargo()
+    public int getMaximumNumberOfItemsOfCargo()
     {
-        return this.maximumNumberOfItemsCargo;
+        return this.maximumNumberOfItemsOfCargo;
     } // end of method getMaximumNumberOfCargo()
 
     /**
@@ -190,15 +190,15 @@ public class Plane
     /**
      * Sets the maximum cargo of this plane
      * 
-     * @param maximumNumberOfItemsCargo the maximum number of 
+     * @param maximumNumberOfItemsOfCargo the maximum number of 
      * cargo to be set <br><i>pre-condition: </i>
-     * maximumNumberOfItemsCargo must be >= 0 
+     * maximumNumberOfItemsOfCargo must be >= 0 
      */
-    public void setMaximumNumberOfItemsOfCargo(int maximumNumberOfItemsCargo)
+    public void setMaximumNumberOfItemsOfCargo(int maximumNumberOfItemsOfCargo)
     {
-        // Check validity of maximumNumberOfItemsCargo
-        this.maximumNumberOfItemsCargo = maximumNumberOfItemsCargo; 
-    } // end of method setMaximumCargo(int maximumNumberOfItemsCargo)
+        // Check validity of maximumNumberOfItemsOfCargo
+        this.maximumNumberOfItemsOfCargo = maximumNumberOfItemsOfCargo; 
+    } // end of method setMaximumCargo(int maximumNumberOfItemsOfCargo)
     
     /**
      * Sets the aircraft type of this plane.
