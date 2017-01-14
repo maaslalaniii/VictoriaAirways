@@ -8,30 +8,29 @@ public class Plane
 {
     // instance fields 
     private String name;
-    private int maximumPassengers;
+    private int maximumNumberOfPassengers;
     private int maximumNumberOfItemsCargo;
     private String aircraftType;
     private Seat [][] seat;
     private boolean isScheduled;
     private String range;
     private String location;
-
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
      * schedule status and range.
      * 
      * @param name the name of this plane <br><i>pre-condition: </i>
-     *  name may not be <code>null </code>
+     * name may not be <code>null </code>
      * @param maximumNumberOfItemsCargo the cargo limit
-     * of this plane
+     * of this plane <br><i>pre-condition: </i>
+     * maximumNumberOfItemsCargo must be >= 0 
      * @param aircraftType the aircraft type of this plane
      * <br><i>pre-condition: </i> aircraftType may not be 
-     * <code>null </code>
      * @param rowsOfSeats the number of rows of seats in this
-     * plane
+     * plane <br><i>pre-condition: </i> rowOfSeats may not be <=0
      * @param seatsInRow the number of seats per row in this 
-     * plane
+     * plane <br><i>pre-condition: </i> seatsInRow may not be <=0
      * @param isScheduled the schedule status of this plane
      * @param range the range of this plane <br><i>pre-condition: </i> 
      * range may not be <code>null </code>
@@ -45,8 +44,20 @@ public class Plane
                  String range, 
                  String location)
     {
+        // Check validity of parameters.
+        if (name == null) return;
+        if (maximumNumberOfItemsCargo <0) return;
+        if (aircraftType == null) return;
+        if (rowsOfSeats <= 0) return;
+        if (seatsInRow <= 0) return; 
+        if (range == null) return;
+        
         this.name = name;
-        this.maximumPassengers = rowsOfSeats * seatsInRow;
+        /*
+         * Calculate the maximum number of passengers using the 
+         * number of seats available on this plane. 
+         */ 
+        this.maximumNumberOfPassengers = rowsOfSeats * seatsInRow;
         this.maximumNumberOfItemsCargo = maximumNumberOfItemsCargo;
         this.aircraftType = aircraftType;
         this. seat = new Seat[rowsOfSeats][seatsInRow];
@@ -56,9 +67,7 @@ public class Plane
         
         // Set the names of the seats
         this.setSeatNames();
-    }/* end of constructor Plane(String name, int maximumPassengers, int maximumNumberOfItemsCargo
-    String aircraftType, int [] [] seat, boolean isScheduled, String range)
-     */
+    }// end of constructor Plane(String name, int maximumPassengers...) 
 
     /**
      * Returns the name of this plane.
@@ -77,10 +86,20 @@ public class Plane
      * @return the maximum number of passengers of
      * this plane
      */
-    public int getMaximumPassengers()
+    public int getMaximumNumberOfPassengers()
     {
-        return this.maximumPassengers;
+        return this.maximumNumberOfPassengers;
     } // end of method getMaximumPassengers()
+    
+    /** 
+     * Returns the maximum number of cargo of this plane.
+     * 
+     * @return the maximum number of cargo of this plane
+     */
+    public int getMaximumNumberOfCargo()
+    {
+        return this.maximumNumberOfItemsCargo;
+    } // end of method getMaximumNumberOfCargo()
 
     /**
      * Returns the type of aircraft of this
@@ -143,6 +162,8 @@ public class Plane
      */
     public void setName(String name)
     {
+        // Check validity of name.
+        if (name == null) return;
         this.name = name;
     } // end of method setName(String name)
 
@@ -155,21 +176,27 @@ public class Plane
      * <code>maximumPassengers may not be greater than seats
      * in this plane</code>
      */
-    public void setMaximumPassengers(int maximumPassengers)
+    public void setMaximumNumberOfPassengers(int maximumNumberOfPassengers)
     {
-       // Check that maximum number of passengers does not exceed amount of seats on plane.
-        if (maximumPassengers <= this.getSeat().length * this.getSeat()[0].length)
-        this.maximumPassengers = maximumPassengers; 
+       /*
+       Check that maximum number of passengers does not
+       exceed amount of seats on plane.    
+       */
+        if (maximumNumberOfPassengers <= 
+            this.getSeat().length * this.getSeat()[0].length)
+        this.maximumNumberOfPassengers = maximumNumberOfPassengers; 
     } // end of method setMaximumPassengers(int maximumPassengers)
     
     /**
      * Sets the maximum cargo of this plane
      * 
-     * @param maximumNumberOfItemsCargo the 
-     * maximum number of cargo to be set
+     * @param maximumNumberOfItemsCargo the maximum number of 
+     * cargo to be set <br><i>pre-condition: </i>
+     * maximumNumberOfItemsCargo must be >= 0 
      */
-    public void setMaximumCargo(int maximumNumberOfItemsCargo)
+    public void setMaximumNumberOfItemsOfCargo(int maximumNumberOfItemsCargo)
     {
+        // Check validity of maximumNumberOfItemsCargo
         this.maximumNumberOfItemsCargo = maximumNumberOfItemsCargo; 
     } // end of method setMaximumCargo(int maximumNumberOfItemsCargo)
     
@@ -195,7 +222,6 @@ public class Plane
     public void setSeat(int rowsOfSeats, int seatsInRow)
     {
         this.seat = new Seat [rowsOfSeats][seatsInRow];
-        
         
         // Set the names of the seats
         this.setSeatNames();
@@ -235,26 +261,29 @@ public class Plane
     
     private void setSeatNames()
     {
-        // Name each seat according to its row and column in alpha numeric form.
+        /* 
+        Name each seat according to its row and column in alpha 
+        numeric form.
+        */
         for (int row = 0; row < this.seat.length; row++)
         {
             for (int column = 0; column < this.seat[row].length; column++)
             {
                 String seatName = "";
                 
-                // Associate the column with its equivalent alpha value, i.e 1=A
+                // Associate column with its equivalent alpha value, i.e 1=A
                 /* 
-                 * We know that the first column will be A, so to calculate the alpha
-                 * we will use the ASCII value of A and add the column number. 
-                 * i.e column 1(2 in the plane) = 65 + 1 = B, so the alpha value of the 
-                 * second seat is B.
+                 * We know that the first column will be A, so to calculate 
+                 * the alpha we will use the ASCII value of A and add the 
+                 * column number. i.e column 1(2 in the plane) = 65 + 1 = B, 
+                 * so the alpha value of the second seat is B.
                  */ 
                 char alphaValue = (char)(65 + column);
                 seatName = alphaValue + Integer.toString(row + 1);
                 
                 // create the seat in the array
-                this.seat[row][column] = new Seat (seatName,null,false);
-            } // end of for (int column = 0; column < this.seat[row].length; column++)
+                this.seat[row][column] = new Seat (seatName,null,false,null);
+            } // end of for (int column = 0; column < this.seat[row].length...)
         } // end of for (int row = 0; row < this.seat.length; row++)
     } // end of method seSeatNames
 } // end of class Plane
