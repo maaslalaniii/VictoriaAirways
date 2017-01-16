@@ -4,7 +4,6 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
-
 public class Cargo
 {
    /* instance fields */
