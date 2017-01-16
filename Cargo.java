@@ -26,7 +26,7 @@ public class Cargo
       this.weight = weight;
       this.hasWheels = hasWheels;
       this.size = size;
-   } // end of constructor Cargo(double weight, boolean hasWheels)
+   } // end of constructor Cargo(double weight, boolean hasWheels, double size)
    
    /* accessors */  
    /**
