@@ -1,16 +1,18 @@
 /**
- * A flight ticket.
+ * A document that a passenger must possess
+ * in order to be allowed to board a flight.
  * 
- * @author  Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-1-12
+ * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
+ * @version 1.0 2017-01-12
  */
 public class Ticket
 {
-    // instance fields
+    /* instance fields */
     private Flight reservedFlight;
     private String reservedSeat;
     private Passenger ticketOwner;
     
+    /* constructors */
     /**
      * Constructs a ticket with the specified 
      * characteristics
@@ -37,6 +39,7 @@ public class Ticket
         this.ticketOwner = ticketOwner;
     } // end of constructor Ticket(Flight reservedFlight, String reservedSeat...)
     
+    /* accessors */
     /**
      * Returns the flight of this ticket.
      * 
@@ -47,9 +50,13 @@ public class Ticket
         return this.reservedFlight;
     } // end of method getReservedFlight()
     
-    /** 
-     * Returns the seat of this ticket.
+    /**
+     * Returns the seat belonging to this ticket.
      * 
-     * @return the seat of this ticket.
+     * @return the seat belonging to this ticket
      */
+    public Flight getReservedSeat()
+    {
+        return this.reservedSeat;
+    } // end of method getReservedSeat()
 } // end of class Ticket
