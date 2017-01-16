@@ -2,10 +2,11 @@
  * A short range Boeing plane.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-1-11
+ * @version 1.0 2017-01-11
  */
 public class Boeing737Short extends Plane
     {
+       /* constructors */
        /**
          * Constructs a plane with the characteristics
          * of a Boeing 737 Short range aircraft.
@@ -18,5 +19,5 @@ public class Boeing737Short extends Plane
         public Boeing737Short(String name, String location)
         {
             super(name, 20, "Boeing 737", 20, 6, false, "Short", location);
-        }// end of contructor Boeing737Short(String name, String location)
-    }// end of class BoeingShort
+        } // end of contructor Boeing737Short(String name, String location)
+    } // end of class Boeing737Short
