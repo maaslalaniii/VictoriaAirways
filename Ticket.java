@@ -55,7 +55,7 @@ public class Ticket
      * 
      * @return the seat belonging to this ticket
      */
-    public Flight getReservedSeat()
+    public String getReservedSeat()
     {
         return this.reservedSeat;
     } // end of method getReservedSeat()
