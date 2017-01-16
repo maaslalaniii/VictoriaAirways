@@ -1,20 +1,23 @@
 /**
- * A plane
+ * A flying vehicle that is capable of travelling from a point
+ * of departure to a destination.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-1-11
+ * @version 1.0 2017-01-11
  */
 public class Plane
 {
-    // instance fields 
-    private String name;
-    private int maximumNumberOfPassengers;
-    private int maximumNumberOfItemsOfCargo;
+    /* instance fields */
     private String aircraftType;
-    private Seat [][] seat;
     private boolean isScheduled;
-    private String range;
     private String location;
+    private int maximumNumberOfItemsOfCargo;
+    private int maximumNumberOfPassengers;
+    private String name;
+    private String range;
+    private Seat[][] seat;
+
+    /* constructors */
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -36,13 +39,13 @@ public class Plane
      * range may not be <code>null </code>
      */
     public Plane(String name, 
-                 int maximumNumberOfItemsOfCargo, 
-                 String aircraftType, 
-                 int rowsOfSeats,
-                 int seatsInRow,
-                 boolean isScheduled, 
-                 String range, 
-                 String location)
+    int maximumNumberOfItemsOfCargo, 
+    String aircraftType, 
+    int rowsOfSeats,
+    int seatsInRow,
+    boolean isScheduled, 
+    String range, 
+    String location)
     {
         // Check validity of parameters.
         if (name == null) return;
@@ -51,7 +54,7 @@ public class Plane
         if (rowsOfSeats <= 0) return;
         if (seatsInRow <= 0) return; 
         if (range == null) return;
-        
+
         this.name = name;
         /*
          * Calculate the maximum number of passengers using the 
@@ -64,11 +67,12 @@ public class Plane
         this.isScheduled = isScheduled;
         this.range = range;
         this.location = location;
-        
+
         // Set the names of the seats
         this.setSeatNames();
-    }// end of constructor Plane(String name, int maximumPassengers...) 
+    } // end of constructor Plane(String name, int maximumPassengers...) 
 
+    /* accessors */
     /**
      * Returns the name of this plane.
      * 
@@ -90,7 +94,7 @@ public class Plane
     {
         return this.maximumNumberOfPassengers;
     } // end of method getMaximumPassengers()
-    
+
     /** 
      * Returns the maximum number of cargo of this plane.
      * 
@@ -102,11 +106,9 @@ public class Plane
     } // end of method getMaximumNumberOfCargo()
 
     /**
-     * Returns the type of aircraft of this
-     * plane.
+     * Returns the type of aircraft of this plane.
      * 
-     * @return the type of aircraft of this 
-     * plane
+     * @return the type of aircraft of this plane
      */
     public String getAircraftType()
     {
@@ -122,12 +124,13 @@ public class Plane
     {
         return this.seat;
     } // end of method getSeat() 
-    
+
     /**
-     * Checks if this plane is scheduled.
+     * Returns <code>true</code> if this plane is
+     * scheduled; otherwise <code>false.</code>
      * 
      * @return <code>true</code> if this plane is
-     * scheduled otherwise <code>false.</code>
+     * scheduled; otherwise <code>false</code>
      */
     public boolean isScheduled()
     {
@@ -143,7 +146,7 @@ public class Plane
     {
         return this.range;
     } // end of method getRange()
-    
+
     /**
      * Returns the location of this plane.
      * 
@@ -153,7 +156,8 @@ public class Plane
     {
         return this.location;
     } // end of getLocation()
-    
+
+    /* mutators */
     /**
      * Sets the name of this plane. 
      * 
@@ -168,8 +172,7 @@ public class Plane
     } // end of method setName(String name)
 
     /**
-     * Sets the maximum number of passengers
-     * of this plane
+     * Sets the maximum number of passengers of this plane.
      * 
      * @param maximumPassengers the maximum
      * number of passengers to be set <br><i>pre-condition: </i>
@@ -178,17 +181,17 @@ public class Plane
      */
     public void setMaximumNumberOfPassengers(int maximumNumberOfPassengers)
     {
-       /*
-       Check that maximum number of passengers does not
-       exceed amount of seats on plane.    
-       */
+        /*
+        Check that maximum number of passengers does not
+        exceed amount of seats on plane.    
+         */
         if (maximumNumberOfPassengers <= 
-            this.getSeat().length * this.getSeat()[0].length)
-        this.maximumNumberOfPassengers = maximumNumberOfPassengers; 
+        this.getSeat().length * this.getSeat()[0].length)
+            this.maximumNumberOfPassengers = maximumNumberOfPassengers; 
     } // end of method setMaximumPassengers(int maximumPassengers)
-    
+
     /**
-     * Sets the maximum cargo of this plane
+     * Sets the maximum cargo of this plane.
      * 
      * @param maximumNumberOfItemsOfCargo the maximum number of 
      * cargo to be set <br><i>pre-condition: </i>
@@ -199,18 +202,17 @@ public class Plane
         // Check validity of maximumNumberOfItemsOfCargo
         this.maximumNumberOfItemsOfCargo = maximumNumberOfItemsOfCargo; 
     } // end of method setMaximumCargo(int maximumNumberOfItemsOfCargo)
-    
+
     /**
      * Sets the aircraft type of this plane.
      * 
-     * @param aircraftType the aircraft type
-     * to be set
+     * @param aircraftType the aircraft typeto be set
      */
     public void setAircraftType(String aircraftType)
     {
         this.aircraftType = aircraftType;
     } // end of method setAircraftType(String aircraftType)
-    
+
     /**
      * Sets the seating plan of this plane.
      *
@@ -222,11 +224,11 @@ public class Plane
     public void setSeat(int rowsOfSeats, int seatsInRow)
     {
         this.seat = new Seat [rowsOfSeats][seatsInRow];
-        
+
         // Set the names of the seats
         this.setSeatNames();
     } // end of method setSeat(int rowsOfSeats, int seatsInRow)
-    
+
     /**
      * Sets the schedule status of this plane.
      * 
@@ -238,7 +240,7 @@ public class Plane
     {
         this.isScheduled = isScheduled;
     } // end of method setSchedule(boolean isScheduled)
-    
+
     /**
      * Sets the range of this plane.
      * 
@@ -248,7 +250,7 @@ public class Plane
     {
         this.range = range;
     } // end of method setRange(String range)
-    
+
     /**
      * Sets the location of this plane.
      * 
@@ -258,19 +260,19 @@ public class Plane
     {
         this.location = location;
     } // end of method setLocation(String location)
-    
+
     private void setSeatNames()
     {
         /* 
         Name each seat according to its row and column in alpha 
         numeric form.
-        */
+         */
         for (int row = 0; row < this.seat.length; row++)
         {
             for (int column = 0; column < this.seat[row].length; column++)
             {
                 String seatName = "";
-                
+
                 // Associate column with its equivalent alpha value, i.e 1=A
                 /* 
                  * We know that the first column will be A, so to calculate 
@@ -280,11 +282,10 @@ public class Plane
                  */ 
                 char alphaValue = (char)(65 + column);
                 seatName = alphaValue + Integer.toString(row + 1);
-                
+
                 // create the seat in the array
                 this.seat[row][column] = new Seat (seatName,null,false,null);
             } // end of for (int column = 0; column < this.seat[row].length...)
         } // end of for (int row = 0; row < this.seat.length; row++)
-    } // end of method seSeatNames
+    } // end of method seSeatNames()
 } // end of class Plane
-
