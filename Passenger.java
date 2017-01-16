@@ -1,10 +1,9 @@
 /**
- * A passenger who is capable of boarding a flight.
+ * A person who is capable of boarding a flight.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
-
 public class Passenger
 {
    /* instance fields */
@@ -32,9 +31,10 @@ public class Passenger
       this.name = name;
       this.hasTicket = hasTicket;
       this.age = age;
-      if (age < 0) this.age = 0;
       this.hasPassport = hasPassport;
       this.rewardPoints = rewardPoints;
+      
+      if (age < 0) this.age = 0;
       if (rewardPoints < 0) this.rewardPoints = 0;
    } // end of constructor Passenger(String name, int age...)
 
