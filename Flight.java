@@ -41,7 +41,7 @@ public class Flight
         this.departure = departure;
         this.passenger = new Passenger[plane.getMaximumNumberOfPassengers()];
         this.plane = plane;
-    } // end of constructor Flight(double cost..)
+    } // end of constructor Flight(double cost...)
     
     /* accessors */
     /**
