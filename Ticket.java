@@ -70,7 +70,7 @@ public class Ticket
         return this.ticketOwner;
     } // end of method getTicketOwner()
     
-    /*mutators*/
+    /* mutators */
     /**
      * Sets the flight of this ticket.
      * 
