@@ -1,8 +1,8 @@
 /**
- * Write a description of class Location here.
+ * A place where a plane can fly to and from.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
+ * @version 1.0 2017-01-16
  */
 public class Location
 {
