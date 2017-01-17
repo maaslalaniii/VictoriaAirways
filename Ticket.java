@@ -59,4 +59,57 @@ public class Ticket
     {
         return this.reservedSeat;
     } // end of method getReservedSeat()
+    
+    /**
+     * Returns the owner of this ticket.
+     * 
+     * @return the owner of this ticket
+     */
+    public Passenger getTicketOwner()
+    {
+        return this.ticketOwner;
+    } // end of method getTicketOwner()
+    
+    /*mutators*/
+    /**
+     * Sets the flight of this ticket.
+     * 
+     * @param reservedFlight the flight to be set
+     * to this ticket <br><i>pre-condition: </i>
+     * reservedFlight may not be <code>null</code>
+     */
+    public void setReservedFlight(Flight reservedFlight)
+    {
+        // Check validity of reservedFlight
+        if (reservedFlight == null) return;
+        this.reservedFlight = reservedFlight;
+    } // end of method setReservedFlight(Flight reservedFlight)
+    
+    /**
+     * Sets the seat of this ticket.
+     * 
+     * @param reservedSeat the seat to be set
+     * to this ticket <br><i>pre-condition: </i>
+     * reservedSeat may not be <code>null</code>
+     */
+    public void setReservedSeat(String reservedSeat)
+    {
+        // Check validity of reservedSeat
+        if (reservedSeat == null) return;
+        this.reservedSeat = reservedSeat;
+    } // end of method setReservedSeat(Seat reservedSeat)
+    
+    /**
+     * Sets the owner of this ticket.
+     * 
+     * @param ticketOwner the owner to be
+     * set to this ticket <br><i>pre-condtion: </i>
+     * ticketOwner may not be <code>null</code>
+     */
+    public void setTicketOwner(Passenger ticketOwner)
+    {
+        // Check validity of ticketOwner
+        if (ticketOwner == null) return;
+        this.ticketOwner = ticketOwner; 
+    } // end of method setTicketOwner(Passenger ticketOwner)
 } // end of class Ticket
