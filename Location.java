@@ -23,6 +23,8 @@ public class Location
      */
     public Location(String locationName)
     {
+       // Check validity of locationName
+        if (locationName == null)return;
         /* 
          * Check if entered location is one Victoria Airways provides
          * services too
@@ -139,6 +141,8 @@ public class Location
      */
     public void setLocationName(String locationName)
     {
+        // Check validity of locationName
+        if (locationName == null)return;
         this.locationName = locationName;
     } // end of method setLocationName(String locationName)
     
