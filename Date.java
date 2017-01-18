@@ -8,25 +8,25 @@
 public class Date
 {
     /* class constants */
-    final static int JANUARY = 1;
-    final static int FEBRUARY = 2;
-    final static int MARCH = 3;
     final static int APRIL = 4;
-    final static int MAY = 5;
-    final static int JUNE = 6;
-    final static int JULY = 7;
     final static int AUGUST = 8;
-    final static int SEPTEMBER = 9;
-    final static int OCTOBER = 10; 
-    final static int NOVEMBER = 11;
+    final static int FEBRUARY = 2;
     final static int DECEMBER = 12;
+    final static int JANUARY = 1;
+    final static int JULY = 7;
+    final static int JUNE = 6;
+    final static int MARCH = 3;
+    final static int MAY = 5;
+    final static int NOVEMBER = 11;
+    final static int OCTOBER = 10; 
+    final static int SEPTEMBER = 9;
 
     /* instance fields */
-    private int year;
-    private int month; 
     private int dayOfMonth;
     private int hour; 
-    private int minute; 
+    private int minute;
+    private int month;
+    private int year;
     
     /* constructors */
     /**
