@@ -1,5 +1,5 @@
 /**
- * An object which know its year, month, day
+ * An object which knows its year, month, day
  * of month, hour and time. 
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang  
@@ -7,7 +7,7 @@
  */
 public class Date
 {
-    // class constants
+    /* class constants */
     final static int JANUARY = 1;
     final static int FEBRUARY = 2;
     final static int MARCH = 3;
@@ -21,12 +21,14 @@ public class Date
     final static int NOVEMBER = 11;
     final static int DECEMBER = 12;
 
-    // instance fields
+    /* instance fields */
     private int year;
     private int month; 
     private int dayOfMonth;
     private int hour; 
     private int minute; 
+    
+    /* constructors */
     /**
      * Constructs a date with the specified year,
      * month, day of month, hour and time, ensuring 
@@ -50,7 +52,7 @@ public class Date
         // Check validity of parameters
         if (year <= 0) return;
         if (month <= 0 || month >12) return;
-        if (dayOfMonth <= 0 )
+        if (dayOfMonth <= 0)
         {
             return;
         }
@@ -77,7 +79,8 @@ public class Date
             {
                 if (dayOfMonth > 28) return;
             } // end of if (year % 4 == 0)
-        } // end of if (dayOfMonth <= 0 )
+        } // end of if (dayOfMonth <= 0)
+        
         if (hour < 0 || hour > 23) return;
         if (minute < 0 || minute > 59) return;
         this.year = year;
@@ -87,6 +90,7 @@ public class Date
         this.minute = minute;
     } // end of constructor Date(int year, int month, int dayOfMonth...)
 
+    /* accessors */
     /**
      * Returns the year of this date.
      * 
@@ -155,11 +159,12 @@ public class Date
         +"]";
     } // end of toString()
    
+    /* mutators */
     /**
      * Sets the year of this date.
      * 
-     * @param year the year of this date<i>pre-condition: 
-     * </i> year must be greater than 0
+     * @param year the year of this date
+     * <i>pre-condition:</i> year must be greater than 0
      */
     public void setYear(int year)
     {
@@ -245,4 +250,4 @@ public class Date
         if (minute < 0 || minute > 59) return;
         this.minute = minute;
     } // end of method setMinute(int minute)
-}
+} // end of class Date
