@@ -12,10 +12,12 @@ public class Flight
     private Date date;
     private Location departure;
     private Location destination;
+    private int numberOfCargo;
+    private int numberOfPassengers;
     private Passenger[] passenger;
     private Plane plane;
-    private int numberOfPassengers;
-    private int numberOfCargo;
+
+
 
     /* constructors */
     /**
