@@ -1,20 +1,23 @@
 /**
- * A plane
+ * A flying vehicle that is capable of travelling from a point
+ * of departure to a destination.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-1-11
+ * @version 1.0 2017-01-11
  */
 public class Plane
 {
-    // instance fields 
-    private String name;
-    private int maximumNumberOfPassengers;
-    private int maximumNumberOfItemsOfCargo;
+    /* instance fields */
     private String aircraftType;
-    private Seat [][] seat;
     private boolean isScheduled;
-    private String range;
     private String location;
+    private int maximumNumberOfItemsOfCargo;
+    private int maximumNumberOfPassengers;
+    private String name;
+    private String range;
+    private Seat [][] seat;
+
+    /* constructors */
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -67,7 +70,7 @@ public class Plane
 
         // Set the names of the seats
         this.setSeatNames();
-    }// end of constructor Plane(String name, int maximumPassengers...) 
+    } // end of constructor Plane(String name, int maximumPassengers...) 
 
     /**
      * Returns the name of this plane.
@@ -77,7 +80,7 @@ public class Plane
     public String getName()
     {
         return this.name;
-    }// end of method getName()
+    } // end of method getName()
 
     /**
      * Returns the maximum number of passengers
@@ -173,6 +176,8 @@ public class Plane
         + ", location: " + location
         + "]";
     } // end of method toString()
+    
+    /* mutators */
     /**
      * Sets the name of this plane. 
      * 
@@ -302,9 +307,8 @@ public class Plane
 
                 // create the seat in the array
                 this.seat[row][column] = new Seat (seatName,"economic",false,
-													null);
+                                                    null);
             } // end of for (int column = 0; column < this.seat[row].length...)
         } // end of for (int row = 0; row < this.seat.length; row++)
-    } // end of method seSeatNames
+    } // end of method setSeatNames()
 } // end of class Plane
-
