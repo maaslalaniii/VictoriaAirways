@@ -9,10 +9,10 @@ public class OperationsOffice
     /* instance fields */
     private Passenger[] customer;
     private Flight[] flight;
-    private Plane[] plane;
     private int numberOfCustomers;
     private int numberOfFlights;
     private int numberOfPlanes;
+    private Plane[] plane;
 
     /* constructors */
     /**
