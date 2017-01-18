@@ -1,4 +1,3 @@
-
 /**
  * A flight which journeys from a point of departure to a destination.
  * 
@@ -131,7 +130,7 @@ public class Flight
             cargoList += cargo[i] + " ";
         } // end of for (int i = 0; i < cargo.length; i ++)
         cargoList += "]";
-        
+
         String passengerList = "[";
         for (int i = 0; i < passenger.length; i ++)
         {
@@ -152,7 +151,7 @@ public class Flight
         + ", cargoNumber: " + numberOfCargo   
         + "]";
     } // end of method toString()
-    
+
     /* mutators */
     /**
      * Sets the plane of this flight.
@@ -264,7 +263,7 @@ public class Flight
         if (destination == null) return;
 
         this.destination = destination;
-    } // end method setDestination(String destination)
+    } // end method setDestination(Location destination)
 
     /**
      * Sets the departure of this flight.
@@ -276,11 +275,11 @@ public class Flight
         if (departure == null) return;
 
         this.departure = departure;
-    } // end method setDeparture(String departure)
+    } // end method setDeparture(Location departure)
 
     /**
      * Returns <code>true</code> if this flight is full, 
-     * otherwise <code>false</code>
+     * otherwise <code>false</code>.
      * 
      * @return <code>true</code> if this flight is full, 
      * otherwise <code>false</code>
