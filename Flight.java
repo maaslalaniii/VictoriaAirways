@@ -17,8 +17,6 @@ public class Flight
     private Passenger[] passenger;
     private Plane plane;
 
-
-
     /* constructors */
     /**
      * Constructs a flight with the specified characteristics.
