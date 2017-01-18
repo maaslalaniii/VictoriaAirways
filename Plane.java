@@ -1,23 +1,20 @@
 /**
- * A flying vehicle that is capable of travelling from a point
- * of departure to a destination.
+ * A plane
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-01-11
+ * @version 1.0 2017-1-11
  */
 public class Plane
 {
-    /* instance fields */
-    private String aircraftType;
-    private boolean isScheduled;
-    private String location;
-    private int maximumNumberOfItemsOfCargo;
-    private int maximumNumberOfPassengers;
+    // instance fields 
     private String name;
+    private int maximumNumberOfPassengers;
+    private int maximumNumberOfItemsOfCargo;
+    private String aircraftType;
+    private Seat [][] seat;
+    private boolean isScheduled;
     private String range;
-    private Seat[][] seat;
-
-    /* constructors */
+    private String location;
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -70,9 +67,8 @@ public class Plane
 
         // Set the names of the seats
         this.setSeatNames();
-    } // end of constructor Plane(String name, int maximumPassengers...) 
+    }// end of constructor Plane(String name, int maximumPassengers...) 
 
-    /* accessors */
     /**
      * Returns the name of this plane.
      * 
@@ -106,9 +102,11 @@ public class Plane
     } // end of method getMaximumNumberOfCargo()
 
     /**
-     * Returns the type of aircraft of this plane.
+     * Returns the type of aircraft of this
+     * plane.
      * 
-     * @return the type of aircraft of this plane
+     * @return the type of aircraft of this 
+     * plane
      */
     public String getAircraftType()
     {
@@ -126,11 +124,10 @@ public class Plane
     } // end of method getSeat() 
 
     /**
-     * Returns <code>true</code> if this plane is
-     * scheduled; otherwise <code>false.</code>
+     * Checks if this plane is scheduled.
      * 
      * @return <code>true</code> if this plane is
-     * scheduled; otherwise <code>false</code>
+     * scheduled otherwise <code>false.</code>
      */
     public boolean isScheduled()
     {
@@ -157,7 +154,25 @@ public class Plane
         return this.location;
     } // end of getLocation()
 
-    /* mutators */
+    /**
+     * Returns a string representation of this plane.
+     * 
+     * @return a string representaion of this plane
+     */
+    public String toString()
+    {
+        return
+        getClass().getName()
+        + "["
+        + "name: " + this.name
+        + ", maxPassengers: " + this.maximumNumberOfPassengers
+        + ", maxCargo: " + maximumNumberOfItemsOfCargo
+        + ", aircraft: " + aircraftType
+        + ", isScheduled: " + isScheduled
+        + ", range: " + range
+        + ", location: " + location
+        + "]";
+    } // end of method toString()
     /**
      * Sets the name of this plane. 
      * 
@@ -172,7 +187,8 @@ public class Plane
     } // end of method setName(String name)
 
     /**
-     * Sets the maximum number of passengers of this plane.
+     * Sets the maximum number of passengers
+     * of this plane
      * 
      * @param maximumPassengers the maximum
      * number of passengers to be set <br><i>pre-condition: </i>
@@ -191,7 +207,7 @@ public class Plane
     } // end of method setMaximumPassengers(int maximumPassengers)
 
     /**
-     * Sets the maximum cargo of this plane.
+     * Sets the maximum cargo of this plane
      * 
      * @param maximumNumberOfItemsOfCargo the maximum number of 
      * cargo to be set <br><i>pre-condition: </i>
@@ -206,7 +222,8 @@ public class Plane
     /**
      * Sets the aircraft type of this plane.
      * 
-     * @param aircraftType the aircraft type to be set
+     * @param aircraftType the aircraft type
+     * to be set
      */
     public void setAircraftType(String aircraftType)
     {
@@ -264,8 +281,8 @@ public class Plane
     private void setSeatNames()
     {
         /* 
-         * Name each seat according to its row and column in alpha 
-         * numeric form.
+        Name each seat according to its row and column in alpha 
+        numeric form.
          */
         for (int row = 0; row < this.seat.length; row++)
         {
@@ -283,9 +300,11 @@ public class Plane
                 char alphaValue = (char)(65 + column);
                 seatName = alphaValue + Integer.toString(row + 1);
 
-                // Create the seat in the array
-                this.seat[row][column] = new Seat (seatName,"Economic", false, null);
+                // create the seat in the array
+                this.seat[row][column] = new Seat (seatName,"economic",false,
+													null);
             } // end of for (int column = 0; column < this.seat[row].length...)
         } // end of for (int row = 0; row < this.seat.length; row++)
-    } // end of method setSeatNames()
+    } // end of method seSeatNames
 } // end of class Plane
+

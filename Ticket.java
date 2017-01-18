@@ -11,7 +11,7 @@ public class Ticket
     private Flight reservedFlight;
     private String reservedSeat;
     private Passenger ticketOwner;
-    
+
     /* constructors */
     /**
      * Constructs a ticket with the specified 
@@ -27,18 +27,23 @@ public class Ticket
      * <br><i>pre-condition </i>ticketOwner may not 
      * be <code>null</code>
      */
-    public Ticket(Flight reservedFlight, String reservedSeat, Passenger ticketOwner)
+    public Ticket(Flight reservedFlight, 
+				  String reservedSeat, 
+				  Passenger ticketOwner)
     {
         // Check validity of parameters.
         if (reservedFlight == null) return;
         if (reservedSeat == null) return;
         if (ticketOwner == null) return;
-        
+
         this.reservedFlight = reservedFlight;
         this.reservedSeat = reservedSeat;
         this.ticketOwner = ticketOwner;
-    } // end of constructor Ticket(Flight reservedFlight, String reservedSeat...)
-    
+
+        // Set this ticket as the passenger's ticket
+        this.ticketOwner.setTicket(this);
+    } // end of constructor Ticket(Flight reservedFlight...)
+
     /* accessors */
     /**
      * Returns the flight of this ticket.
@@ -49,7 +54,7 @@ public class Ticket
     {
         return this.reservedFlight;
     } // end of method getReservedFlight()
-    
+
     /**
      * Returns the seat belonging to this ticket.
      * 
@@ -59,7 +64,7 @@ public class Ticket
     {
         return this.reservedSeat;
     } // end of method getReservedSeat()
-    
+
     /**
      * Returns the owner of this ticket.
      * 
@@ -69,8 +74,23 @@ public class Ticket
     {
         return this.ticketOwner;
     } // end of method getTicketOwner()
-    
-    /* mutators */
+
+    /**
+     * Returns a string representation of this ticket.
+     * 
+     * @returns a string representation of this ticket
+     */
+    public String toString()
+    {
+        return
+        getClass().getName()
+        + "["
+        + "flight: " + reservedFlight
+        + ", seat: " + reservedSeat
+        + ", owner: " + ticketOwner
+        + "]";
+    } // end of method toString()
+    /*mutators*/
     /**
      * Sets the flight of this ticket.
      * 
@@ -84,7 +104,7 @@ public class Ticket
         if (reservedFlight == null) return;
         this.reservedFlight = reservedFlight;
     } // end of method setReservedFlight(Flight reservedFlight)
-    
+
     /**
      * Sets the seat of this ticket.
      * 
@@ -98,7 +118,7 @@ public class Ticket
         if (reservedSeat == null) return;
         this.reservedSeat = reservedSeat;
     } // end of method setReservedSeat(Seat reservedSeat)
-    
+
     /**
      * Sets the owner of this ticket.
      * 
@@ -110,6 +130,6 @@ public class Ticket
     {
         // Check validity of ticketOwner
         if (ticketOwner == null) return;
-        this.ticketOwner = ticketOwner; 
+        this.ticketOwner = ticketOwner;  
     } // end of method setTicketOwner(Passenger ticketOwner)
 } // end of class Ticket

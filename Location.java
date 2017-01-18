@@ -6,12 +6,11 @@
  */
 public class Location
 {
-    /* instance variables */
+    // instance variables
     private double latitude;
-    private String locationName;
     private double longitude;
+    private String locationName;
 
-    /* constructors */
     /**
      * Constructs a location with the specifed name
      * and assigns it with its corresponding coordinates
@@ -30,7 +29,7 @@ public class Location
          * Check if entered location is one Victoria Airways provides
          * services too
          */ 
-        switch(locationName)
+        switch (locationName)
         {
             case "Toronto":
             this.locationName = locationName;
@@ -101,9 +100,8 @@ public class Location
             default:
             return;
         } // end of switch(locationName)
-    } // end of constructor Location(locationName)
+    } // end of constructor Location (locationName)
 
-    /* accessors */
     /**
      * Returns the name of this location.
      * 
@@ -134,9 +132,23 @@ public class Location
         return this.longitude;
     } // end of method getLongitude()
 
-    /* mutators */
     /**
-     * Sets the name of this location.
+     * Returns a string representation of this location
+     * 
+     * @return a string representation of this location
+     */
+    public String toString()
+    {
+        return
+        getClass().getName()
+        + "["
+        + "name: " + locationName
+        + ", latitude: " + latitude
+        + ", longitude: " + longitude
+        + "]";
+    } // end of method toString()
+    /**
+     * Sets the name of this location
      * 
      * @param locationName the name of this location
      * <br><i>pre-condition: </i> locationName may 
@@ -150,7 +162,7 @@ public class Location
     } // end of method setLocationName(String locationName)
 
     /**
-     * Sets the latitude of this location.
+     * Sets the latitude of this location
      * 
      * @param latitude the latitude of this location
      */
@@ -160,7 +172,7 @@ public class Location
     } // end of method setLatitude(double latitude)
 
     /**
-     * Sets the longitude of this location.
+     * Sets the longitude of this location
      * 
      * @param longitude the longitude of this location
      */

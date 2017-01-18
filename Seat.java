@@ -2,17 +2,16 @@
  * A seat in a plane.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-01-11
+ * @version 1.0 2017-1-11
  */
 public class Seat
 {
-    /*instance fields */
-    private boolean isTaken;
-    private Passenger passenger;
+    // instance fields
     private String seatName;
     private String seatType;
+    private boolean isTaken;
+    private Passenger passenger;
 
-    /* constructors */
     /**
      * Constructs a seat with the specified charateristics.
      * 
@@ -23,17 +22,16 @@ public class Seat
      * @param passenger the passenger of this seat
      */
     public Seat(String seatName, 
-                String seatType, 
-                boolean isTaken, 
-                Passenger passenger)
+    String seatType, 
+    boolean isTaken, 
+    Passenger passenger)
     {
         this.seatName = seatName;
         this.seatType = seatType;
         this.isTaken = isTaken;
         this.passenger = passenger;
-    } // end of constructor Seat(String seatName, String seatType...)
+    } // end of constructor Seat(String seatName, String seatClass...)
 
-    /* accessors */
     /**
      * Returns the name of this seat.
      * 
@@ -76,7 +74,23 @@ public class Seat
         return this.passenger;
     } // end of method getPassenger()
 
-    /* mutators */
+    /**
+     * Returns a string representation of this seat
+     * 
+     * @return a string representation of this seat
+     */
+    public String toString()
+    {
+        return
+        getClass().getName()
+        + "["
+        + "name: " + seatName
+        + ", type: " + seatType
+        + ", isTaken: " + isTaken
+        + ", passenger: " + passenger
+        + "]";
+    } // end of method toString()
+
     /**
      * Sets the name of this seat.
      * 
@@ -102,7 +116,7 @@ public class Seat
     } // end of method setSeatType(String seatType)
 
     /**
-     * Sets the availability of this seat.
+     * Sets the availability of this seat
      * 
      * @param isTaken <code> true</code> if
      * the seat is taken, otherwise <code>false</code>
@@ -111,7 +125,7 @@ public class Seat
     {
         this.isTaken = isTaken;
     } // end of method setAvailability(boolean isTaken)
-    
+
     /**
      * Sets the passenger of this seat.
      * 
