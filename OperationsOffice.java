@@ -410,8 +410,7 @@ public class OperationsOffice
 
         // Create a new ticket with the located flight and seat, if found
         if (ticketFlight == null || ticketSeatName == null)return;   
-        Ticket bookedTicket = new Ticket(ticketFlight, ticketSeatName, 
-                passenger);
+        Ticket bookedTicket = new Ticket(ticketFlight, ticketSeatName);
     } // end of method bookTicket(Passenger passsenger...)
 
     /**
