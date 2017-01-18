@@ -10,7 +10,6 @@ public class Ticket
     /* instance fields */
     private Flight reservedFlight;
     private String reservedSeat;
-    private Passenger ticketOwner;
 
     /* constructors */
     /**
@@ -22,25 +21,17 @@ public class Ticket
      * @param reservedSeat the seat of this ticket
      * <br><i>pre-condition </i>reservedSeat may not 
      * be <code>null</code>
-     * @param ticketOwner the owner of this ticket
-     * <br><i>pre-condition </i>ticketOwner may not 
-     * be <code>null</code>
      */
     public Ticket(Flight reservedFlight, 
-				  String reservedSeat, 
-				  Passenger ticketOwner)
+				  String reservedSeat)
     {
         // Check validity of parameters.
         if (reservedFlight == null) return;
         if (reservedSeat == null) return;
-        if (ticketOwner == null) return;
 
         this.reservedFlight = reservedFlight;
         this.reservedSeat = reservedSeat;
-        this.ticketOwner = ticketOwner;
 
-        // Set this ticket as the passenger's ticket
-        this.ticketOwner.setTicket(this);
     } // end of constructor Ticket(Flight reservedFlight...)
 
     /* accessors */
@@ -64,15 +55,6 @@ public class Ticket
         return this.reservedSeat;
     } // end of method getReservedSeat()
 
-    /**
-     * Returns the owner of this ticket.
-     * 
-     * @return the owner of this ticket
-     */
-    public Passenger getTicketOwner()
-    {
-        return this.ticketOwner;
-    } // end of method getTicketOwner()
 
     /**
      * Returns a string representation of this ticket.
@@ -86,7 +68,6 @@ public class Ticket
         + "["
         + "flight: " + reservedFlight
         + ", seat: " + reservedSeat
-        + ", owner: " + ticketOwner
         + "]";
     } // end of method toString()
     
@@ -119,17 +100,4 @@ public class Ticket
         this.reservedSeat = reservedSeat;
     } // end of method setReservedSeat(Seat reservedSeat)
 
-    /**
-     * Sets the owner of this ticket.
-     * 
-     * @param ticketOwner the owner to be
-     * set to this ticket <br><i>pre-condtion: </i>
-     * ticketOwner may not be <code>null</code>
-     */
-    public void setTicketOwner(Passenger ticketOwner)
-    {
-        // Check validity of ticketOwner
-        if (ticketOwner == null) return;
-        this.ticketOwner = ticketOwner;  
-    } // end of method setTicketOwner(Passenger ticketOwner)
 } // end of class Ticket
