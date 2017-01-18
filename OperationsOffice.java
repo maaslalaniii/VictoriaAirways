@@ -1,8 +1,9 @@
 import java.util.Date;
+
 /**
- * The Victoria Airlines centralized operations office.
+ * The centralized operations office of Victoria Airways.
  * 
- * @author Maas, Ming Zhao, Jenisha
+ * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang
  * @version 2017-01-16
  */
 public class OperationsOffice
@@ -15,15 +16,20 @@ public class OperationsOffice
     private int numberOfFlights;
     private int numberOfPlanes;
 
+    /* constructors */
     /**
      * Constructs an operations office with the specified information.
      * 
-     * @param maximumNumberOfFlights the maximum number of flights this operations office can store
-     * @param maximumNumberOfPlanes the maximum number of planes this operations office can store
-     * @param maximumNumberOfCustomers the maximum number of customers this operations office can store
+     * @param maximumNumberOfFlights the maximum number of 
+     * flights this operations office can store
+     * @param maximumNumberOfPlanes the maximum number of 
+     * planes this operations office can store
+     * @param maximumNumberOfCustomers the maximum number of 
+     * customers this operations office can store
      * 
      */
-    public OperationsOffice(int maximumNumberOfCustomers, int maximumNumberOfFlights, int maximumNumberOfPlanes)
+    public OperationsOffice(int maximumNumberOfCustomers, 
+    int maximumNumberOfFlights, int maximumNumberOfPlanes)
     {
         customer = new Passenger[maximumNumberOfCustomers];
         flight = new Flight[maximumNumberOfFlights];
@@ -32,7 +38,7 @@ public class OperationsOffice
         numberOfCustomers = 0;
         numberOfFlights = 0;
         numberOfPlanes = 0;
-    } // end of constructor OperationsOffice(int maximumNumberOfCustomers, int maximumNumberOfFlights, int maximumNumberOfPlanes)
+    } // end of constructor OperationsOffice(int maximumNumberOfCustomers...)
 
     /* accessors */
     /**
@@ -69,7 +75,8 @@ public class OperationsOffice
     /**
      * Sets the customers record of this operations office.
      *
-     * @param customer the array which contains the information for customers of Victoria Airlines
+     * @param customer the array which contains the information 
+     * for customers of Victoria Airlines
      */
     public void setCustomers(Passenger[] customer)
     {
@@ -81,7 +88,8 @@ public class OperationsOffice
     /**
      * Sets the flights record of this operations office.
      *
-     * @param flight the array which contains the information for flights of Victoria Airlines
+     * @param flight the array which contains the information 
+     * for flights of Victoria Airlines
      */
     public void setFlights(Flight[] flight)
     {
@@ -93,7 +101,8 @@ public class OperationsOffice
     /**
      * Sets the planes record of this operations office.
      *
-     * @param plane the array which contains the information for flights of Victoria Airlines
+     * @param plane the array which contains the information
+     * for flights of Victoria Airlines
      */
     public void setPlanes(Plane[] plane)
     {
@@ -102,7 +111,6 @@ public class OperationsOffice
         this.plane = plane;
     } // end of method setPlanes(Plane[] plane)
 
-    /* utility mutators */
     /**
      * Adds a flight to the record of this operations office.
      *
@@ -136,11 +144,15 @@ public class OperationsOffice
     {
         if (flight == null) return;
 
-        // find the index of this flight.
-
-        // Shift all the flights after the removed flight down one.
-        for (int i = indexOfFlight; i < numberOfFlights; i++) {
-        this.flight[indexOfFlight] = this.flight[indexOfFlight + 1];
+        // Find the index of this flight
+        int indexOfFlight = 0;
+        for (int i = indexOfFlight; i < numberOfFlights; i++)
+        {
+            if (this.flight[indexOfFlight].equals(flight))
+            {
+                // Shift all the flights after the removed flight down one
+                this.flight[indexOfFlight] = this.flight[indexOfFlight + 1];
+            } // end of if (this.flight[indexOfFlight].equals(flight))
         } // end of for (int i = indexOfFlight; i < numberOfFlights; i++)
     } // end of method removeFlight(Flight flight)
 
@@ -149,7 +161,8 @@ public class OperationsOffice
      *
      * @param indexOfFlight the index of the flight to be removed
      * 
-     * @return the flight that was removed, <code>null</code> if the removal was unsuccessful
+     * @return the flight that was removed, <code>null</code>
+     * if the removal was unsuccessful
      */
     public Flight removeFlightByIndex(int indexOfFlight)
     {        
@@ -191,14 +204,8 @@ public class OperationsOffice
      * <code>null</code>
      * 
      */
-    public void scheduleFlight(double cost, 
-    int year,
-    int month,
-    int day,
-    int hour,
-    int minute,
-    String destination,
-    String departure)
+    public void scheduleFlight(double cost, int year, int month, int day,
+    int hour, int minute, String destination, String departure)
     {
         final int SHORT_RANGE_DISTANCE_KM = 5000;
         final int MEDIUM_RANGE_DISTANCE_KM = 10000;
@@ -210,7 +217,8 @@ public class OperationsOffice
         Location flightDeparture = new Location(departure);
 
         // Calculate distance of flight
-        Double flightDistance = calculateDistanceKm(flightDeparture, flightDestination);
+        Double flightDistance = calculateDistanceKm(flightDeparture, 
+                flightDestination);
 
         // Using the distance of the flight, determine the range of flight
         String flightRange = "";
@@ -218,7 +226,8 @@ public class OperationsOffice
         {
             flightRange = "Short"; 
         }
-        else if (flightDistance > SHORT_RANGE_DISTANCE_KM && flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
+        else if (flightDistance > SHORT_RANGE_DISTANCE_KM
+        && flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
         {
             flightRange = "Medium";
         }
@@ -227,15 +236,20 @@ public class OperationsOffice
             flightRange = "Long";
         } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
 
-        // Locate a plane at the departure with the flight's range in the operations office database
+        /* Locate a plane at the departure with the flight's range
+         * in the operations office database
+         */    
         Plane [] plane = this.getPlanes(); 
         int counter = 0;
 
         Plane flightPlane = null; 
         while (counter >= 0 && counter < plane.length)
         {
-            // Check if the plane has the required range and is present at the departure
-            if (plane[counter].getRange().equals(flightRange) && plane[counter].getLocation().equals(departure))
+            /* Check if the plane has the required range
+             * and is present at the departure
+             */
+            if (plane[counter].getRange().equals(flightRange) 
+            && plane[counter].getLocation().equals(departure))
             {
                 System.out.println(plane[counter].getName());
                 flightPlane = plane[counter]; 
@@ -246,14 +260,16 @@ public class OperationsOffice
             {
                 //increment counter
                 counter++;
-            }// end of if (plane[counter].getRange() == flightRange && plane[counter].getLocation() == departure)
+            }// end of if (plane[counter].getRange() == flightRange...)
         } // end of while (counter > 0 && counter < plane.length)
 
         // Was a plane meeting the requirements found?
         if (flightPlane != null)
         {
             // Create a new flight
-            Flight flight1 = new Flight(cost, takeoff, flightDestination, flightDeparture, flightPlane); 
+            Flight flight1 = new Flight(cost, takeoff, 
+            flightDestination.toString(), flightDeparture.toString(), flightPlane); 
+
             // Add flight to the flight database
             this.addFlight(flight1);
         }
@@ -261,7 +277,8 @@ public class OperationsOffice
         System.out.println ("No planes are available for this flight");
     } // end of method scheduleFlight(double cost, int year...)
 
-    private static double calculateDistanceKm(Location departure, Location destination)
+    private static double calculateDistanceKm(Location departure, 
+    Location destination)
     {
         final int EARTH_RADIUS = 6371;
         double latitude1 = Math.toRadians(departure.getLatitude());
@@ -270,14 +287,18 @@ public class OperationsOffice
         double longitude2 = Math.toRadians(destination.getLongitude());
         double latitudeDifference = latitude2 - latitude1;
         double longitudeDifference = longitude2 - longitude1;
+
         /*
          * Calulate distance between departure and destination by 
          * implementing the Haversine formula.
          */
-        double a = Math.sin(latitudeDifference/2) * Math.sin(latitudeDifference/2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(longitudeDifference/2) * Math.sin(longitudeDifference/2); 
+        double a = Math.sin(latitudeDifference/2) 
+            * Math.sin(latitudeDifference/2)
+            + Math.cos(latitude1) * Math.cos(latitude2) 
+            * Math.sin(longitudeDifference/2) * Math.sin(longitudeDifference/2); 
+
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         double distance = EARTH_RADIUS * c;
         return distance;
-    } // end of method calculateDistanceKm(Location departure, Location destination)
-
+    } // end of method calculateDistanceKm(Location departure...)
 } // end of class OperationsOffice
