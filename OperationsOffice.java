@@ -109,7 +109,6 @@ public class OperationsOffice
         this.plane = plane;
     } // end of method setPlanes(Plane[] plane)
 
-    /* utility mutators */
     /**
      * Adds a flight to the record of this operations office.
      *
@@ -304,7 +303,6 @@ public class OperationsOffice
         return null;
     } // end of method scheduleFlight(double cost, int year...)
 
-    /* method used to calculate distance when scheduling flights*/
     private static double calculateDistanceKm(Location departure, 
     Location destination)
     {
@@ -357,8 +355,8 @@ public class OperationsOffice
         int counter = 0;
 
         /*
-        Locate a flight with the required departure and destination 
-        in the database.
+         * Locate a flight with the required departure and destination 
+         * in the database.
          */ 
         while (ticketFlight == null && counter < numberOfFlights)
         {
@@ -369,8 +367,8 @@ public class OperationsOffice
             {
                 ticketFlight = flight[counter];
                 /*
-                Go through the seats of the flight and allocate the first 
-                empty seat found to the passenger's ticket
+                 * Go through the seats of the flight and allocate the first 
+                 * empty seat found to the passenger's ticket
                  */
                 int row = 0; 
                 int column = 0;
@@ -390,8 +388,8 @@ public class OperationsOffice
                             .getSeat()[row][column]
                             .getSeatName();
                             /*
-                            Set seat as taken in order to prevent multiple 
-                            bookings of the same seat.
+                             * Set seat as taken in order to prevent multiple 
+                             * bookings of the same seat.
                              */
                             this.flight[counter].getPlane()
                             .getSeat()[row][column].setAvailability(true);
@@ -422,7 +420,7 @@ public class OperationsOffice
      * to the flight.
      * 
      * @param passenger the passenger to be added to the flight
-     * <br><i>pre-conditon: </i> passenger may not be null
+     * <br><i>pre-conditon: </i>passenger may not be <code>null</code>
      */
     public void reservation(Passenger passenger)
     {
@@ -435,7 +433,7 @@ public class OperationsOffice
         Flight passengerFlight = passengerTicket.getReservedFlight();
 
         /* Find the flight specified on the ticket, in the operations 
-        office flight database 
+         * office flight database 
          */
         for (int i = 0; i < this.flight.length; i++)
         {
@@ -485,8 +483,7 @@ public class OperationsOffice
      * 
      * @param passenger the passenger to be rewarded points
      * <br><i>pre-condition: </i> passenger may not be 
-     * <code>null</code> 
-     *
+     * <code>null</code>
      */
     public void rewardPoints(Passenger passenger)
     {
@@ -509,9 +506,8 @@ public class OperationsOffice
         } // end of  if (isRegistered(passenger, this.getCustomers())
     } // end of method rewardPoints(Passenger passenger)
 
-    /*method to determine whether a passenger is registered in the database*/
     private static boolean isRegistered(Passenger passenger, 
-    Passenger [] passengerDatabase)
+    Passenger[] passengerDatabase)
     {
         for (int i = 0; i < passengerDatabase.length; i++) 
         {
@@ -521,5 +517,5 @@ public class OperationsOffice
             } // if (passengerDatabase[i] == passenger)
         } // end of for (int i = 0; i < passengerDatabase.length; i++)
         return false;
-    } // end of method isRegistered(Passenger passenger)
+    } // end of method isRegistered(Passenger passenger...)
 } // end of class OperationsOffice
