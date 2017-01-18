@@ -6,12 +6,13 @@
  */
 public class Seat
 {
-    // instance fields
-    private String seatName;
-    private String seatType;
+    /*instance fields */
     private boolean isTaken;
     private Passenger passenger;
-
+    private String seatName;
+    private String seatType;
+    
+    /* constructors */
     /**
      * Constructs a seat with the specified charateristics.
      * 
@@ -32,6 +33,7 @@ public class Seat
         this.passenger = passenger;
     } // end of constructor Seat(String seatName, String seatClass...)
 
+    /* accessors */
     /**
      * Returns the name of this seat.
      * 
@@ -91,6 +93,7 @@ public class Seat
         + "]";
     } // end of method toString()
 
+    /* constructors */
     /**
      * Sets the name of this seat.
      * 
@@ -116,7 +119,7 @@ public class Seat
     } // end of method setSeatType(String seatType)
 
     /**
-     * Sets the availability of this seat
+     * Sets the availability of this seat.
      * 
      * @param isTaken <code> true</code> if
      * the seat is taken, otherwise <code>false</code>
