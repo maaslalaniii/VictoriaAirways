@@ -6,6 +6,7 @@
  */
 public class AirbusA340 extends Plane
     {
+        /* constructors */
         /**
          * Constructs a plane with the characteristics
          * of an Airbus A340 Long range aircraft.
@@ -18,5 +19,5 @@ public class AirbusA340 extends Plane
         public AirbusA340(String name, String location)
         {
             super(name, 200, "Airbus A340", 30, 6, false, "Long", location);
-        }// end of contructor AirbusA340(String name, String location)
-    }// end of class AirbusA340
+        } // end of contructor AirbusA340(String name, String location)
+    } // end of class AirbusA340
