@@ -1,0 +1,20 @@
+Langosh-Bashirian	200	AirbusA340	30	6	false	Long	Toronto
+Schamberger Inc	140	Boeing737	20	6	false	Medium	Beijing
+Dickens-Schmidt	80	Boeing737	10	6	false	Short	Chicago
+Zieme LLC	200	AirbusA340	30 	6	false	Long	Vancouver
+Hilpert Group	200	AirbusA340	30	6	false	Long	London
+Barrows-Kessler	80	Boeing737	10	6	false	Short	Chicago
+Pouros-Daniel	200	AirbusA340	30	6	false	Long	Sydney
+Thompson, Willms and Parker	140	Boeing737	20	6	false	Medium	Beijing
+Block and Sons	140	Boeing737	20	6	false	Medium	Los Angeles
+Grant, Morissette and Kovacek	200	AirbusA340	30	6	false	Long	London
+Leuschke-Walker	80	Boeing737	10	6	false	Short	Toronto
+Casper, Hegmann and Watsica	140	Boeing737	20	6	false	Medium	Toronto
+Rutherford LLC	200	AirbusA340	30	6	false	Long	Delhi
+Maggio-Balistreri 80	Boeing737	10	6	false	Short	Vancouver
+Brown, Schuppe and Adams	140	Boeing737	20	6	false	Medium	New York
+Victoria Flyline	80	Boeing737	10	6	false	Short	Los Angeles
+Romaguera, Hansen and Roob	140	Boeing737	20	6	false	Medium	Dubai
+Denesik, Hartmann and Huel	80	Boeing737	10	6	false	Short	New York
+Watsica Inc	140	Boeing737	20	6	false	Medium	Chicago
+Casper-Nitzsche	200	AirbusA340	30	6	false	Long	Chicago
