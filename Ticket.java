@@ -14,8 +14,7 @@ public class Ticket
 
     /* constructors */
     /**
-     * Constructs a ticket with the specified 
-     * characteristics
+     * Constructs a ticket with the specified characteristics.
      * 
      * @param reservedFlight the flight of this ticket
      * <br><i>pre-condition </i>reservedFlight may not 
@@ -90,7 +89,8 @@ public class Ticket
         + ", owner: " + ticketOwner
         + "]";
     } // end of method toString()
-    /*mutators*/
+    
+    /* mutators */
     /**
      * Sets the flight of this ticket.
      * 
