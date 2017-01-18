@@ -2,7 +2,7 @@
  * A long range AirbusA340 plane.
  * 
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
- * @version 1.0 2017-1-11
+ * @version 1.0 2017-01-11
  */
 public class AirbusA340 extends Plane
 {
