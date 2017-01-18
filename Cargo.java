@@ -4,7 +4,6 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
-
 public class Cargo
 {
     /* instance fields */
@@ -26,7 +25,7 @@ public class Cargo
         this.weight = weight;
         this.hasWheels = hasWheels;
         this.size = size;
-    } // end of constructor Cargo(double weight, boolean hasWheels)
+    } // end of constructor Cargo(double weight, boolean hasWheels, double size)
 
     /* accessors */  
     /**
@@ -73,7 +72,8 @@ public class Cargo
         + ", hasWheels: " + hasWheels
         + ", size(cm): " + size
         + "]";	
-    }
+    } // end of method toString()
+    
     /* mutators */ 
     /**
      * Sets the weight of the cargo.
