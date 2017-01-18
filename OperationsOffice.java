@@ -408,9 +408,12 @@ public class OperationsOffice
             counter ++;
         } // end of for (int i = 0; i < numberOfFlights; i++)
 
-        // Create a new ticket with the located flight and seat, if found
+        /*
+         * Create a new ticket with the located flight and seat, if found
+         * and set it to the passenger
+         */
         if (ticketFlight == null || ticketSeatName == null)return;   
-        Ticket bookedTicket = new Ticket(ticketFlight, ticketSeatName);
+        passenger.setTicket(new Ticket(ticketFlight, ticketSeatName));
     } // end of method bookTicket(Passenger passsenger...)
 
     /**
