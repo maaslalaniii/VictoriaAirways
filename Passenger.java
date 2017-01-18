@@ -4,7 +4,6 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
-
 public class Passenger
 {
     /* instance fields */
@@ -33,11 +32,12 @@ public class Passenger
     {
         this.name = name;
         this.hasTicket = hasTicket;
-        this.ticket = ticket
+        this.ticket = ticket;
         this.age = age;
-        if (age < 0) this.age = 0;
         this.hasPassport = hasPassport;
         this.rewardPoints = rewardPoints;
+        
+        if (age < 0) this.age = 0;
         if (rewardPoints < 0) this.rewardPoints = 0;
     } // end of constructor Passenger(String name, int age...)
 
@@ -77,7 +77,7 @@ public class Passenger
     /**
      * Returns the ticket of this passenger, if they have one.
      * 
-     * @return the ticket of this passenger if the have one, 
+     * @return the ticket of this passenger if they have one, 
      * otherwise <code>null</code>
      */
     public Ticket getTicket()
