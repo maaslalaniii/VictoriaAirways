@@ -20,4 +20,4 @@ public class Boeing737Medium extends Plane
     {
         super(name, 140, "Boeing 737", 20, 6, false, "Medium", location);
     } // end of contructor Boeing737Medium(String name, String location)
-} // end of class BoeingShort
+} // end of class Boeing737Medium
