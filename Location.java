@@ -6,11 +6,12 @@
  */
 public class Location
 {
-    // instance variables
+    /* instance variables */
     private double latitude;
-    private double longitude;
     private String locationName;
+    private double longitude;
 
+    /* constructors */
     /**
      * Constructs a location with the specifed name
      * and assigns it with its corresponding coordinates
@@ -100,8 +101,9 @@ public class Location
             default:
             return;
         } // end of switch(locationName)
-    } // end of constructor Location (locationName)
+    } // end of constructor Location(String locationName)
 
+    /* accessors */
     /**
      * Returns the name of this location.
      * 
@@ -133,7 +135,7 @@ public class Location
     } // end of method getLongitude()
 
     /**
-     * Returns a string representation of this location
+     * Returns a string representation of this location.
      * 
      * @return a string representation of this location
      */
@@ -147,8 +149,10 @@ public class Location
         + ", longitude: " + longitude
         + "]";
     } // end of method toString()
+    
+    /* mutators */
     /**
-     * Sets the name of this location
+     * Sets the name of this location.
      * 
      * @param locationName the name of this location
      * <br><i>pre-condition: </i> locationName may 
@@ -162,7 +166,7 @@ public class Location
     } // end of method setLocationName(String locationName)
 
     /**
-     * Sets the latitude of this location
+     * Sets the latitude of this location.
      * 
      * @param latitude the latitude of this location
      */
@@ -172,7 +176,7 @@ public class Location
     } // end of method setLatitude(double latitude)
 
     /**
-     * Sets the longitude of this location
+     * Sets the longitude of this location.
      * 
      * @param longitude the longitude of this location
      */
