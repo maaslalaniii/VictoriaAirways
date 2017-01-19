@@ -99,5 +99,4 @@ public class Ticket
         if (reservedSeat == null) return;
         this.reservedSeat = reservedSeat;
     } // end of method setReservedSeat(Seat reservedSeat)
-
 } // end of class Ticket
