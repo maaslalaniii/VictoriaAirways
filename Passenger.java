@@ -4,17 +4,17 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
+
 public class Passenger
 {
     /* instance fields */
     private int age;
     private boolean hasPassport;
     private boolean hasTicket;
-    private String name;
-    private Cargo passengerCargo;
-    private int rewardPoints;
     private Ticket ticket;
-    
+    private String name;
+    private int rewardPoints;
+    private Cargo passengerCargo;
     /* constructors */
     /**
      * Constructs a passenger with the specified characteristics.
@@ -45,11 +45,6 @@ public class Passenger
         this.rewardPoints = rewardPoints;
         if (rewardPoints < 0) this.rewardPoints = 0;
         this.passengerCargo = passengerCargo;
-
-        // Set this passenger as the ticket owner of the ticket
-        if (this.ticket != null)
-        {this.ticket.setTicketOwner(this);
-        } // end of if (this.ticket != null)
     } // end of constructor Passenger(String name, int age...)
 
     /* accessors */  
@@ -147,7 +142,6 @@ public class Passenger
         + ", cargo: " + passengerCargo 
         + "]";	
     } // end of method toString()
-    
     /* mutators */ 
     /**
      * Sets the age of the passenger.
@@ -191,9 +185,6 @@ public class Passenger
     {
         this.ticket = ticket;
 
-        // Set this passenger as the ticket owner of the ticket
-        ticket.setTicketOwner(this);
-
         // Indicate that this passenger has a ticket
         this.setPossessionOfTicket(true);
     } // end of method setTicket(Ticket ticket)
@@ -232,14 +223,13 @@ public class Passenger
     } // end of method setRewardPoints(int rewardPoints)
 
     /**
-     * Add the specifed amount of frequent-flyer 
-     * reward points to this passenger.
+     * Add the specifed amount of frequent-flyer reward points to this passenger.
      * 
-     * @param rewardPointsToBeAdded the amount of frequent-flyer points to
-     * be added
+     * @param rewardPointsToBeAdded the amount of frequent-flyer points to 
+	 * be added
      */
     public void addPoints(int rewardPointsToBeAdded)
     {
         this.rewardPoints += rewardPointsToBeAdded;
-    } // end of method addPoints(int rewardPointsToBeAdded)
+    } // end of method addPoints(int rewardPoints)
 } // end of class Passenger
