@@ -22,8 +22,7 @@ public class Ticket
      * <br><i>pre-condition </i>reservedSeat may not 
      * be <code>null</code>
      */
-    public Ticket(Flight reservedFlight, 
-				  String reservedSeat)
+    public Ticket(Flight reservedFlight, String reservedSeat)
     {
         // Check validity of parameters.
         if (reservedFlight == null) return;
@@ -31,7 +30,6 @@ public class Ticket
 
         this.reservedFlight = reservedFlight;
         this.reservedSeat = reservedSeat;
-
     } // end of constructor Ticket(Flight reservedFlight...)
 
     /* accessors */
@@ -54,7 +52,6 @@ public class Ticket
     {
         return this.reservedSeat;
     } // end of method getReservedSeat()
-
 
     /**
      * Returns a string representation of this ticket.
@@ -99,5 +96,4 @@ public class Ticket
         if (reservedSeat == null) return;
         this.reservedSeat = reservedSeat;
     } // end of method setReservedSeat(Seat reservedSeat)
-
 } // end of class Ticket
