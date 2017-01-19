@@ -235,8 +235,8 @@ public class Passenger
      * Add the specifed amount of frequent-flyer 
      * reward points to this passenger.
      * 
-     * @param rewardPointsToBeAdded the amount of frequent-flyer points to 
-	 * be added
+     * @param rewardPointsToBeAdded the amount of frequent-flyer points to
+     * be added
      */
     public void addPoints(int rewardPointsToBeAdded)
     {
