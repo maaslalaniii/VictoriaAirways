@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * The centralized operations office of Victoria Airways.
  * 
@@ -11,8 +15,7 @@ public class OperationsOffice
     private static int DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS = 1000;
     private static int DEFAULT_MAXIMUM_NUMBER_OF_PLANES = 100;
 
-    private static String[] LIST_OF_COMMANDS =
-        {
+    private static String[] LIST_OF_COMMANDS = {
             "help",
             "add plane",
             "add flight",
@@ -20,7 +23,7 @@ public class OperationsOffice
             "remove plane",
             "remove flight",
             "remove passenger",
-            "exit",
+            "exit"
         };
 
     /* instance fields */
@@ -41,52 +44,118 @@ public class OperationsOffice
                 DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS,
                 DEFAULT_MAXIMUM_NUMBER_OF_PLANES);
 
-        System.out.println("Welcome to the Victoria Airlines CLI.");
-        System.out.println("Type \"help\" to get started with a list of all possible commands.");
+        System.out.println("\fWelcome to the Victoria Airlines CLI.");
+        System.out.println("Type \"help\" to list all of possible commands.");
+
+        // print the list of commands
+        help();
 
         boolean programShouldContinue = true;
 
         do
         {
             // Get input from the user.
-            String input = getInput();
+            String input = getString("> ");
+
+            // Check for sentinal value
+            if (input.equals("exit"))
+            {
+                programShouldContinue = false;
+            } // end of 
 
             // Handle the input.
             handleInput(input);
 
-        }
+        } // end of loop
         while (programShouldContinue);
-
     } // end of method main(String[] argument)
 
+    /**
+     * Prints all the possible commands this CLI can handle.
+     */
     public static void help()
     {
-        System.out.println("");
-        for (String command : LIST_OF_COMMANDS)
-        {
-            System.out.print("");
-        }
-    }
+        System.out.println("Possible commands:");
 
-    public static String getInput(String prompt)
+        int numberOfCommands = LIST_OF_COMMANDS.length;
+
+        // Print all commands except the last one so that the comma can be excluded.
+        for (int i = 0; i < numberOfCommands - 1; i++)
+        {
+            System.out.print(LIST_OF_COMMANDS[i] + ", ");
+        } // end of for(String command : LIST_OF_COMMANDS)
+
+        // Print the last command in the list that we skipped.
+        // Subtract one from the length of the array to get the index of the last element.
+        System.out.println(LIST_OF_COMMANDS[numberOfCommands - 1]);
+    } // end of help()
+
+    /**
+     * Returns a string obtained from the console, after the user had been given the specified prompt.
+     * 
+     * @param prompt the information to give the user before asking them for a value
+     * 
+     * @return the user input, empty string the method could not get input
+     */
+    public static String getString(String prompt)
+    {
+        BufferedReader console = null;
+        String input = "";
+
+        // Prompt the user.
+        System.out.println(prompt);
+
+        // Get Input from the user.
+        try
+        {
+            console = new BufferedReader(new InputStreamReader(System.in));
+            input = console.readLine();
+        }
+        catch (IOException exception)
+        {
+            System.out.println("Could not read input from command line interface. Please restart the program.");
+        } // end of catch (IOException exception) 
+
+        return input;
+    } // end of getString(String prompt)
+
+    /**
+     * Returns an integer obtained from the console, after the user had been given the specified prompt.
+     * 
+     * @param prompt the information to give the user before asking them for a value
+     * 
+     * @return the user integer input
+     */
+    public static int getInt(String prompt)
     {
         // Get Input from the user.
-        return "";
-    }
+        return 0;
+    } // end of getInt(String prompt)
 
+    /**
+     * Returns an integer obtained from the console, after the user had been given the specified prompt.
+     * 
+     * @param prompt the information to give the user before asking them for a value
+     * 
+     * @return the user integer input
+     */
     public static void handleInput(String input)
-    {
+    {        
         // Handle the input.
         switch(input)
         {
             case "help":
-                help();
+            help();
 
             case "add flight":
-                String cost = getInput("cost?");
+            String cost = getString("cost?");
 
-        }
-    }
+            default:
+            System.out.println("\n\"" + input + "\" is not a valid command."
+                + "\n\"help\" will bring up a list of possible commands.\n");
+
+        } // end of 
+    } // end of 
 
     /* constructors */
     /**
@@ -187,24 +256,32 @@ public class OperationsOffice
      * Adds a flight to the record of this operations office.
      *
      * @param flight the flight to be added
+     * 
+     * @return whether the operation was successful
      */
-    public void addFlight(Flight flight)
+    public boolean addFlight(Flight flight)
     {
-        if (flight == null) return;
-        if (numberOfFlights >= this.flight.length) return;
+        if (flight == null) return false;
+        if (numberOfFlights >= this.flight.length) return false;
+
         this.flight[numberOfFlights++] = flight;
+        return true;
     } // end of method addFlight(Flight flight)
 
     /**
      * Adds a plane to the record of this operations office.
      *
      * @param plane the plane to be added
+     * 
+     * @return whether the operation was successful
      */
-    public void addPlane(Plane plane)
+    public boolean addPlane(Plane plane)
     {
-        if (plane == null) return;
-        if (numberOfPlanes >= this.plane.length) return;
+        if (plane == null) return false;
+        if (numberOfPlanes >= this.plane.length) return false;
+
         this.plane[numberOfPlanes++] = plane;
+        return true;
     } // end of method addPlane(Plane plane)
 
     /**
@@ -212,24 +289,31 @@ public class OperationsOffice
      * of this operation office.
      * 
      * @param passenger the passenger to be added
+     * 
+     * @return whether the operation was successful
      */
-    public void addCustomer(Passenger passenger)
+    public boolean addCustomer(Passenger passenger)
     {
-        if (passenger == null) return;
-        if (numberOfCustomers >= this.customer.length) return;
+        if (passenger == null) return false;
+        if (numberOfCustomers >= this.customer.length) return false;
+
         this.customer[numberOfCustomers++] = passenger;
+        return true;
     } // end of method addCustomer(Passenger passenger) 
 
     /**
      * Removes a flight to the record of this operations office.
      *
      * @param flight the flight to be removed
+     * 
+     * @return whether the operation was successful
      */
-    public void removeFlight(Flight flight)
+    public boolean removeFlight(Flight flight)
     {
-        if (flight == null) return;
+        if (flight == null) return false;
 
         int indexOfFlight = -1;
+
         // find the index of this flight.
         for (int i = 0; i < numberOfFlights; i++)
         {
@@ -247,6 +331,7 @@ public class OperationsOffice
 
         // Set the plane of the removed flight as unscheduled
         flight.getPlane().setSchedule(false);
+        return true;
     } // end of method removeFlight(Flight flight)
 
     /**
@@ -254,13 +339,12 @@ public class OperationsOffice
      *
      * @param indexOfFlight the index of the flight to be removed
      * 
-     * @return the flight that was removed, <code>null</code> if the 
-     * removal was unsuccessful
+     * @return whether the flight was successful
      */
-    public Flight removeFlightByIndex(int indexOfFlight)
+    public boolean removeFlightByIndex(int indexOfFlight)
     {        
-        if (indexOfFlight < 0) return null;
-        if (indexOfFlight > numberOfFlights) return null;
+        if (indexOfFlight < 0) return false;
+        if (indexOfFlight > numberOfFlights) return false;
 
         Flight flightToBeRemoved = this.flight[indexOfFlight];
         this.flight[numberOfFlights--] = null;
@@ -269,10 +353,11 @@ public class OperationsOffice
         for (int i = indexOfFlight; i < numberOfFlights; i++) {
             this.flight[indexOfFlight] = this.flight[indexOfFlight + 1];
         } // end of for (int i = indexOfFlight; i < numberOfFlights; i++)
+
         // Set the plane of the removed flight as unscheduled
         flightToBeRemoved.getPlane().setSchedule(false);
 
-        return flightToBeRemoved;
+        return true;
     } // end of method removeFlightByIndex(int indexOfFlight)
 
     /**
@@ -291,90 +376,97 @@ public class OperationsOffice
      * @param departure the departure of this flight
      * <br><i>pre-condition: </i> departure may not be 
      * <code>null</code>
-     * @return the scheduled flight, if required plane is 
-     * present otherwise <code>null</code>
+     * 
+     * @return whether the scheduling was succesful
      * 
      */
-    public Flight scheduleFlight(double cost, 
+    public boolean scheduleFlight(double cost, 
     Date date,
     String destination,
     String departure)
     {
-        if (cost >= 0 && date != null && destination != null && 
-        departure != null && 
-        this.numberOfFlights < this.getFlights().length)
+        if (cost <= 0) return false;
+        if (date == null) return false;
+        if (destination == null) return false;
+        if (destination == null) return false;
+        if (this.numberOfFlights < this.getFlights().length) return false;
+
+        final int SHORT_RANGE_DISTANCE_KM = 5000;
+        final int MEDIUM_RANGE_DISTANCE_KM = 10000;
+
+        // Create departure and destinatino locations
+        Location flightDestination = new Location(destination);
+        Location flightDeparture = new Location(departure);
+
+        // Calculate distance of flight
+        Double flightDistance = calculateDistanceKm(flightDeparture,
+                flightDestination);
+
+        // Using the distance of the flight, determine the range of flight
+        String flightRange = "";
+        
+        if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
         {
-            final int SHORT_RANGE_DISTANCE_KM = 5000;
-            final int MEDIUM_RANGE_DISTANCE_KM = 10000;
+            flightRange = "Short"; 
+        }
+        else if (flightDistance > SHORT_RANGE_DISTANCE_KM
+        && flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
+        {
+            flightRange = "Medium";
+        }
+        else 
+        {
+            flightRange = "Long";
+        } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
 
-            // Create departure and destinatino locations
-            Location flightDestination = new Location(destination);
-            Location flightDeparture = new Location(departure);
+        /*
+         * Locate a plane at the departure with the flight's range in the 
+         * operations office database
+         */
+        Plane[] plane = this.getPlanes(); 
+        int counter = 0;
 
-            // Calculate distance of flight
-            Double flightDistance = calculateDistanceKm(flightDeparture,
-                    flightDestination);
-
-            // Using the distance of the flight, determine the range of flight
-            String flightRange = "";
-            if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
-            {
-                flightRange = "Short"; 
-            }
-            else if (flightDistance > SHORT_RANGE_DISTANCE_KM && 
-            flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
-            {
-                flightRange = "Medium";
-            }
-            else 
-            {
-                flightRange = "Long";
-            } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
-
+        Plane flightPlane = null; 
+        
+        while (counter >= 0 && counter < plane.length)
+        {
             /*
-            Locate a plane at the departure with the flight's range in the 
-            operations office database
+             * Check if the plane has the required range and is present 
+             * at the departure and isn't scheduled
              */
-            Plane [] plane = this.getPlanes(); 
-            int counter = 0;
-
-            Plane flightPlane = null; 
-            while (counter >= 0 && counter < plane.length)
+            if (plane[counter].getRange().equals(flightRange)
+            && plane[counter].getLocation().equals(departure) 
+            && plane[counter].isScheduled() == false)
             {
-                /* Check if the plane has the required range and is present 
-                 *at the departure and isn't scheduled
-                 */
-                if (plane[counter].getRange().equals(flightRange) && 
-                plane[counter].getLocation().equals(departure) 
-                && plane[counter].isScheduled() == false)
-                {
-                    flightPlane = plane[counter]; 
-                    // set counter to -1 so the loop is exited
-                    counter = -1;
-                }
-                else
-                {
-                    //increment counter
-                    counter++;
-                }// end of if (plane[counter].getRange() == flightRange...)
-            } // end of while (counter > 0 && counter < plane.length)
+                flightPlane = plane[counter]; 
 
-            // Was a plane meeting the requirements found?
-            if (flightPlane != null)
-            {
-                // Create a new flight
-                Flight flight1 = new Flight(cost, date, flightDestination, 
-                        flightDeparture, flightPlane); 
-                // Set the plane as scheduled
-                flightPlane.setSchedule(true);
-                // Add flight to the flight database
-                this.addFlight(flight1);
-                return flight1;
+                // Set counter to -1, to escape the loop
+                counter = -1;
             }
-            // No plane found, 
-            return null;
-        }// end of if (cost >= 0 && date != null && destination...)
-        return null;
+            else
+            {
+                // Increment the counter to check the next plane
+                counter++;
+            }// end of if (plane[counter].getRange() == flightRange...)
+        } // end of while (counter > 0 && counter < plane.length)
+
+        // Was a plane meeting the requirements found?
+        if (flightPlane != null)
+        {
+            // Create a new flight
+            Flight flight1 = new Flight(cost, date, flightDestination, 
+                    flightDeparture, flightPlane); 
+
+            // Set the plane as scheduled
+            flightPlane.setSchedule(true);
+
+            // Add flight to the flight database
+            this.addFlight(flight1);
+            return true;
+        }
+
+        // No plane found.
+        return false;
     } // end of method scheduleFlight(double cost, int year...)
 
     private static double calculateDistanceKm(Location departure, 
@@ -387,6 +479,7 @@ public class OperationsOffice
         double longitude2 = Math.toRadians(destination.getLongitude());
         double latitudeDifference = latitude2 - latitude1;
         double longitudeDifference = longitude2 - longitude1;
+        
         /*
          * Calulate distance between departure and destination by 
          * implementing the Haversine formula.
@@ -411,18 +504,20 @@ public class OperationsOffice
      * pre-condition: </i> departure may not <code>null</code>
      * @param destination the destination of the passenger's trip
      * <b><i>pre-condition: </i> destination may not <code>null</code>
+     * 
+     * @return whether the operation was successful
      */
-    public void createTicket(Passenger passenger, 
+    public boolean createTicket(Passenger passenger, 
     String departure, 
     String destination)
     {
         // Check validity of parameters
-        if (passenger == null)return;
-        if(departure == null )return;
-        if (destination == null)return;
+        if (passenger == null) return false;
+        if(departure == null) return false;
+        if (destination == null) return false;
 
         // Does this passenger have a passport?
-        if (passenger.hasPassport() == false)return;
+        if (passenger.hasPassport() == false)return false;
 
         Flight ticketFlight = null; 
         String ticketSeatName = null;
@@ -486,8 +581,9 @@ public class OperationsOffice
          * Create a new ticket with the located flight and seat, if found
          * and set it to the passenger
          */
-        if (ticketFlight == null || ticketSeatName == null)return;   
+        if (ticketFlight == null || ticketSeatName == null) return false;   
         passenger.setTicket(new Ticket(ticketFlight, ticketSeatName));
+        return true;
     } // end of method bookTicket(Passenger passsenger...)
 
     /**
