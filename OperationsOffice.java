@@ -26,8 +26,8 @@ public class OperationsOffice
      * customers this operations office can store
      */
     public OperationsOffice(int maximumNumberOfCustomers, 
-                            int maximumNumberOfFlights, 
-                            int maximumNumberOfPlanes)
+    int maximumNumberOfFlights, 
+    int maximumNumberOfPlanes)
     {
         customer = new Passenger[maximumNumberOfCustomers];
         flight = new Flight[maximumNumberOfFlights];
@@ -37,7 +37,7 @@ public class OperationsOffice
         numberOfFlights = 0;
         numberOfPlanes = 0;
     } // end of constructor OperationsOffice(int maximumNumberOfCustomers..)
-    
+
     /* accessors */
     /**
      * Returns the record of all customers in this operations office.
@@ -74,20 +74,20 @@ public class OperationsOffice
      * Sets the customers record of this operations office.
      *
      * @param customer the array which contains the information for 
-     * customers of Victoria Airlines
+     * customers of Victoria Airways
      */
     public void setCustomers(Passenger[] customer)
     {
         if (customer == null) return;
 
         this.customer = customer;
-    } // end of method set(Passenger[] customer)
+    } // end of method setCustomers(Passenger[] customer)
 
     /**
      * Sets the flights record of this operations office.
      *
      * @param flight the array which contains the information for flights 
-     * of Victoria Airlines
+     * of Victoria Airways
      */
     public void setFlights(Flight[] flight)
     {
@@ -100,7 +100,7 @@ public class OperationsOffice
      * Sets the planes record of this operations office.
      *
      * @param plane the array which contains the information for flights of 
-     * Victoria Airlines
+     * Victoria Airways
      */
     public void setPlanes(Plane[] plane)
     {
@@ -258,17 +258,17 @@ public class OperationsOffice
             } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
 
             /*
-            Locate a plane at the departure with the flight's range in the 
-            operations office database
+             * Locate a plane at the departure with the flight's range in the 
+             * operations office database
              */
-            Plane [] plane = this.getPlanes(); 
+            Plane[] plane = this.getPlanes(); 
             int counter = 0;
 
             Plane flightPlane = null; 
             while (counter >= 0 && counter < plane.length)
             {
                 /* Check if the plane has the required range and is present 
-                 *at the departure and isn't scheduled
+                 * at the departure and isn't scheduled
                  */
                 if (plane[counter].getRange().equals(flightRange) && 
                 plane[counter].getLocation().equals(departure) 
@@ -291,12 +291,15 @@ public class OperationsOffice
                 // Create a new flight
                 Flight flight1 = new Flight(cost, date, flightDestination, 
                         flightDeparture, flightPlane); 
+
                 // Set the plane as scheduled
                 flightPlane.setSchedule(true);
+
                 // Add flight to the flight database
                 this.addFlight(flight1);
                 return flight1;
-            }
+            } // end of if (flightPlane != null)
+
             // No plane found, 
             return null;
         }// end of if (cost >= 0 && date != null && destination...)
@@ -495,12 +498,11 @@ public class OperationsOffice
         // Does the passenger have a ticket?
         if (passenger.hasTicket() == false)return;
 
-        //Is the passenger in the operations office database?
+        // Is the passenger in the operations office database?
         if (isRegistered(passenger, this.getCustomers()))
         {
-            /* 
-            Find the cost of the passenger's flight and add the 
-            corresponding points to their points balance
+            /* Find the cost of the passenger's flight and add the 
+             * corresponding points to their points balance
              */
             int pointsToBeAdded = (int)(1.5 * passenger.getTicket()
                     .getReservedFlight().getCost());
