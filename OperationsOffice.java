@@ -5,7 +5,24 @@
  * @version 2017-01-16
  */
 public class OperationsOffice
-{   
+{
+    /* class constants */
+    private static int DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS = 10000;
+    private static int DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS = 1000;
+    private static int DEFAULT_MAXIMUM_NUMBER_OF_PLANES = 100;
+
+    private static String[] LIST_OF_COMMANDS =
+        {
+            "help",
+            "add plane",
+            "add flight",
+            "add passenger",
+            "remove plane",
+            "remove flight",
+            "remove passenger",
+            "exit",
+        };
+
     /* instance fields */
     private Passenger[] customer;
     private Flight[] flight;
@@ -13,6 +30,63 @@ public class OperationsOffice
     private int numberOfFlights;
     private int numberOfPlanes;
     private Plane[] plane;
+
+    /**
+     * The CLI for Victoria Airlines operations office.
+     */
+    public static void main(String[] argument)
+    {
+        // Create the main operations office.
+        OperationsOffice operationsOffice = new OperationsOffice(DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS,
+                DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS,
+                DEFAULT_MAXIMUM_NUMBER_OF_PLANES);
+
+        System.out.println("Welcome to the Victoria Airlines CLI.");
+        System.out.println("Type \"help\" to get started with a list of all possible commands.");
+
+        boolean programShouldContinue = true;
+
+        do
+        {
+            // Get input from the user.
+            String input = getInput();
+
+            // Handle the input.
+            handleInput(input);
+
+        }
+        while (programShouldContinue);
+
+    } // end of method main(String[] argument)
+
+    public static void help()
+    {
+        System.out.println("");
+        for (String command : LIST_OF_COMMANDS)
+        {
+            System.out.print("");
+        }
+    }
+
+    public static String getInput(String prompt)
+    {
+        // Get Input from the user.
+        return "";
+    }
+
+    public static void handleInput(String input)
+    {
+        // Handle the input.
+        switch(input)
+        {
+            case "help":
+                help();
+
+            case "add flight":
+                String cost = getInput("cost?");
+
+        }
+    }
 
     /* constructors */
     /**
@@ -74,20 +148,20 @@ public class OperationsOffice
      * Sets the customers record of this operations office.
      *
      * @param customer the array which contains the information for 
-     * customers of Victoria Airways
+     * customers of Victoria Airlines
      */
     public void setCustomers(Passenger[] customer)
     {
         if (customer == null) return;
 
         this.customer = customer;
-    } // end of method setCustomers(Passenger[] customer)
+    } // end of method set(Passenger[] customer)
 
     /**
      * Sets the flights record of this operations office.
      *
      * @param flight the array which contains the information for flights 
-     * of Victoria Airways
+     * of Victoria Airlines
      */
     public void setFlights(Flight[] flight)
     {
@@ -100,7 +174,7 @@ public class OperationsOffice
      * Sets the planes record of this operations office.
      *
      * @param plane the array which contains the information for flights of 
-     * Victoria Airways
+     * Victoria Airlines
      */
     public void setPlanes(Plane[] plane)
     {
@@ -258,17 +332,17 @@ public class OperationsOffice
             } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
 
             /*
-             * Locate a plane at the departure with the flight's range in the 
-             * operations office database
+            Locate a plane at the departure with the flight's range in the 
+            operations office database
              */
-            Plane[] plane = this.getPlanes(); 
+            Plane [] plane = this.getPlanes(); 
             int counter = 0;
 
             Plane flightPlane = null; 
             while (counter >= 0 && counter < plane.length)
             {
                 /* Check if the plane has the required range and is present 
-                 * at the departure and isn't scheduled
+                 *at the departure and isn't scheduled
                  */
                 if (plane[counter].getRange().equals(flightRange) && 
                 plane[counter].getLocation().equals(departure) 
@@ -291,15 +365,12 @@ public class OperationsOffice
                 // Create a new flight
                 Flight flight1 = new Flight(cost, date, flightDestination, 
                         flightDeparture, flightPlane); 
-
                 // Set the plane as scheduled
                 flightPlane.setSchedule(true);
-
                 // Add flight to the flight database
                 this.addFlight(flight1);
                 return flight1;
-            } // end of if (flightPlane != null)
-
+            }
             // No plane found, 
             return null;
         }// end of if (cost >= 0 && date != null && destination...)
@@ -498,11 +569,12 @@ public class OperationsOffice
         // Does the passenger have a ticket?
         if (passenger.hasTicket() == false)return;
 
-        // Is the passenger in the operations office database?
+        //Is the passenger in the operations office database?
         if (isRegistered(passenger, this.getCustomers()))
         {
-            /* Find the cost of the passenger's flight and add the 
-             * corresponding points to their points balance
+            /* 
+            Find the cost of the passenger's flight and add the 
+            corresponding points to their points balance
              */
             int pointsToBeAdded = (int)(1.5 * passenger.getTicket()
                     .getReservedFlight().getCost());
