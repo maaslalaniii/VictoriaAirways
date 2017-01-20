@@ -46,6 +46,7 @@ public class Plane
         // Set the names of the seats
         this.setSeatNames();
     } // end of constructor Plane(String name, int maximumPassengers...) 
+    
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -266,17 +267,11 @@ public class Plane
     /**
      * Sets the seating plan of this plane.
      *
-     * @param rowsOfSeats the number of rows of seats in 
-     * this plane
-     * @param seatsInRow the number of seats per row
-     * in this plane
+     * @param seat the seats of this plane
      */
-    public void setSeat(int rowsOfSeats, int seatsInRow)
+    public void setSeat(Seat[][] seat)
     {
-        this.seat = new Seat [rowsOfSeats][seatsInRow];
-
-        // Set the names of the seats
-        this.setSeatNames();
+        this.seat = seat;
     } // end of method setSeat(int rowsOfSeats, int seatsInRow)
 
     /**
@@ -311,7 +306,7 @@ public class Plane
         this.location = location;
     } // end of method setLocation(String location)
 
-    private void setSeatNames()
+    public void setSeatNames()
     {
         /* 
         Name each seat according to its row and column in alpha 
