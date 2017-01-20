@@ -4,17 +4,17 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
-
 public class Passenger
 {
     /* instance fields */
     private int age;
     private boolean hasPassport;
     private boolean hasTicket;
-    private Ticket ticket;
     private String name;
-    private int rewardPoints;
     private String passengerCargo;
+    private int rewardPoints;
+    private Ticket ticket;
+
     /* constructors */
     /**
      * Constructs a passenger with the specified characteristics.
@@ -142,6 +142,7 @@ public class Passenger
         + ", cargo: " + passengerCargo 
         + "]";	
     } // end of method toString()
+    
     /* mutators */ 
     /**
      * Sets the age of the passenger.
@@ -208,7 +209,7 @@ public class Passenger
     public void setPassengerCargo(String passengerCargo)
     {
         this.passengerCargo = passengerCargo;
-    } // end of method setPassengerCargo(Cargo passengerCargo)
+    } // end of method setPassengerCargo(String passengerCargo)
 
     /**
      * Sets the amount of frequent-flyer reward points of this passenger.
@@ -223,7 +224,8 @@ public class Passenger
     } // end of method setRewardPoints(int rewardPoints)
 
     /**
-     * Add the specifed amount of frequent-flyer reward points to this passenger.
+     * Add the specifed amount of frequent-flyer reward 
+     * points to this passenger.
      * 
      * @param rewardPointsToBeAdded the amount of frequent-flyer points to 
 	 * be added
@@ -231,5 +233,5 @@ public class Passenger
     public void addPoints(int rewardPointsToBeAdded)
     {
         this.rewardPoints += rewardPointsToBeAdded;
-    } // end of method addPoints(int rewardPoints)
+    } // end of method addPoints(int rewardPointsToBeAdded)
 } // end of class Passenger
