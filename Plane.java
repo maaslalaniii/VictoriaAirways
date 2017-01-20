@@ -10,10 +10,14 @@ public class Plane
     /* class constants */
     private static final int DEFAULT_NUMBER_OF_ROWS = 30;
     private static final int DEFAULT_NUMBER_OF_SEATS_PER_ROW = 10;
-    private static final int DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS = 0;
+    /* Number of cargo items should be equivalent to the number
+     * of people on this plane, one item per person.
+     */
+    private static final int DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS =
+        DEFAULT_NUMBER_OF_ROWS * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
     private static final String DEFAULT_RANGE = "Short";
     private static final String DEFAULT_LOCATION = "Toronto";
-    
+
     /* instance fields */
     private String aircraftType;
     private boolean isScheduled;
@@ -34,10 +38,13 @@ public class Plane
     public Plane()
     {
         this.name = "";
-        this.maximumNumberOfPassengers = DEFAULT_NUMBER_OF_ROWS * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
-        this.maximumNumberOfItemsOfCargo = DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS;
+        this.maximumNumberOfPassengers = DEFAULT_NUMBER_OF_ROWS
+        * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
+        this.maximumNumberOfItemsOfCargo = 
+        DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS;
         this.aircraftType = "";
-        this. seat = new Seat[DEFAULT_NUMBER_OF_ROWS][DEFAULT_NUMBER_OF_SEATS_PER_ROW];
+        this.seat = new Seat[DEFAULT_NUMBER_OF_ROWS]
+        [DEFAULT_NUMBER_OF_SEATS_PER_ROW];
         this.isScheduled = false;
         this.range = DEFAULT_RANGE;
         this.location = DEFAULT_LOCATION;
@@ -45,7 +52,7 @@ public class Plane
         // Set the names of the seats
         this.setSeatNames();
     } // end of constructor Plane(String name, int maximumPassengers...) 
-    
+
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -77,7 +84,7 @@ public class Plane
     {
         // Check validity of parameters.
         if (name == null) return;
-        if (maximumNumberOfItemsOfCargo < 0) return;
+        if (maximumNumberOfItemsOfCargo <0) return;
         if (aircraftType == null) return;
         if (rowsOfSeats <= 0) return;
         if (seatsInRow <= 0) return; 
@@ -231,13 +238,13 @@ public class Plane
     public void setMaximumNumberOfPassengers(int maximumNumberOfPassengers)
     {
         /*
-        Check that maximum number of passengers does not
-        exceed amount of seats on plane.    
+         * Check that maximum number of passengers does not
+         * exceed amount of seats on plane.    
          */
         if (maximumNumberOfPassengers <= 
         this.getSeat().length * this.getSeat()[0].length)
             this.maximumNumberOfPassengers = maximumNumberOfPassengers; 
-    } // end of method setMaximumPassengers(int maximumPassengers)
+    } // end of method setMaximumNumberOfPassengers(int...)
 
     /**
      * Sets the maximum cargo of this plane
@@ -255,8 +262,7 @@ public class Plane
     /**
      * Sets the aircraft type of this plane.
      * 
-     * @param aircraftType the aircraft type
-     * to be set
+     * @param aircraftType the aircraft type to be set
      */
     public void setAircraftType(String aircraftType)
     {
@@ -300,16 +306,19 @@ public class Plane
      * 
      * @param location the location of this plane.
      */
-    public void setLocation (String location)
+    public void setLocation(String location)
     {
         this.location = location;
     } // end of method setLocation(String location)
 
+    /**
+     * Sets the names of the seats in this plane.
+     */
     public void setSeatNames()
     {
         /* 
-        Name each seat according to its row and column in alpha 
-        numeric form.
+         * Name each seat according to its row and column in alpha 
+         * numeric form.
          */
         for (int row = 0; row < this.seat.length; row++)
         {
