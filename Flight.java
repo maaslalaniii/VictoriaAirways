@@ -7,15 +7,15 @@
 public class Flight
 {
     /* instance fields */
-    private Cargo[] cargo;
+    private String [] cargo;
     private double cost;
-    private Date date;
+    private String date;
     private Location departure;
     private Location destination;
-    private int numberOfCargo;
-    private int numberOfPassengers;
     private Passenger[] passenger;
     private Plane plane;
+    private int numberOfPassengers;
+    private int numberOfCargo;
 
     /* constructors */
     /**
@@ -29,12 +29,12 @@ public class Flight
      *  
      */
     public Flight(double cost,
-    Date date,
+    String date,
     Location destination,
     Location departure,
     Plane plane)
     {
-        this.cargo = new Cargo[plane.getMaximumNumberOfItemsOfCargo()];
+        this.cargo = new String[plane.getMaximumNumberOfItemsOfCargo()];
         this.cost = cost;
         this.date = date;
         this.destination = destination;
@@ -51,7 +51,7 @@ public class Flight
      * 
      * @return the cargo of this flight
      */
-    public Cargo[] getCargo()
+    public String [] getCargo()
     {
         return this.cargo;
     } // end of method getCargo()
@@ -71,7 +71,7 @@ public class Flight
      *
      * @return the date of this flight
      */
-    public Date getDate()
+    public String getDate()
     {
         return this.date;
     } // end method getDate()
@@ -152,6 +152,33 @@ public class Flight
         + "]";
     } // end of method toString()
 
+    /**
+     * Returns <code>true</code> if the flight has
+     * reached maximum cargo capicity, otherwise 
+     * <code>false.</code>
+     * 
+     * @return <code>true</code> if the flight has
+     * reached maximum cargo capicity, otherwise 
+     * <code>false.</code>
+     */
+    public boolean isCargoFull()
+    {
+        return this.numberOfCargo >= this.cargo.length;  
+    } // end of method isCargoFull()
+    
+    /**
+     * Returns <code>true</code> if the flight has
+     * reached maximum passenger capicity, otherwise 
+     * <code>false.</code>
+     * 
+     * @return <code>true</code> if the flight has
+     * reached maximum passenger capicity, otherwise 
+     * <code>false.</code>
+     */
+    public boolean isFlightFull()
+    {
+        return this.numberOfPassengers >= this.passenger.length;  
+    } // end of method isCargoFull()
     /* mutators */
     /**
      * Sets the plane of this flight.
@@ -161,9 +188,7 @@ public class Flight
     public void setPlane(Plane plane)
     {
         if (plane == null) return;
-
         this.plane = plane;
-
         // Set the plane as scheduled
         plane.setSchedule(true);
     } // end method setPlane(Plane plane)
@@ -178,8 +203,9 @@ public class Flight
         if (passenger == null) return;
         if (this.passenger.length 
         > plane.getMaximumNumberOfPassengers()) return;
-
         this.passenger = passenger;
+        // Reset passenger counter
+        this.numberOfPassengers = 0;
     } // end method setPassengers(Passenger[] passenger)
 
     /**
@@ -187,12 +213,13 @@ public class Flight
      * 
      * @param cargo the new cargo of the flight.
      */
-    public void setCargo(Cargo[] cargo)
+    public void setCargo(String [] cargo)
     {
         if (cargo == null) return;
         if (cargo.length > plane.getMaximumNumberOfItemsOfCargo()) return;
-
         this.cargo = cargo;
+        // Reset cargo counter
+        this.numberOfCargo = 0;
     } // end method setCargo(Cargo[] cargo)
 
     /**
@@ -201,14 +228,10 @@ public class Flight
      * @param cargo the item of cargo to add to this flight's cargo
      * <br><i>pre-condition: </i> cargo may not be <code>null</code>
      */
-    public void addCargo(Cargo cargo)
+    public void addCargo(String cargo)
     {
         if (cargo == null) return;
-
-        // Ensure there is enough space for the cargo item.
-        if (this.numberOfCargo
-        >= this.cargo.length) return;
-
+        if (this.isCargoFull()) return;
         this.cargo[this.numberOfCargo] = cargo;
         numberOfCargo++;
     } // end of method addCargo(Cargo cargo)
@@ -221,10 +244,8 @@ public class Flight
     public void addPassenger(Passenger passenger)
     {
         if (passenger == null) return;
-
         // Ensure there is enough space for the passenger.
-        if (this.isFull()) return;
-
+        if (this.isFlightFull()) return;
         this.passenger[this.numberOfPassengers] = passenger;
         numberOfPassengers++;
     } // end of method addPassenger(Passenger passenger)
@@ -246,7 +267,7 @@ public class Flight
      *
      * @param date the date of this flight
      */
-    public void setDate(Date date)
+    public void setDate(String date)
     {
         if (date == null) return;
 
@@ -263,7 +284,7 @@ public class Flight
         if (destination == null) return;
 
         this.destination = destination;
-    } // end method setDestination(Location destination)
+    } // end method setDestination(String destination)
 
     /**
      * Sets the departure of this flight.
@@ -275,17 +296,5 @@ public class Flight
         if (departure == null) return;
 
         this.departure = departure;
-    } // end method setDeparture(Location departure)
-
-    /**
-     * Returns <code>true</code> if this flight is full, 
-     * otherwise <code>false</code>.
-     * 
-     * @return <code>true</code> if this flight is full, 
-     * otherwise <code>false</code>
-     */
-    public boolean isFull()
-    {
-        return this.numberOfPassengers == this.passenger.length - 1;
-    } // end of method isFull()
+    } // end method setDeparture(String departure)
 } // end of class Flight
