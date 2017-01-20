@@ -66,9 +66,8 @@ public class OperationsOffice
 
             // Handle the input.
             handleInput(input, operationsOffice);
-            
+
             // Input was handled. Save the resulting changes.
-            
 
         } // end of loop
         while (programShouldContinue);
@@ -199,15 +198,16 @@ public class OperationsOffice
 
             case "add flight":
             System.out.println("Adding flight... Please provide information.");
+            String name = getString("Name? ");
             double cost = getDouble("Cost? ");
             String date = getString("Date? ");
             Location departure = new Location(getString("Departure? "));
             Location destination = new Location(getString("Destination? "));
             Plane plane = new Plane();
 
-            Flight flight = new Flight(cost, date, departure, destination, plane);
+            Flight flight = new Flight(name, cost, date, departure, destination, plane);
             boolean additionWasSuccessful = operationsOffice.addFlight(flight);
-            
+
             if (additionWasSuccessful)
             {
                 System.out.println("Flight was successfully added!"); 
@@ -469,6 +469,7 @@ public class OperationsOffice
             // Set the array as the planes record of this operation office
             this.setPlanes(planeData);
 
+            
             while((line = fileReader.readLine()) != null)
             {
                 String[] parameter = line.split("\t");
@@ -484,11 +485,64 @@ public class OperationsOffice
                 String location = parameter[7];
 
                 // Create the plane using extracted parameters
-                Plane planeToBeAdded = new Plane (name,maxCargo,aircraft,rows,columns,isScheduled,range,location);
+                Plane planeToBeAdded = new Plane(name,maxCargo,aircraft,rows,columns,isScheduled,range,location);
+                System.out.println(planeToBeAdded);
 
+                // Create seat array
+                planeToBeAdded.setSeatNames(); 
+                line = fileReader.readLine();
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int n = 0; n < columns; n++)
+                    {
+                        String[] seatParameter = line.split("\t");
+                        String seatName = seatParameter[0];
+                        String seatType = seatParameter[1];
+                        boolean isTaken = Boolean.parseBoolean(seatParameter[2]);
+                        // passenger info   
+                        String passengerName = seatParameter[3];
+                        int passengerAge = Integer.parseInt(seatParameter[4]);
+                        boolean hasPassport = Boolean.parseBoolean(seatParameter[7]);
+                        int rewardPoints = Integer.parseInt(seatParameter[8]);
+                        String cargo = seatParameter[9];
+                        // ticket info
+                        String flightName = seatParameter[5];
+                        String ticketSeat = seatParameter[6];
+
+                        // Create the ticket of the passenger of this seat
+                        Flight flight = new Flight();
+                        boolean flightFound = false;
+                        int counter = 0;
+                        while (counter < this.getFlights().length && flightFound == false)
+                        {
+                            if (flightName.equals(this.getFlights()[counter]))
+                            {
+                                // Is this flight the same as the one indicated on the ticket?
+                                flight = this.getFlights()[counter];
+                                flightFound = true;
+                            }
+                            counter ++;
+                        }
+                        // Create the passenger ticket
+                        Ticket seatTicket = new Ticket(flight, ticketSeat);
+
+                        // Create the passenger of the seat
+                        Passenger seatPassenger = new Passenger(passengerName, passengerAge, seatTicket, hasPassport, rewardPoints, cargo);
+
+                        // Add the passenger and their cargo to the flight if found in database
+                        if (flightFound)
+                        {
+                            String departure = seatTicket.getReservedFlight().getDeparture().getLocationName();
+                            String destination = seatTicket.getReservedFlight().getDestination().getLocationName();
+                            this.addReservation(seatPassenger, departure, destination);	
+                        }
+                        line = fileReader.readLine();
+                    }
+                }
                 // Add the plane to the array
                 this.addPlane(planeToBeAdded);
             } // end of while((line = fileReader.readLine()) != null)
+
         }
         catch (IOException exception)
         {
@@ -568,6 +622,9 @@ public class OperationsOffice
      * to destination at the specifed date with the 
      * specified cost.
      * 
+     * @param flightName the name of this flight <br>
+     * <i>pre-condition: </i> flightName may not be 
+     * <code>null</code>
      * @param cost the cost of this flight <br><i>
      * pre-condition</i> cost cannot be negative
      * @param date the takeoff date of this flight
@@ -583,12 +640,14 @@ public class OperationsOffice
      * present otherwise <code>null</code>
      * 
      */
-    public Flight scheduleFlight(double cost, 
+    public Flight scheduleFlight(String flightName,
+    double cost, 
     String date,
     String destination,
     String departure)
     {
         // Check validity of parameters
+        if (flightName == null) return null;
         if (cost < 0) return null; 
         if (date == null) return null; 
         if (destination == null) return null;  
@@ -658,7 +717,7 @@ public class OperationsOffice
         if (flightPlane != null)
         {
             // Create a new flight
-            Flight flight1 = new Flight(cost, date, flightDestination, 
+            Flight flight1 = new Flight(flightName, cost, date, flightDestination, 
                     flightDeparture, flightPlane); 
             // Set the plane as scheduled
             flightPlane.setSchedule(true);
