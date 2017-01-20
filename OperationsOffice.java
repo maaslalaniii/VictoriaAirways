@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+import java.util.Arrays;
 /**
  * The centralized operations office of Victoria Airways.
  * 
@@ -64,7 +65,10 @@ public class OperationsOffice
             } // end of 
 
             // Handle the input.
-            handleInput(input);
+            handleInput(input, operationsOffice);
+            
+            // Input was handled. Save the resulting changes.
+            
 
         } // end of loop
         while (programShouldContinue);
@@ -103,7 +107,7 @@ public class OperationsOffice
         String input = "";
 
         // Prompt the user.
-        System.out.println(prompt);
+        System.out.print(prompt);
 
         // Get Input from the user.
         try
@@ -129,30 +133,111 @@ public class OperationsOffice
     public static int getInt(String prompt)
     {
         // Get Input from the user.
-        return 0;
+        String input = getString(prompt);
+        int integer;
+
+        // Try and parse the input into an integer.
+        try
+        {
+            integer = Integer.parseInt(input);
+        }
+        catch (NumberFormatException exception)
+        {
+            // The number was not valid. Try again.
+            return getInt("Invalid integer. Try again: ");
+        } // end of catch ()
+
+        // Parsing was successful.
+        return integer;
     } // end of getInt(String prompt)
 
     /**
-     * Returns an integer obtained from the console, after the user had been given the specified prompt.
+     * Returns a double obtained from the console, after the user had been given the specified prompt.
      * 
      * @param prompt the information to give the user before asking them for a value
      * 
-     * @return the user integer input
+     * @return the user double input
      */
-    public static void handleInput(String input)
+    public static double getDouble(String prompt)
+    {
+        // Get Input from the user.
+        String input = getString(prompt);
+        double number;
+
+        // Try and parse the input into an integer.
+        try
+        {
+            number = Double.parseDouble(input);
+        }
+        catch (NumberFormatException exception)
+        {
+            // The number was not valid. Try again.
+            return getDouble("Invalid number. Try again: ");
+        } // end of catch ()
+
+        // Parsing was successful.
+        return number;
+    } // end of getInt(String prompt)
+
+    /**
+     * Handles the commands executed based on user input.
+     * 
+     * @param input the input to handle
+     * @param operationsOffice the operations office 
+     */
+    public static void handleInput(String input, OperationsOffice operationsOffice)
     {        
         // Handle the input.
         switch(input)
         {
             case "help":
             help();
+            break;
+
+            case "add plane":
+            break;
 
             case "add flight":
-            String cost = getString("cost?");
+            System.out.println("Adding flight... Please provide information.");
+            double cost = getDouble("Cost? ");
+            String date = getString("Date? ");
+            Location departure = new Location(getString("Departure? "));
+            Location destination = new Location(getString("Destination? "));
+            Plane plane = new Plane();
+
+            Flight flight = new Flight(cost, date, departure, destination, plane);
+            boolean additionWasSuccessful = operationsOffice.addFlight(flight);
+            
+            if (additionWasSuccessful)
+            {
+                System.out.println("Flight was successfully added!"); 
+                // TODO: operationsOffice.saveFlightsToDatabase();
+            } // end of if (additionWasSuccessful)
+            else
+            {
+                System.out.println("Flight addition was unsuccessful!");            
+            } // end of if (additionWasSuccessful)
+
+            break;
+
+            case "add passenger":
+            break;
+
+            case "remove plane":
+            break;
+
+            case "remove flight":
+            break;
+
+            case "remove passenger":
+            break;
+
+            case "exit":
+            break;
 
             default:
             System.out.println("\n\"" + input + "\" is not a valid command."
-                + "\n\"help\" will bring up a list of possible commands.\n");
+                + "\nTyping \"help\" will bring up a list of possible commands.\n");
 
         } // end of 
     } // end of 
@@ -369,9 +454,9 @@ public class OperationsOffice
      * @return an array of the planes created from data found 
      * in the specified text file
      */
-    public Plane [] loadPlaneData(String textFile)
+    public Plane[] loadPlaneData(String textFile)
     {
-        Plane [] planeData; 
+        Plane[] planeData; 
         try
         {
             // Create connection to file
@@ -386,7 +471,7 @@ public class OperationsOffice
 
             while((line = fileReader.readLine()) != null)
             {
-                String [] parameter = line.split("\t");
+                String[] parameter = line.split("\t");
 
                 // Extract the plane parameters stored in the file
                 String name = parameter[0];
@@ -405,11 +490,11 @@ public class OperationsOffice
                 this.addPlane(planeToBeAdded);
             } // end of while((line = fileReader.readLine()) != null)
         }
-        catch (IOException error)
+        catch (IOException exception)
         {
             System.out.println ("Error Reading File");
             return null;
-        }
+        } // end of catch (IOException exception)
         return planeData;
     } // end of method loadPlaneData(String textFile)
 
@@ -422,9 +507,10 @@ public class OperationsOffice
      * @return an array of the passengers created from data found 
      * in the specified text file
      */
-    public Passenger [] loadPassengerData(String textFile)
+    public Passenger[] loadPassengerData(String textFile)
     {
-        Passenger [] customerData; 
+        Passenger[] customerData;
+
         try
         {
             // Create connection to file
@@ -439,13 +525,27 @@ public class OperationsOffice
 
             while((line = fileReader.readLine()) != null)
             {
-                String [] parameter = line.split("\t");
+                String[] parameter = line.split("\t");
+
+                String name = "";
+                int age = 0;
+                boolean hasPassport = false;
+                int points = 0;
 
                 // Extract the passenger parameters stored in the file
-                String name = parameter[0];
-                int age = Integer.parseInt(parameter[1]); 
-                boolean hasPassport = Boolean.parseBoolean(parameter[2]);
-                int points = Integer.parseInt(parameter[3]);
+                try
+                {
+                    name = parameter[0];
+                    age = Integer.parseInt(parameter[1]); 
+                    hasPassport = Boolean.parseBoolean(parameter[2]);
+                    points = Integer.parseInt(parameter[3]);
+                }
+                catch (NumberFormatException exception)
+                {
+                    // Invalid passenger data, escape from loading data.
+                    // Create a new array as the database.
+                    return new Passenger[DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS];
+                } // end of catch (NumberFormatException | BooleanFormatException exception)
 
                 // Create the passenger using extracted parameters
                 Passenger customerToBeAdded = new Passenger (name, age, null, hasPassport, points, null);
@@ -459,6 +559,7 @@ public class OperationsOffice
             System.out.println ("Error Reading File");
             return null;
         }
+
         return customerData;
     } // end of method loadPassengerData(String textFile)
 
@@ -509,6 +610,7 @@ public class OperationsOffice
 
         // Using the distance of the flight, determine the range of flight
         String flightRange = "";
+
         if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
         {
             flightRange = "Short"; 
@@ -527,14 +629,15 @@ public class OperationsOffice
         Locate a plane at the departure with the flight's range in the 
         operations office database
          */
-        Plane [] plane = this.getPlanes(); 
+        Plane[] plane = this.getPlanes(); 
         int counter = 0;
 
         Plane flightPlane = null; 
         while (counter >= 0 && counter < plane.length)
         {
-            /* Check if the plane has the required range and is present 
-             *at the departure and isn't scheduled
+            /*
+             * Check if the plane has the required range and is present 
+             * at the departure and isn't scheduled
              */
             if (plane[counter].getRange().equals(flightRange) && 
             plane[counter].getLocation().equals(departure) 
@@ -612,16 +715,17 @@ public class OperationsOffice
     String destination)
     {
         // Check validity of parameters
-        if (passenger == null)return false;
-        if(departure == null )return false;
-        if (destination == null)return false;
+        if (passenger == null) return false;
+        if(departure == null ) return false;
+        if (destination == null) return false;
 
         // Does this passenger have a passport?
-        if (passenger.hasPassport() == false)return false;
+        if (passenger.hasPassport() == false) return false;
 
         Flight ticketFlight = null; 
         String ticketSeat = null;
         int counter = 0;
+
         /*
          * Locate a flight with the required departure and destination 
          * in the database.
@@ -652,12 +756,13 @@ public class OperationsOffice
                         .isTaken() == false)
                         {
                             // Check if the flight has room for the passenger.
-                            if(ticketFlight.isFlightFull())return false;
+                            if(ticketFlight.isFlightFull()) return false;
 
                             // Check if the flight has room for the cargo.
-                            if(ticketFlight.isCargoFull())return false;
+                            if(ticketFlight.isCargoFull()) return false;
 
-                            ticketSeat = ticketFlight.getPlane()
+                            ticketSeat = ticketFlight
+                            .getPlane()
                             .getSeat()[row][column]
                             .getSeatName();
 
@@ -665,14 +770,11 @@ public class OperationsOffice
                             passenger.setTicket(new Ticket(ticketFlight, ticketSeat));
 
                             // Assign the passenger to the seat
-                            ticketFlight.getPlane().getSeat()[row][column]
-                            .setPassenger(passenger);
-                            ticketFlight.getPlane().getSeat()[row][column]
-                            .setAvailability(true);
+                            ticketFlight.getPlane().getSeat()[row][column].setPassenger(passenger);
+                            ticketFlight.getPlane().getSeat()[row][column].setAvailability(true);
 
                             // Add cargo to the flight
-                            ticketFlight.addCargo(passenger.
-                                getPassengerCargo());
+                            ticketFlight.addCargo(passenger.getPassengerCargo());
 
                             // Add the passenger to the flight
                             ticketFlight.addPassenger(passenger);
@@ -680,13 +782,16 @@ public class OperationsOffice
                             // Once reservation is complete, exit method
                             return true;
                         } // end of if (ticketFlight.getPlane().getSeat...)
+
                         // increment column
                         column++;
                     }// end of while (column < ticketFlight.getPlane()...)
+
                     // increment row
                     row++;
                 }// end of while (row < ticketFlight.getPlane().getSeat().length)
             } //  if (this.flight[i].getDeparture().getLocationName().equals...)
+
             // increment the counter to move onto next flight in the database
             counter ++;
         } // end of for (int i = 0; i < numberOfFlights; i++)
@@ -709,14 +814,14 @@ public class OperationsOffice
         if (passenger == null) return;
 
         // Does the passenger have a ticket?
-        if (passenger.hasTicket() == false)return;
+        if (passenger.hasTicket() == false) return;
 
-        //Is the passenger in the operations office database?
+        // Is the passenger in the operations office database?
         if (isRegistered(passenger, this.getCustomers()))
         {
             /* 
-            Find the cost of the passenger's flight and add the 
-            corresponding points to their points balance
+             * Find the cost of the passenger's flight and add the 
+             * corresponding points to their points balance
              */
             int pointsToBeAdded = (int)(1.5 * passenger.getTicket()
                     .getReservedFlight().getCost());

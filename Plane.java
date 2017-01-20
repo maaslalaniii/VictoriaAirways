@@ -7,6 +7,14 @@
  */
 public class Plane
 {
+    /* class constants */
+    private static final int DEFAULT_NUMBER_OF_ROWS = 30;
+    private static final int DEFAULT_NUMBER_OF_SEATS_PER_ROW = 10;
+    // Number of cargo items should be equivelent to the number of people on this plane, one item per person.
+    private static final int DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS = DEFAULT_NUMBER_OF_ROWS * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
+    private static final String DEFAULT_RANGE = "Short";
+    private static final String DEFAULT_LOCATION = "Toronto";
+    
     /* instance fields */
     private String aircraftType;
     private boolean isScheduled;
@@ -15,9 +23,29 @@ public class Plane
     private int maximumNumberOfPassengers;
     private String name;
     private String range;
-    private Seat [][] seat;
+    private Seat[][] seat;
 
     /* constructors */
+    /**
+     * Constructs a plane with specified name,
+     * cargo limit, aircraft type, seating plan,
+     * schedule status and range.
+     *
+     */
+    public Plane()
+    {
+        this.name = "";
+        this.maximumNumberOfPassengers = DEFAULT_NUMBER_OF_ROWS * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
+        this.maximumNumberOfItemsOfCargo = DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS;
+        this.aircraftType = "";
+        this. seat = new Seat[DEFAULT_NUMBER_OF_ROWS][DEFAULT_NUMBER_OF_SEATS_PER_ROW];
+        this.isScheduled = false;
+        this.range = DEFAULT_RANGE;
+        this.location = DEFAULT_LOCATION;
+
+        // Set the names of the seats
+        this.setSeatNames();
+    } // end of constructor Plane(String name, int maximumPassengers...) 
     /**
      * Constructs a plane with specified name,
      * cargo limit, aircraft type, seating plan,
@@ -176,7 +204,7 @@ public class Plane
         + ", location: " + location
         + "]";
     } // end of method toString()
-    
+
     /* mutators */
     /**
      * Sets the name of this plane. 
@@ -307,7 +335,7 @@ public class Plane
 
                 // create the seat in the array
                 this.seat[row][column] = new Seat (seatName,"economic",false,
-                                                    null);
+                    null);
             } // end of for (int column = 0; column < this.seat[row].length...)
         } // end of for (int row = 0; row < this.seat.length; row++)
     } // end of method setSeatNames()
