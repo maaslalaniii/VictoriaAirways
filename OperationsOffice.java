@@ -177,6 +177,22 @@ public class OperationsOffice
         // Parsing was successful.
         return number;
     } // end of getInt(String prompt)
+    
+    /**
+     * Returns a boolean integer obtained from the console, after the user had been given the specified prompt.
+     * 
+     * @param prompt the information to give the user before asking them for a value
+     * 
+     * @return the user boolean input false if the input was invalid
+     */
+    public static boolean getBoolean(String prompt)
+    {
+        // Get Input from the user.
+        String input = getString(prompt);
+        boolean booleanInput = Boolean.parseBoolean(input);
+
+        return booleanInput;
+    } // end of getInt(String prompt)
 
     /**
      * Handles the commands executed based on user input.
@@ -194,30 +210,60 @@ public class OperationsOffice
             break;
 
             case "add plane":
+                System.out.println("Adding plane... Please provide information.");
+                String planeName = getString("Name? ");
+                int maximumNumberOfItemsOfCargo = getInt("Maximum number of cargo items? ");
+                String aircraftType = getString("Aircraft type? ");
+                int rowsOfSeats = getInt("How many rows of seats? ");
+                int seatsInRow = getInt("How many seats are in a row? ");
+                boolean isScheduled = getBoolean("Plane is scheduled for flights? [true|false] ");
+                String range = getString("What is the plane's range? [short|medium|long] ");
+                String location = getString("What is its current location? ");
+                
+                Plane newPlane = new Plane(planeName, 
+                                        maximumNumberOfItemsOfCargo, 
+                                        aircraftType, 
+                                        rowsOfSeats,
+                                        seatsInRow,
+                                        isScheduled, 
+                                        range, 
+                                        location);
+                                        
+                boolean planeAdditionWasSuccessful = operationsOffice.addPlane(newPlane);
+
+                if (planeAdditionWasSuccessful)
+                {
+                    System.out.println("Plane was successfully added!");
+                    System.out.println(Arrays.toString(operationsOffice.getPlanes()));
+                    // TODO: operationsOffice.savePlanesToDatabase();
+                } // end of if (planeAdditionWasSuccessful)
+                else
+                {
+                    System.out.println("Plane addition was unsuccessful!");            
+                } // end of if (planeAdditionWasSuccessful)
             break;
 
             case "add flight":
-            System.out.println("Adding flight... Please provide information.");
-            String name = getString("Name? ");
-            double cost = getDouble("Cost? ");
-            String date = getString("Date? ");
-            Location departure = new Location(getString("Departure? "));
-            Location destination = new Location(getString("Destination? "));
-            Plane plane = new Plane();
+                System.out.println("Adding flight... Please provide information.");
+                String flightName = getString("Name? ");
+                double cost = getDouble("Cost? ");
+                String date = getString("Date? ");
+                Location departure = new Location(getString("Departure? "));
+                Location destination = new Location(getString("Destination? "));
+                Plane plane = new Plane();
 
-            Flight flight = new Flight(name, cost, date, departure, destination, plane);
-            boolean additionWasSuccessful = operationsOffice.addFlight(flight);
+                Flight flight = new Flight(flightName, cost, date, departure, destination, plane);
+                boolean flightAdditionWasSuccessful = operationsOffice.addFlight(flight);
 
-            if (additionWasSuccessful)
-            {
-                System.out.println("Flight was successfully added!"); 
-                // TODO: operationsOffice.saveFlightsToDatabase();
-            } // end of if (additionWasSuccessful)
-            else
-            {
-                System.out.println("Flight addition was unsuccessful!");            
-            } // end of if (additionWasSuccessful)
-
+                if (flightAdditionWasSuccessful)
+                {
+                    System.out.println("Flight was successfully added!");
+                    // TODO: operationsOffice.saveFlightsToDatabase();
+                } // end of if (flightAdditionWasSuccessful)
+                else
+                {
+                    System.out.println("Flight addition was unsuccessful!");            
+                } // end of if (flightAdditionWasSuccessful)
             break;
 
             case "add passenger":
@@ -534,7 +580,7 @@ public class OperationsOffice
                         {
                             String departure = seatTicket.getReservedFlight().getDeparture().getLocationName();
                             String destination = seatTicket.getReservedFlight().getDestination().getLocationName();
-                            this.addReservation(seatPassenger, departure, destination);	
+                            this.addReservation(seatPassenger, departure, destination); 
                         }
                         line = fileReader.readLine();
                     }

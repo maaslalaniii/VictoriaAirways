@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.params=weight\ hasWheels\ size
+comment0.target=Cargo(double,\ boolean,\ double)
+comment0.text=\r\n\ Constructs\ a\ cargo\ with\ the\ specified\ characteristics.\r\n\ \r\n\ @param\ weight\ the\ weight\ of\ the\ cargo\ in\ kilograms\r\n\ @param\ hasWheels\ <code>true</code>\ if\ this\ cargo\ has\r\n\ wheels;\ <code>false</code>\ otherwise\r\n\ @param\ size\ the\ size\ of\ the\ cargo\ in\ centimetres\r\n
+comment1.params=
+comment1.target=double\ getWeight()
+comment1.text=\r\n\ Returns\ the\ weight\ of\ the\ cargo.\r\n\ \r\n\ @return\ the\ weight\ the\ weight\ of\ the\ cargo\r\n
+comment2.params=
+comment2.target=boolean\ getPossessionOfWheels()
+comment2.text=\r\n\ Returns\ the\ cargo's\ possession\ of\ wheels.\r\n\ \r\n\ @return\ the\ cargo's\ possession\ of\ wheels\r\n
+comment3.params=
+comment3.target=double\ getSize()
+comment3.text=\r\n\ Returns\ the\ size\ of\ the\ cargo\ in\ centimetres.\r\n\ \r\n\ @return\ the\ size\ of\ the\ cargo\ in\ centimetres\r\n
+comment4.params=
+comment4.target=java.lang.String\ toString()
+comment4.text=\r\n\ Returns\ a\ string\ representation\ of\ this\ cargo.\r\n\ \r\n\ @return\ a\ string\ representation\ of\ this\ cargo\r\n
+comment5.params=weight
+comment5.target=void\ setWeight(int)
+comment5.text=\r\n\ Sets\ the\ weight\ of\ the\ cargo.\r\n\ \r\n\ @param\ weight\ the\ weight\ of\ the\ cargo\r\n
+comment6.params=hasWheels
+comment6.target=void\ setPossessionOfWheels(boolean)
+comment6.text=\r\n\ Sets\ the\ cargo's\ possession\ of\ wheels.\r\n\ \r\n\ @param\ hasWheels\ <code>true</code>\ if\ this\ cargo\ has\r\n\ wheels;\ <code>false</code>\ otherwise\r\n
+comment7.params=size
+comment7.target=void\ setSize(double)
+comment7.text=\r\n\ Sets\ the\ size\ of\ the\ cargo.\r\n\ \r\n\ @param\ size\ the\ size\ of\ the\ cargo\ in\ centimetres\r\n
+numComments=8

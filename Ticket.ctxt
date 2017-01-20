@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=reservedFlight\ reservedSeat
+comment0.target=Ticket(Flight,\ java.lang.String)
+comment0.text=\r\n\ Constructs\ a\ ticket\ with\ the\ specified\ characteristics.\r\n\ \r\n\ @param\ reservedFlight\ the\ flight\ of\ this\ ticket\r\n\ <br><i>pre-condition\ </i>reservedFlight\ may\ not\ \r\n\ be\ <code>null</code>\r\n\ @param\ reservedSeat\ the\ seat\ of\ this\ ticket\r\n\ <br><i>pre-condition\ </i>reservedSeat\ may\ not\ \r\n\ be\ <code>null</code>\r\n
+comment1.params=
+comment1.target=Flight\ getReservedFlight()
+comment1.text=\r\n\ Returns\ the\ flight\ of\ this\ ticket.\r\n\ \r\n\ @return\ the\ flight\ of\ this\ ticket\r\n
+comment2.params=
+comment2.target=java.lang.String\ getReservedSeat()
+comment2.text=\r\n\ Returns\ the\ seat\ belonging\ to\ this\ ticket.\r\n\ \r\n\ @return\ the\ seat\ belonging\ to\ this\ ticket\r\n
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment3.text=\r\n\ Returns\ a\ string\ representation\ of\ this\ ticket.\r\n\ \r\n\ @returns\ a\ string\ representation\ of\ this\ ticket\r\n
+comment4.params=reservedFlight
+comment4.target=void\ setReservedFlight(Flight)
+comment4.text=\r\n\ Sets\ the\ flight\ of\ this\ ticket.\r\n\ \r\n\ @param\ reservedFlight\ the\ flight\ to\ be\ set\r\n\ to\ this\ ticket\ <br><i>pre-condition\:\ </i>\r\n\ reservedFlight\ may\ not\ be\ <code>null</code>\r\n
+comment5.params=reservedSeat
+comment5.target=void\ setReservedSeat(java.lang.String)
+comment5.text=\r\n\ Sets\ the\ seat\ of\ this\ ticket.\r\n\ \r\n\ @param\ reservedSeat\ the\ seat\ to\ be\ set\r\n\ to\ this\ ticket\ <br><i>pre-condition\:\ </i>\r\n\ reservedSeat\ may\ not\ be\ <code>null</code>\r\n
+numComments=6

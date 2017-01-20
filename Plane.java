@@ -10,8 +10,7 @@ public class Plane
     /* class constants */
     private static final int DEFAULT_NUMBER_OF_ROWS = 30;
     private static final int DEFAULT_NUMBER_OF_SEATS_PER_ROW = 10;
-    // Number of cargo items should be equivelent to the number of people on this plane, one item per person.
-    private static final int DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS = DEFAULT_NUMBER_OF_ROWS * DEFAULT_NUMBER_OF_SEATS_PER_ROW;
+    private static final int DEFAULT_MAXIMUM_NUMBER_OF_CARGO_ITEMS = 0;
     private static final String DEFAULT_RANGE = "Short";
     private static final String DEFAULT_LOCATION = "Toronto";
     
@@ -78,7 +77,7 @@ public class Plane
     {
         // Check validity of parameters.
         if (name == null) return;
-        if (maximumNumberOfItemsOfCargo <0) return;
+        if (maximumNumberOfItemsOfCargo < 0) return;
         if (aircraftType == null) return;
         if (rowsOfSeats <= 0) return;
         if (seatsInRow <= 0) return; 
