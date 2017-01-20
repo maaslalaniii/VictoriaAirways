@@ -11,11 +11,10 @@ public class Passenger
     private int age;
     private boolean hasPassport;
     private boolean hasTicket;
-    private String name;
-    private Cargo passengerCargo;
-    private int rewardPoints;
     private Ticket ticket;
-
+    private String name;
+    private int rewardPoints;
+    private String passengerCargo;
     /* constructors */
     /**
      * Constructs a passenger with the specified characteristics.
@@ -33,7 +32,8 @@ public class Passenger
     Ticket ticket, 
     boolean hasPassport, 
     int rewardPoints,
-    Cargo passengerCargo)
+    String passengerCargo              
+    )
     {
         this.name = name;
         // Does the passenger have a valid ticket.
@@ -118,7 +118,7 @@ public class Passenger
      * 
      * @return the cargo of this passenger
      */
-    public Cargo getPassengerCargo()
+    public String getPassengerCargo()
     {
         return this.passengerCargo;
     } // end of method getPassengerCargo()
@@ -142,7 +142,6 @@ public class Passenger
         + ", cargo: " + passengerCargo 
         + "]";	
     } // end of method toString()
-    
     /* mutators */ 
     /**
      * Sets the age of the passenger.
@@ -206,7 +205,7 @@ public class Passenger
      * 
      * @param the passengerCargo to be set to this passenger
      */
-    public void setPassengerCargo(Cargo passengerCargo)
+    public void setPassengerCargo(String passengerCargo)
     {
         this.passengerCargo = passengerCargo;
     } // end of method setPassengerCargo(Cargo passengerCargo)
@@ -215,7 +214,7 @@ public class Passenger
      * Sets the amount of frequent-flyer reward points of this passenger.
      * 
      * @param rewardPoints the amount of frequent-flyer reward 
-     * points of this passenger
+	 * points of this passenger
      */
     public void setRewardPoints(int rewardPoints)
     {
@@ -227,7 +226,7 @@ public class Passenger
      * Add the specifed amount of frequent-flyer reward points to this passenger.
      * 
      * @param rewardPointsToBeAdded the amount of frequent-flyer points to 
-     * be added
+	 * be added
      */
     public void addPoints(int rewardPointsToBeAdded)
     {
