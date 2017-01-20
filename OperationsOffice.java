@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.io.FileReader;
 /**
  * The centralized operations office of Victoria Airways.
  * 
@@ -361,6 +361,108 @@ public class OperationsOffice
     } // end of method removeFlightByIndex(int indexOfFlight)
 
     /**
+     * Reads plane data from the specified text file and 
+     * creates a plane database for this operation office.
+     * 
+     * @param textFile the name of the textFile <br><i>textFile 
+     * may not be null</i>
+     * @return an array of the planes created from data found 
+     * in the specified text file
+     */
+    public Plane [] loadPlaneData(String textFile)
+    {
+        Plane [] planeData; 
+        try
+        {
+            // Create connection to file
+            BufferedReader fileReader = new BufferedReader(new FileReader(textFile));
+            String line = fileReader.readLine();
+
+            // Create array to contain plane data
+            planeData = new Plane[Integer.parseInt(line)];
+
+            // Set the array as the planes record of this operation office
+            this.setPlanes(planeData);
+
+            while((line = fileReader.readLine()) != null)
+            {
+                String [] parameter = line.split("\t");
+
+                // Extract the plane parameters stored in the file
+                String name = parameter[0];
+                int maxCargo = Integer.parseInt(parameter[1]); 
+                String aircraft = parameter[2];
+                int rows = Integer.parseInt(parameter[3]);
+                int columns = Integer.parseInt(parameter[4]);
+                boolean isScheduled = Boolean.parseBoolean(parameter[5]);
+                String range = parameter[6];
+                String location = parameter[7];
+
+                // Create the plane using extracted parameters
+                Plane planeToBeAdded = new Plane (name,maxCargo,aircraft,rows,columns,isScheduled,range,location);
+
+                // Add the plane to the array
+                this.addPlane(planeToBeAdded);
+            } // end of while((line = fileReader.readLine()) != null)
+        }
+        catch (IOException error)
+        {
+            System.out.println ("Error Reading File");
+            return null;
+        }
+        return planeData;
+    } // end of method loadPlaneData(String textFile)
+
+    /**
+     * Reads passenger data from the specified text file and 
+     * creates a customer database for this operation office.
+     * 
+     * @param textFile the name of the textFile <br><i>textFile 
+     * may not be null</i>
+     * @return an array of the passengers created from data found 
+     * in the specified text file
+     */
+    public Passenger [] loadPassengerData(String textFile)
+    {
+        Passenger [] customerData; 
+        try
+        {
+            // Create connection to file
+            BufferedReader fileReader = new BufferedReader(new FileReader(textFile));
+            String line = fileReader.readLine();
+
+            // Create array to contain passenger data
+            customerData = new Passenger[Integer.parseInt(line)];
+
+            // Set the array as the passenger record of this operation office
+            this.setCustomers(customerData);
+
+            while((line = fileReader.readLine()) != null)
+            {
+                String [] parameter = line.split("\t");
+
+                // Extract the passenger parameters stored in the file
+                String name = parameter[0];
+                int age = Integer.parseInt(parameter[1]); 
+                boolean hasPassport = Boolean.parseBoolean(parameter[2]);
+                int points = Integer.parseInt(parameter[3]);
+
+                // Create the passenger using extracted parameters
+                Passenger customerToBeAdded = new Passenger (name, age, null, hasPassport, points, null);
+
+                // Add the passenger to the array
+                this.addCustomer(customerToBeAdded);
+            } // end of while((line = fileReader.readLine()) != null)
+        }
+        catch (IOException error)
+        {
+            System.out.println ("Error Reading File");
+            return null;
+        }
+        return customerData;
+    } // end of method loadPassengerData(String textFile)
+
+    /**
      * Schedules a flight from the specified departure
      * to destination at the specifed date with the 
      * specified cost.
@@ -376,20 +478,23 @@ public class OperationsOffice
      * @param departure the departure of this flight
      * <br><i>pre-condition: </i> departure may not be 
      * <code>null</code>
-     * 
-     * @return whether the scheduling was succesful
+     * @return the scheduled flight, if required plane is 
+     * present otherwise <code>null</code>
      * 
      */
-    public boolean scheduleFlight(double cost, 
-    Date date,
+    public Flight scheduleFlight(double cost, 
+    String date,
     String destination,
     String departure)
     {
-        if (cost <= 0) return false;
-        if (date == null) return false;
-        if (destination == null) return false;
-        if (destination == null) return false;
-        if (this.numberOfFlights < this.getFlights().length) return false;
+        // Check validity of parameters
+        if (cost < 0) return null; 
+        if (date == null) return null; 
+        if (destination == null) return null;  
+        if (departure == null)return null;
+
+        // Check if the operations office flight database is full
+        if(this.numberOfFlights >= this.getFlights().length)return null;
 
         final int SHORT_RANGE_DISTANCE_KM = 5000;
         final int MEDIUM_RANGE_DISTANCE_KM = 10000;
@@ -404,13 +509,12 @@ public class OperationsOffice
 
         // Using the distance of the flight, determine the range of flight
         String flightRange = "";
-        
         if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
         {
             flightRange = "Short"; 
         }
-        else if (flightDistance > SHORT_RANGE_DISTANCE_KM
-        && flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
+        else if (flightDistance > SHORT_RANGE_DISTANCE_KM && 
+        flightDistance <= MEDIUM_RANGE_DISTANCE_KM)
         {
             flightRange = "Medium";
         }
@@ -420,32 +524,29 @@ public class OperationsOffice
         } // end of if (flightDistance <= SHORT_RANGE_DISTANCE_KM)
 
         /*
-         * Locate a plane at the departure with the flight's range in the 
-         * operations office database
+        Locate a plane at the departure with the flight's range in the 
+        operations office database
          */
-        Plane[] plane = this.getPlanes(); 
+        Plane [] plane = this.getPlanes(); 
         int counter = 0;
 
         Plane flightPlane = null; 
-        
         while (counter >= 0 && counter < plane.length)
         {
-            /*
-             * Check if the plane has the required range and is present 
-             * at the departure and isn't scheduled
+            /* Check if the plane has the required range and is present 
+             *at the departure and isn't scheduled
              */
-            if (plane[counter].getRange().equals(flightRange)
-            && plane[counter].getLocation().equals(departure) 
+            if (plane[counter].getRange().equals(flightRange) && 
+            plane[counter].getLocation().equals(departure) 
             && plane[counter].isScheduled() == false)
             {
                 flightPlane = plane[counter]; 
-
-                // Set counter to -1, to escape the loop
+                // set counter to -1 so the loop is exited
                 counter = -1;
             }
             else
             {
-                // Increment the counter to check the next plane
+                //increment counter
                 counter++;
             }// end of if (plane[counter].getRange() == flightRange...)
         } // end of while (counter > 0 && counter < plane.length)
@@ -456,18 +557,17 @@ public class OperationsOffice
             // Create a new flight
             Flight flight1 = new Flight(cost, date, flightDestination, 
                     flightDeparture, flightPlane); 
-
             // Set the plane as scheduled
             flightPlane.setSchedule(true);
 
             // Add flight to the flight database
             this.addFlight(flight1);
-            return true;
+            return flight1;
         }
 
-        // No plane found.
-        return false;
-    } // end of method scheduleFlight(double cost, int year...)
+        // No plane found, 
+        return null;
+    } // end of method scheduleFlight(double cost, String date)
 
     private static double calculateDistanceKm(Location departure, 
     Location destination)
@@ -479,7 +579,6 @@ public class OperationsOffice
         double longitude2 = Math.toRadians(destination.getLongitude());
         double latitudeDifference = latitude2 - latitude1;
         double longitudeDifference = longitude2 - longitude1;
-        
         /*
          * Calulate distance between departure and destination by 
          * implementing the Haversine formula.
@@ -495,8 +594,8 @@ public class OperationsOffice
 
     /**
      * Creates a ticket for flight with the specified departure and destination
-     * for the specified passenger if such a flight exists in the operation 
-     * office flight database.
+     * for the specified passenger and reserves their seat,
+     * if such a flight exists in the operation office flight database.
      * 
      * @param passenger the passenger to be booked into a flight
      * <br><i>pre-condition: </i> passenger may not be <code>null</code>
@@ -505,24 +604,24 @@ public class OperationsOffice
      * @param destination the destination of the passenger's trip
      * <b><i>pre-condition: </i> destination may not <code>null</code>
      * 
-     * @return whether the operation was successful
+     * @return <code>true</code> if the reservation was made 
+     * sucessfully otherwise <code>false</code>
      */
-    public boolean createTicket(Passenger passenger, 
+    public boolean addReservation(Passenger passenger, 
     String departure, 
     String destination)
     {
         // Check validity of parameters
-        if (passenger == null) return false;
-        if(departure == null) return false;
-        if (destination == null) return false;
+        if (passenger == null)return false;
+        if(departure == null )return false;
+        if (destination == null)return false;
 
         // Does this passenger have a passport?
         if (passenger.hasPassport() == false)return false;
 
         Flight ticketFlight = null; 
-        String ticketSeatName = null;
+        String ticketSeat = null;
         int counter = 0;
-
         /*
          * Locate a flight with the required departure and destination 
          * in the database.
@@ -532,7 +631,7 @@ public class OperationsOffice
             if (this.flight[counter].getDeparture().getLocationName()
             .equals(departure) && this.flight[counter].getDestination()
             .getLocationName().equals(destination) && 
-            flight[counter].isFull() != true)
+            flight[counter].isFlightFull() != true)
             {
                 ticketFlight = flight[counter];
                 /*
@@ -542,7 +641,6 @@ public class OperationsOffice
                 int row = 0; 
                 int column = 0;
                 boolean seatFound = false;
-
                 while (row < ticketFlight.getPlane().getSeat().length && 
                 seatFound == false)
                 {
@@ -553,17 +651,34 @@ public class OperationsOffice
                         if (ticketFlight.getPlane().getSeat()[row][column]
                         .isTaken() == false)
                         {
-                            ticketSeatName = ticketFlight.getPlane()
+                            // Check if the flight has room for the passenger.
+                            if(ticketFlight.isFlightFull())return false;
+
+                            // Check if the flight has room for the cargo.
+                            if(ticketFlight.isCargoFull())return false;
+
+                            ticketSeat = ticketFlight.getPlane()
                             .getSeat()[row][column]
                             .getSeatName();
-                            /*
-                             * Set seat as taken in order to prevent multiple 
-                             * bookings of the same seat.
-                             */
-                            this.flight[counter].getPlane()
-                            .getSeat()[row][column].setAvailability(true);
-                            // Set seat as found and exit loop.
-                            seatFound = true;
+
+                            // Create a ticket and assign it to the passenger.
+                            passenger.setTicket(new Ticket(ticketFlight, ticketSeat));
+
+                            // Assign the passenger to the seat
+                            ticketFlight.getPlane().getSeat()[row][column]
+                            .setPassenger(passenger);
+                            ticketFlight.getPlane().getSeat()[row][column]
+                            .setAvailability(true);
+
+                            // Add cargo to the flight
+                            ticketFlight.addCargo(passenger.
+                                getPassengerCargo());
+
+                            // Add the passenger to the flight
+                            ticketFlight.addPassenger(passenger);
+
+                            // Once reservation is complete, exit method
+                            return true;
                         } // end of if (ticketFlight.getPlane().getSeat...)
                         // increment column
                         column++;
@@ -571,82 +686,13 @@ public class OperationsOffice
                     // increment row
                     row++;
                 }// end of while (row < ticketFlight.getPlane().getSeat().length)
-
             } //  if (this.flight[i].getDeparture().getLocationName().equals...)
             // increment the counter to move onto next flight in the database
             counter ++;
         } // end of for (int i = 0; i < numberOfFlights; i++)
-
-        /*
-         * Create a new ticket with the located flight and seat, if found
-         * and set it to the passenger
-         */
-        if (ticketFlight == null || ticketSeatName == null) return false;   
-        passenger.setTicket(new Ticket(ticketFlight, ticketSeatName));
-        return true;
-    } // end of method bookTicket(Passenger passsenger...)
-
-    /**
-     * Reserves a seat on the flight specified on the ticket
-     * for the specifed passenger and adds their cargo to 
-     * to the flight.
-     * 
-     * @param passenger the passenger to be added to the flight
-     * <br><i>pre-conditon: </i>passenger may not be <code>null</code>
-     */
-    public void reservation(Passenger passenger)
-    {
-        // Check validity of passenger
-        if (passenger == null) return;
-
-        // Find the ticket of passenger
-        if (passenger.getTicket() == null) return;
-        Ticket passengerTicket = passenger.getTicket();
-        Flight passengerFlight = passengerTicket.getReservedFlight();
-
-        /* Find the flight specified on the ticket, in the operations 
-         * office flight database 
-         */
-        for (int i = 0; i < this.flight.length; i++)
-        {
-            // Is this the flight specified in the ticket?
-            if (flight[i] == passengerFlight)
-            {
-                // Locate the seat specified on the ticket
-                for (int row = 0; row < flight[i].getPlane().getSeat().length;
-                row++)
-                {
-                    for (int column = 0; column < flight[i].getPlane()
-                    .getSeat()[row].length; column++)
-                    {
-                        // Is this seat the seat on the passenger's ticket?
-                        if (flight[i].getPlane().getSeat()[row][column]
-                        .getSeatName()
-                        .equals(passengerTicket.getReservedSeat()))
-                        {
-                            // Check if the seat is available
-                            if (flight[i].getPlane().getSeat()[row][column]
-                            .getPassenger() == null)
-                            {
-                                // Assign the passenger to the seat
-                                flight[i].getPlane().getSeat()[row][column]
-                                .setPassenger(passenger);
-                                flight[i].getPlane().getSeat()[row][column]
-                                .setAvailability(true);
-
-                                // Add cargo to the flight
-                                flight[i].addCargo(passenger.
-                                    getPassengerCargo());
-
-                                // Add the passenger to the flight
-                                flight[i].addPassenger(passenger);
-                            } // end of if (flight[i].getPlane().getSeat()...)
-                        } // end of if (flight[i].getPlane().getSeat()...)
-                    } // end of for (int column = 0; column < passengerPlane..)
-                } // end of for (int row = 0; row < passengerPlane...)
-            } // end of if (flight[i] == passengerFlight)
-        } // end of for (int i = 0; i < this.flight.length; i++)
-    } // end of method reserveSeat(Passenger passenger)
+        // required flight is not found
+        return false;
+    } // end of method addReservation(Passenger passsenger...)
 
     /**
      * Rewards passengers who are in this operation office's 
