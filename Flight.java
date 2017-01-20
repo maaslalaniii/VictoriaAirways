@@ -25,7 +25,7 @@ public class Flight
      */
     public Flight()
     {
-        this.flightName = null;
+        this.flightName = "";
         this.cargo = new String[0];
         this.cost = 0;
         this.date = null;

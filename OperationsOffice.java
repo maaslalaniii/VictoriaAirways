@@ -267,9 +267,36 @@ public class OperationsOffice
             break;
 
             case "add passenger":
+                System.out.println("Adding passenger... Please provide information.");
+                String passengerName = getString("Name? ");
+                int age = getInt("Age? ");
+                // The passenger must reserve a flight to obtain a ticket.
+                Ticket ticket = null;
+                boolean hasPassport = getBoolean("Does this passenger have a passport? [true|false] ");
+                int rewardPoints = 0;
+                String passengerCargo = "";
+                
+                Passenger passenger = new Passenger(passengerName,
+                                                    age,
+                                                    ticket,
+                                                    hasPassport,
+                                                    rewardPoints,
+                                                    passengerCargo);
+                                                    
+                boolean passengerAdditionWasSuccessful = operationsOffice.addCustomer(passenger);
+                
+                if (passengerAdditionWasSuccessful)
+                {
+                    System.out.println("Passenger was added!");
+                }
+                else
+                {
+                    System.out.println("Passenger could not be added!");
+                } // end of if (passengerAdditionWasSuccessful)                
             break;
 
             case "remove plane":
+                
             break;
 
             case "remove flight":

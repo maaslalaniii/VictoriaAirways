@@ -21,7 +21,7 @@ public class Passenger
      * 
      * @param name the name of this passenger
      * @param age the age of this passenger
-     * @parma ticket the ticket of this passenger
+     * @param ticket the ticket of this passenger
      * @param hasPassport <code>true</code> if this passenger has
      * a passport; <code>false</code> otherwise
      * @param rewardPoints the reward points of this passenger
