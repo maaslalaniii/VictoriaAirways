@@ -296,24 +296,60 @@ public class OperationsOffice
             break;
 
             case "remove plane":
+                System.out.println("Please specify the index of the plane to be removed...");
+                int indexOfPlaneToRemove = getInt("Index of plane? ");
+                boolean planeRemovalWasSuccessful = operationsOffice.removePlaneByIndex(indexOfPlaneToRemove);
                 
+                if (planeRemovalWasSuccessful)
+                {
+                    System.out.println("Plane was removed!");
+                }
+                else
+                {
+                    System.out.println("Plane was not removed.");
+                } // end of if (planeRemovalWasSuccessful)
             break;
 
             case "remove flight":
+            System.out.println("Please specify the index of the flight to be removed...");
+                int indexOfFlightToRemove = getInt("Index of flight? ");
+                boolean flightRemovalWasSuccessful = operationsOffice.removeFlightByIndex(indexOfFlightToRemove);
+                
+                if (flightRemovalWasSuccessful)
+                {
+                    System.out.println("Flight was removed!");
+                }
+                else
+                {
+                    System.out.println("Flight was not removed.");
+                } // end of if (flightRemovalWasSuccessful)
             break;
 
             case "remove passenger":
+                System.out.println("Please specify the index of the flight to be removed...");
+                int indexOfPassengerToRemove = getInt("Index of passenger? ");
+                boolean passengerRemovalWasSuccessful = operationsOffice.removePassengerByIndex(indexOfPassengerToRemove);
+                
+                if (passengerRemovalWasSuccessful)
+                {
+                    System.out.println("Passenger was removed!");
+                }
+                else
+                {
+                    System.out.println("Passenger was not removed.");
+                } // end of if (passengerRemovalWasSuccessful)
             break;
 
             case "exit":
+                System.exit(0);
             break;
 
             default:
             System.out.println("\n\"" + input + "\" is not a valid command."
                 + "\nTyping \"help\" will bring up a list of possible commands.\n");
 
-        } // end of 
-    } // end of 
+        } // end of switch(input)
+    } // end of handleInput(String input, OperationsOffice operationsOffice)
 
     /* constructors */
     /**
@@ -518,6 +554,114 @@ public class OperationsOffice
         return true;
     } // end of method removeFlightByIndex(int indexOfFlight)
 
+    /**
+     * Removes a plane to the record of this operations office.
+     *
+     * @param plane the plane to be removed
+     * 
+     * @return whether the operation was successful
+     */
+    public boolean removePlane(Plane plane)
+    {
+        if (plane == null) return false;
+
+        int indexOfPlane = -1;
+
+        // find the index of this plane.
+        for (int i = 0; i < numberOfPlanes; i++)
+        {
+            if (this.plane[i] == plane)
+            {
+                indexOfPlane = i;
+            } // end of if (this.flight[i] == flight)
+        } // end of for (int i = 0; i < numberOfPlanes; i++)
+
+        // Shift all the planes after the removed plane down one.
+        for (int i = indexOfPlane; i < numberOfPlanes; i++) 
+        {
+            this.plane[indexOfPlane] = this.plane[indexOfPlane + 1];
+        } // end of for (int i = indexOfPlane; i < numberOfPlanes; i++) 
+        return true;
+    } // end of method removePlane(Plane plane)
+    
+    /**
+     * Removes a plane by its index to the record of this operations office.
+     *
+     * @param indexOfPlane the index of the plane to be removed
+     * 
+     * @return whether the plane was successfully removed
+     */
+    public boolean removePlaneByIndex(int indexOfPlane)
+    {        
+        if (indexOfPlane < 0) return false;
+        if (indexOfPlane > numberOfPlanes) return false;
+
+        Plane planeToBeRemoved = this.plane[indexOfPlane];
+        this.plane[numberOfPlanes--] = null;
+
+        // Shift all the planes after the removed plane down one.
+        for (int i = indexOfPlane; i < numberOfPlanes; i++)
+        {
+            this.plane[indexOfPlane] = this.plane[indexOfPlane + 1];
+        } // end of for (int i = indexOfPlane; i < numberOfPlanes; i++) {
+
+        return true;
+    } // end of method removePlaneByIndex(int indexOfPlane)
+    
+    /**
+     * Removes a passenger to the record of this operations office.
+     *
+     * @param passenger the passenger to be removed
+     * 
+     * @return whether the operation was successful
+     */
+    public boolean removePassenger(Passenger passenger)
+    {
+        if (passenger == null) return false;
+
+        int indexOfPassenger= -1;
+
+        // find the index of this passenger.
+        for (int i = 0; i < numberOfCustomers; i++)
+        {
+            if (this.customer[i] == passenger)
+            {
+                indexOfPassenger = i;
+            } // end of if (this.customer[i] == passenger)
+        } // end of for (int i = 0; i < numberOfCustomers; i++)
+
+        // Shift all the passengers after the removed passenger down one.
+        for (int i = indexOfPassenger; i < numberOfCustomers; i++) 
+        {
+            this.customer[indexOfPassenger] = this.customer[indexOfPassenger + 1];
+        } // end of for (int i = indexOfPassenger; i < numberOfCustomers; i++) 
+        return true;
+    } // end of method removePassenger(Passenger passenger)
+    
+    /**
+     * Removes a passenger by its index to the record of this operations office.
+     *
+     * @param indexOfPassenger the index of the passenger to be removed
+     * 
+     * @return whether the passenger was successfully removed
+     */
+    public boolean removePassengerByIndex(int indexOfPassenger)
+    {        
+        if (indexOfPassenger < 0) return false;
+        if (indexOfPassenger > numberOfCustomers) return false;
+
+        Passenger passengerToBeRemoved = this.customer[indexOfPassenger];
+        this.customer[numberOfCustomers--] = null;
+
+        // Shift all the passengers after the removed passenger down one.
+        for (int i = indexOfPassenger; i < numberOfCustomers; i++)
+        {
+            this.customer[indexOfPassenger] = this.customer[indexOfPassenger + 1];
+        } // end of for (int i = indexOfPassenger; i < numberOfCustomers; i++)
+
+        return true;
+    } // end of method removePassengerByIndex(int indexOfPassenger)
+    
     /**
      * Reads plane data from the specified text file and 
      * creates a plane database for this operation office.
