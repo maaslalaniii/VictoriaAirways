@@ -4,6 +4,7 @@
  * @author Maas Lalani, Jenisha Thomas, Ming Zhao Huang 
  * @version 1.0 2016-12-23
  */
+
 public class Passenger
 {
     /* instance fields */
@@ -14,27 +15,34 @@ public class Passenger
     private String passengerCargo;
     private int rewardPoints;
     private Ticket ticket;
-
+  
     /* constructors */
     /**
      * Constructs a passenger with the specified characteristics.
      * 
-     * @param name the name of this passenger
-     * @param age the age of this passenger
-     * @param ticket the ticket of this passenger
+     * @param name the name of this passenger <br><i>pre-
+     * condition: </i>name may not be <code>null</code>
+     * @param age the age of this passenger <br><i> 
+     * pre-condition: </i>age must be greater than 0
+     * @parma ticket the ticket of this passenger
      * @param hasPassport <code>true</code> if this passenger has
      * a passport; <code>false</code> otherwise
      * @param rewardPoints the reward points of this passenger
+     * <br><i>pre-condition:</i> rewardPoints must be greater
+     * than 0
      * @param passengerCargo the cargo of this passenger
      */
     public Passenger(String name, 
-    int age,
-    Ticket ticket, 
-    boolean hasPassport, 
-    int rewardPoints,
-    String passengerCargo              
-    )
+                     int age,
+                     Ticket ticket, 
+                     boolean hasPassport, 
+                     int rewardPoints,
+                     String passengerCargo              
+                     )
     {
+        // Check validity of parameters
+        if (name == null) return;
+        
         this.name = name;
         // Does the passenger have a valid ticket.
         this.hasTicket = ticket != null;
@@ -140,9 +148,8 @@ public class Passenger
         + ", hasTicket: " + hasTicket
         + ", points: " + rewardPoints
         + ", cargo: " + passengerCargo 
-        + "]";	
+        + "]";  
     } // end of method toString()
-    
     /* mutators */ 
     /**
      * Sets the age of the passenger.
@@ -209,13 +216,13 @@ public class Passenger
     public void setPassengerCargo(String passengerCargo)
     {
         this.passengerCargo = passengerCargo;
-    } // end of method setPassengerCargo(String passengerCargo)
+    } // end of method setPassengerCargo(Cargo passengerCargo)
 
     /**
      * Sets the amount of frequent-flyer reward points of this passenger.
      * 
      * @param rewardPoints the amount of frequent-flyer reward 
-	 * points of this passenger
+     * points of this passenger
      */
     public void setRewardPoints(int rewardPoints)
     {
@@ -224,14 +231,16 @@ public class Passenger
     } // end of method setRewardPoints(int rewardPoints)
 
     /**
-     * Add the specifed amount of frequent-flyer reward 
-     * points to this passenger.
+     * Add the specifed amount of frequent-flyer reward points to this 
+	 * passenger.
      * 
      * @param rewardPointsToBeAdded the amount of frequent-flyer points to 
-	 * be added
+     * be added
      */
-    public void addPoints(int rewardPointsToBeAdded)
+    public boolean addPoints(int rewardPointsToBeAdded)
     {
+        if (rewardPointsToBeAdded < 0) return false;
         this.rewardPoints += rewardPointsToBeAdded;
-    } // end of method addPoints(int rewardPointsToBeAdded)
+        return true;
+    } // end of method addPoints(int rewardPoints)
 } // end of class Passenger
