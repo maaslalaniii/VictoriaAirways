@@ -47,49 +47,6 @@ public class OperationsOffice
     private int numberOfPlanes;
     private Plane[] plane;
 
-    /**
-     * The CLI for Victoria Airlines operations office.
-     */
-    public static void main(String[] argument)
-    {
-        // Create the main operations office.
-        OperationsOffice operationsOffice = new OperationsOffice
-								(DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS,
-								 DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS,
-                                 DEFAULT_MAXIMUM_NUMBER_OF_PLANES);
-
-        System.out.println("\fWelcome to the Victoria Airlines CLI.");
-        System.out.println("Type \"help\" to list all of possible commands.");
-
-        // print the list of commands
-        help();
-
-        boolean programShouldContinue = true;
-        do
-        {
-			// Load the databases
-            operationsOffice.loadDatabases(
-										   PASSENGER_DATABASE, 
-										   PLANE_DATABASE, 
-										   FLIGHT_DATABASE
-										   );
-
-            // Get input from the user.
-            String input = getString("> ");
-
-            // Check for sentinel value
-            if (input.equals("exit"))
-            {
-                programShouldContinue = false;
-            } // end of 
-
-            //Handle input
-            handleInput(input, operationsOffice);
-
-        } // end of loop
-        while (programShouldContinue);
-    } // end of method main(String[] argument)
-
     /*CLI methods*/
     /**
      * Prints all the possible commands this CLI can handle.
@@ -2116,8 +2073,9 @@ public class OperationsOffice
 						.equals(passenger.getTicket().getReservedFlight()))
                 {
                     passengerFlight = this.getFlights()[i];
+                    // Exit loop
                     i = this.getFlights().length;
-                }
+                } // end of  if (this.getFlights()[i].getFlightName()...0
             }// end of if (this.getFlights[i].getName()...)
         } // end of for (int i = 0; i < this.getFlights().length; i++)
 
