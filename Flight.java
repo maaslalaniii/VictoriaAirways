@@ -10,13 +10,13 @@ public class Flight
     private String [] cargo;
     private double cost;
     private String date;
+    private String flightName;
     private Location departure;
     private Location destination;
-    private String flightName;
     private Passenger[] passenger;
     private Plane plane;
-    private int numberOfCargo;
     private int numberOfPassengers;
+    private int numberOfCargo;
 
     /* constructors */
     /**
@@ -25,7 +25,7 @@ public class Flight
      */
     public Flight()
     {
-        this.flightName = "";
+        this.flightName = null;
         this.cargo = new String[0];
         this.cost = 0;
         this.date = null;
@@ -36,25 +36,38 @@ public class Flight
         this.numberOfPassengers = 0;
         this.numberOfCargo = 0;
     } // end of constructor Flight()
-
+    
     /**
      * Constructs a flight with the specified characteristics.
      * 
-     * @param flightName the name of this flight
+     * @param flightName the name of this flight <br><i>
+     * pre-condition: </i> flightName may not be <code>null</code>
      * @param cost the cost of a single ticket in this flight
      * @param date the time of the departure of this flight
+     * <br><i>pre-condition: </i> date may not be <code>null</code>
      * @param destination the destination of this flight
-     * @param departure the departure of this flight
+     * <br><i>pre-condition: </i> destination may not be <code>null</code>
+     * @param departure the departure of this flight <br><i>
+     * pre-condition: </i> departure may not be <code>null</code>
      * @param plane the plane in which this flight will take place
+     * <br><i>pre-condition: </i> plane may not be <code>null</code>
      *  
      */
-    public Flight(String flightName,
-    double cost,
-    String date,
-    Location destination,
-    Location departure,
-    Plane plane)
+    public Flight(
+                  String flightName,
+                  double cost,
+                  String date,
+                  Location destination,
+                  Location departure,
+                  Plane plane
+                  )
     {
+        // Check validity of parameters
+        if (flightName == null) return;
+        if (date == null) return; 
+        if (destination == null) return;
+        if (departure == null) return;
+        if (plane == null) return;
         this.flightName = flightName;
         this.cargo = new String[plane.getMaximumNumberOfItemsOfCargo()];
         this.cost = cost;
@@ -66,7 +79,7 @@ public class Flight
         this.numberOfPassengers = 0;
         this.numberOfCargo = 0;
     } // end of constructor Flight(String flightName...)
-    
+
     /* accessors */
     /**
      * Returns the name of this flight.
@@ -77,7 +90,7 @@ public class Flight
     {
         return this.flightName;
     } // end of method getFlightName()
-
+    
     /**
      * Returns the cargo of this flight.
      * 
@@ -187,7 +200,7 @@ public class Flight
     /**
      * Returns <code>true</code> if the flight has
      * reached maximum cargo capicity, otherwise 
-     * <code>false</code>.
+     * <code>false.</code>
      * 
      * @return <code>true</code> if the flight has
      * reached maximum cargo capicity, otherwise 
@@ -201,7 +214,7 @@ public class Flight
     /**
      * Returns <code>true</code> if the flight has
      * reached maximum passenger capicity, otherwise 
-     * <code>false</code>.
+     * <code>false.</code>
      * 
      * @return <code>true</code> if the flight has
      * reached maximum passenger capicity, otherwise 
@@ -210,8 +223,7 @@ public class Flight
     public boolean isFlightFull()
     {
         return this.numberOfPassengers >= this.passenger.length;  
-    } // end of method isFlightFull()
-    
+    } // end of method isCargoFull()
     /* mutators */
     /**
      * Sets the name of this flight.
@@ -222,7 +234,7 @@ public class Flight
     {
         this.flightName = flightName;;
     } // end of method setFlightName(String flightName)
-
+    
     /**
      * Sets the plane of this flight.
      *
@@ -256,14 +268,14 @@ public class Flight
      * 
      * @param cargo the new cargo of the flight.
      */
-    public void setCargo(String[] cargo)
+    public void setCargo(String [] cargo)
     {
         if (cargo == null) return;
-        if (cargo.length > plane.getMaximumNumberOfItemsOfCargo()) return;
+        if (cargo.length > plane.getMaximumNumberOfItemsOfCargo())return;
         this.cargo = cargo;
         // Reset cargo counter
         this.numberOfCargo = 0;
-    } // end method setCargo(String[] cargo)
+    } // end method setCargo(Cargo[] cargo)
 
     /**
      * Adds an item of cargo to the flight's cargo.
@@ -277,7 +289,7 @@ public class Flight
         if (this.isCargoFull()) return;
         this.cargo[this.numberOfCargo] = cargo;
         numberOfCargo++;
-    } // end of method addCargo(String cargo)
+    } // end of method addCargo(Cargo cargo)
 
     /**
      * Adds a passenger to this flight.
@@ -327,7 +339,7 @@ public class Flight
         if (destination == null) return;
 
         this.destination = destination;
-    } // end method setDestination(Location destination)
+    } // end method setDestination(String destination)
 
     /**
      * Sets the departure of this flight.
@@ -339,5 +351,6 @@ public class Flight
         if (departure == null) return;
 
         this.departure = departure;
-    } // end method setDeparture(Location departure)
+    } // end method setDeparture(String departure)
+    
 } // end of class Flight
