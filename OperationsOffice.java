@@ -233,6 +233,12 @@ public class OperationsOffice
                 // Set the plane as null
                 newPlane = null;
             } // end of if (!isValidLocation(location))
+            // Check that entered numbers are valid
+            if (rowsOfSeats < 0 || seatsInRow < 0)
+            {
+                // Set the plane as null
+                newPlane = null;
+            } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
             // Was the plane added successfull?
             boolean planeAdditionWasSuccessful = operationsOffice
                 .addPlane(newPlane);
@@ -278,6 +284,12 @@ public class OperationsOffice
             {
                 flight = null;
             } // if (!isValidLocation(destination)...)
+            // Check that entered numbers are valid
+            if (cost < 0)
+            {
+                // Set the plane as null
+                flight = null;
+            } // end of if (cost < 0)
             // Was the flight added successfully?
             boolean flightAdditionWasSuccessful = operationsOffice
                 .addFlight(flight);
@@ -329,6 +341,13 @@ public class OperationsOffice
                 System.out.println ("Passenger is already registered");
                 passenger = null;
             } // end of  if (operationsOffice.isRegistered(passenger)) 
+            
+            // Check that entered numbers are valid
+            if (age < 0)
+            {
+                // Set the plane as null
+                passenger = null;
+            } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
             // Was the passenger added succesfully?
             boolean passengerAdditionWasSuccessful = operationsOffice
                                                     .addCustomer(passenger);
@@ -354,7 +373,7 @@ public class OperationsOffice
             operationsOffice.displayCustomers();
             // Gather needed data
             System.out.println("Adding reward points... Please provide" 
-                + " information.");
+                                + " information.");
             String passengerPointsName = getString("Passenger Name? ");
             int passengerPointsAge = getInt("Age? ");
             // Ticket will be initialized by searching through database
@@ -373,6 +392,13 @@ public class OperationsOffice
                                                       points,
                                                       passengerCargoPoints
                                                       );
+            // Check that entered numbers are valid
+            if (passengerPointsAge < 0)
+            {
+                // Set the plane as null
+                pointsPassenger = null;
+            } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
+            
             int pointsToAdd = -1;
             boolean pointsAdditionWasSuccessful = false;
             // Check if the passenger is already registered
@@ -402,6 +428,7 @@ public class OperationsOffice
                     } // end of  if (operationsOffice.customer[i] != null)   
                 } // end of for (int i = 0; i < operationsOffice...)
             }
+            
             // Was the passenger rewarded points succesfully?
             if (pointsAdditionWasSuccessful)
             {
@@ -438,12 +465,19 @@ public class OperationsOffice
             String departureTicket = (getString("Departure? "));
             String destinationTicket = (getString("Destination? "));
             Passenger passengerTicket = new Passenger(nameTicket,
-                    ageTicket,
-                    ticketToBeBooked,
-                    hasPassportTicket,
-                    0,
-                    cargoTicket
-                );
+                                                      ageTicket,
+                                                      ticketToBeBooked,
+                                                      hasPassportTicket,
+                                                      0,
+                                                      cargoTicket
+                                                      );
+            // Check that entered numbers are valid
+            if (ageTicket < 0)
+            {
+                // Set the plane as null
+                passengerTicket = null;
+            } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
+            
             boolean ticketBookingWasSuccesful = false;
             // Is the passenger registered in the customer database?
             if (operationsOffice.isRegistered(passengerTicket))
@@ -491,10 +525,10 @@ public class OperationsOffice
             else
             {
                 ticketToBeBooked = operationsOffice.createTicket
-                                   (passengerTicket,
-                                   departureTicket, 
-                                   destinationTicket
-                                   );
+                                                    (passengerTicket,
+                                                    departureTicket, 
+                                                    destinationTicket
+                                                    );
                 // Was the ticeket created properly?
                 if (ticketToBeBooked != null)
                 {
