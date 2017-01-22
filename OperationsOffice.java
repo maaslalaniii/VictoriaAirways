@@ -44,7 +44,50 @@ public class OperationsOffice
     private int numberOfFlights;
     private int numberOfPlanes;
     private Plane[] plane;
+      /**
+     * The CLI for Victoria Airlines operations office.
+     */
+    public static void main(String[] argument)
+    {
+        /* class constants */
 
+        // Create the main operations office.
+        OperationsOffice operationsOffice = new OperationsOffice
+               (DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS,
+                DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS,
+                DEFAULT_MAXIMUM_NUMBER_OF_PLANES);
+
+        System.out.println("\fWelcome to the Victoria Airlines CLI.");
+        System.out.println("Type \"help\" to list all of possible commands.");
+
+        // print the list of commands
+        help();
+
+        boolean programShouldContinue = true;
+        do
+        {
+            // Load the databases
+            operationsOffice.loadDatabases(
+                                            PASSENGER_DATABASE, 
+                                            PLANE_DATABASE, 
+                                            FLIGHT_DATABASE
+                                            );
+
+            // Get input from the user.
+            String input = getString("> ");
+
+            // Check for sentinel value
+            if (input.equals("exit"))
+            {
+                programShouldContinue = false;
+            } // end of 
+
+            //Handle input
+           handleInput(input, operationsOffice);
+
+        } // end of loop
+        while (programShouldContinue);
+    } // end of method main(String[] argument)
     /*CLI methods*/
     /**
      * Prints all the possible commands this CLI can handle.
@@ -442,7 +485,7 @@ public class OperationsOffice
             {
                 System.out.println("Unable to add points!");
                 System.out.println("Ensure passenger is registered and" 
-                    + " has a valid ticket");
+                                    + " has a valid ticket");
             } // end of if (pointsAdditionWasSuccessful)
             // Display the customers after the addition of points
             operationsOffice.displayCustomers();
@@ -1812,7 +1855,7 @@ public class OperationsOffice
                         .getLocationName()
                         + "\t" + this.getFlights()[i].getPlane().getName());
                 } // end of if (this.getFlights()[i] != null)
-            } // end of for (int i = 0; i < this.getFlights().length; i++)
+           } // end of for (int i = 0; i < this.getFlights().length; i++)
             // Close the file
             fileWriter.close();
         }
@@ -2094,7 +2137,7 @@ public class OperationsOffice
         // Does the passenger have a ticket?
         if (passenger.hasTicket() == false) return -1;
 
-        int pointsToBeAdded = 0;
+        int pointsToBeAdded = -1;
 
         Flight passengerFlight = null;
         // Locate the flight indicated on the passenger's ticket
