@@ -8,21 +8,21 @@
 public class Ticket
 {
     /* instance fields */
-    private Flight reservedFlight;
+    private String reservedFlight;
     private String reservedSeat;
 
     /* constructors */
     /**
      * Constructs a ticket with the specified characteristics.
      * 
-     * @param reservedFlight the flight of this ticket
-     * <br><i>pre-condition </i>reservedFlight may not 
+     * @param reservedFlight the name of the flight of this 
+     * ticket<br><i>pre-condition </i>reservedFlight may not 
      * be <code>null</code>
      * @param reservedSeat the seat of this ticket
      * <br><i>pre-condition </i>reservedSeat may not 
      * be <code>null</code>
      */
-    public Ticket(Flight reservedFlight, 
+    public Ticket(String reservedFlight, 
 				  String reservedSeat)
     {
         // Check validity of parameters.
@@ -31,7 +31,6 @@ public class Ticket
 
         this.reservedFlight = reservedFlight;
         this.reservedSeat = reservedSeat;
-
     } // end of constructor Ticket(Flight reservedFlight...)
 
     /* accessors */
@@ -40,7 +39,7 @@ public class Ticket
      * 
      * @return the flight of this ticket
      */
-    public Flight getReservedFlight()
+    public String getReservedFlight()
     {
         return this.reservedFlight;
     } // end of method getReservedFlight()
@@ -55,7 +54,6 @@ public class Ticket
         return this.reservedSeat;
     } // end of method getReservedSeat()
 
-
     /**
      * Returns a string representation of this ticket.
      * 
@@ -66,8 +64,8 @@ public class Ticket
         return
         getClass().getName()
         + "["
-        + "flight: " + reservedFlight
-        + ", seat: " + reservedSeat
+        + "Flight: " + reservedFlight
+        + ", Seat: " + reservedSeat
         + "]";
     } // end of method toString()
     
@@ -79,7 +77,7 @@ public class Ticket
      * to this ticket <br><i>pre-condition: </i>
      * reservedFlight may not be <code>null</code>
      */
-    public void setReservedFlight(Flight reservedFlight)
+    public void setReservedFlight(String reservedFlight)
     {
         // Check validity of reservedFlight
         if (reservedFlight == null) return;
@@ -99,4 +97,5 @@ public class Ticket
         if (reservedSeat == null) return;
         this.reservedSeat = reservedSeat;
     } // end of method setReservedSeat(Seat reservedSeat)
+
 } // end of class Ticket
