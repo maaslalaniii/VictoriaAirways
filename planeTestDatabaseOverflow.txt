@@ -1,0 +1,4 @@
+3
+ABC	60	Boeing737	10	6	true	Short	Toronto
+DEF	120	AirbusA340	20	6	true	Long	Beijing
+GHI	120	Boeing737	20	6	true	Medium	Beijing
