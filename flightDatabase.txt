@@ -1,1 +1,3 @@
 1000
+ZZZ	1345.9	January 15 2017, 8:30	Chicago	Toronto	ABC
+TYU	1342.7	January 5 2017, 9:46	Toronto	Beijing	BBB

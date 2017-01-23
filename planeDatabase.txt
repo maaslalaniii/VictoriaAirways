@@ -1,2 +1,3 @@
-100
-
+10
+ABC	60	Boeing737	10	6	true	Short	Toronto
+BBB	180	AirbusA340	30	6	true	Long	Beijing

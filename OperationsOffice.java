@@ -1,3 +1,5 @@
+ 
+
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -16,27 +18,27 @@ public class OperationsOffice
     private static int DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS = 10000;
     private static int DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS = 1000;
     private static int DEFAULT_MAXIMUM_NUMBER_OF_PLANES = 10;
-    final static String FLIGHT_DATABASE = "flightDatabase.txt";
-    final static int MEDIUM_RANGE_DISTANCE_KM = 10000;
-    final static String PASSENGER_DATABASE = "passengerDatabase.txt";
-    final static String PLANE_DATABASE = "planeDatabase.txt";
-    final static int SHORT_RANGE_DISTANCE_KM = 5000;
+    private final static String FLIGHT_DATABASE = "flightDatabase.txt";
+    private final static int MEDIUM_RANGE_DISTANCE_KM = 10000;
+    private final static String PASSENGER_DATABASE = "passengerDatabase.txt";
+    private final static String PLANE_DATABASE = "planeDatabase.txt";
+    private final static int SHORT_RANGE_DISTANCE_KM = 5000;
 
     private static String[] LIST_OF_COMMANDS = {
-                                                "help",
-                                                "add plane",
-                                                "add flight",
-                                                "add passenger",
-                                                "add points",
-                                                "book ticket",
-                                                "remove plane",
-                                                "remove flight",
-                                                "remove passenger",
-                                                "view planes",
-                                                "view flights",
-                                                "view passengers",
-                                                "exit"
-                                               };
+            "help",
+            "add plane",
+            "add flight",
+            "add passenger",
+            "add points",
+            "book ticket",
+            "remove plane",
+            "remove flight",
+            "remove passenger",
+            "view planes",
+            "view flights",
+            "view passengers",
+            "exit"
+        };
     /* instance fields */
     private Passenger[] customer;
     private Flight[] flight;
@@ -44,7 +46,7 @@ public class OperationsOffice
     private int numberOfFlights;
     private int numberOfPlanes;
     private Plane[] plane;
-      /**
+    /**
      * The CLI for Victoria Airlines operations office.
      */
     public static void main(String[] argument)
@@ -53,7 +55,7 @@ public class OperationsOffice
 
         // Create the main operations office.
         OperationsOffice operationsOffice = new OperationsOffice
-               (DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS,
+            (DEFAULT_MAXIMUM_NUMBER_OF_CUSTOMERS,
                 DEFAULT_MAXIMUM_NUMBER_OF_FLIGHTS,
                 DEFAULT_MAXIMUM_NUMBER_OF_PLANES);
 
@@ -68,10 +70,10 @@ public class OperationsOffice
         {
             // Load the databases
             operationsOffice.loadDatabases(
-                                            PASSENGER_DATABASE, 
-                                            PLANE_DATABASE, 
-                                            FLIGHT_DATABASE
-                                            );
+                PASSENGER_DATABASE, 
+                PLANE_DATABASE, 
+                FLIGHT_DATABASE
+            );
 
             // Get input from the user.
             String input = getString("> ");
@@ -83,7 +85,7 @@ public class OperationsOffice
             } // end of 
 
             //Handle input
-           handleInput(input, operationsOffice);
+            handleInput(input, operationsOffice);
 
         } // end of loop
         while (programShouldContinue);
@@ -262,14 +264,14 @@ public class OperationsOffice
 
             // Create the new plane
             Plane newPlane = new Plane(
-                                       planeName,  
-                                       aircraftType, 
-                                       rowsOfSeats,
-                                       seatsInRow,
-                                       false, 
-                                       range, 
-                                       location
-                                       );
+                    planeName,  
+                    aircraftType, 
+                    rowsOfSeats,
+                    seatsInRow,
+                    false, 
+                    range, 
+                    location
+                );
             // Check if location of plane is valid                           
             if (!isValidLocation(location))
             {
@@ -295,6 +297,11 @@ public class OperationsOffice
             } 
             else
             {
+                 // Is the database full?
+                if (operationsOffice.numberOfPlanes >= operationsOffice.plane.length)
+                {
+                    System.out.println("Plane database full");
+                } // end of if (operationsOffice.numberOfCustomers..)
                 System.out.println("Plane addition was unsuccessful!");            
             } // end of if (planeAdditionWasSuccessful)
             // Display the planes after adding plane
@@ -314,12 +321,12 @@ public class OperationsOffice
             String destination = (getString("Destination? "));
             // Attempt to schedule the flight
             Flight flight = operationsOffice.scheduleFlight(
-                                                            flightName, 
-                                                            cost, 
-                                                            date, 
-                                                            destination, 
-                                                            departure
-                                                            );
+                    flightName, 
+                    cost, 
+                    date, 
+                    destination, 
+                    departure
+                );
             // Check if given destination and departure is valid
             if (!isValidLocation(destination) || !
 
@@ -335,7 +342,7 @@ public class OperationsOffice
             } // end of if (cost < 0)
             // Was the flight added successfully?
             boolean flightAdditionWasSuccessful = operationsOffice
-                .addFlight(flight);
+                                                .addFlight(flight);
             if (flightAdditionWasSuccessful)
             {
                 System.out.println("Flight was successfully added!");
@@ -347,8 +354,16 @@ public class OperationsOffice
             else
             {
                 System.out.println("Flight addition was unsuccessful!");
-                System.out.println("Enter \"view planes\" to see planes" 
-                    + " available for flight scheduling");
+                // Is the database full?
+                if (operationsOffice.numberOfFlights >= operationsOffice.flight.length)
+                {
+                    System.out.println("Flight database full");
+                }
+                else
+                {
+                    System.out.println("Enter \"view planes\" to see planes" 
+                        + " available for flight scheduling");
+                } // end of if (operationsOffice.numberOfFlights..)
             } // end of if (flightAdditionWasSuccessful)
             // Display flights after the addition
             operationsOffice.displayFlights();
@@ -360,31 +375,31 @@ public class OperationsOffice
             operationsOffice.displayCustomers();
             // Gather needed data
             System.out.println("Adding passenger... Please provide" 
-                                + " information.");
+                + " information.");
             String passengerName = getString("Passenger Name? ");
             int age = getInt("Age? ");
             // The passenger must book to obtain a ticket.
             Ticket ticket = null;
             boolean hasPassport = getBoolean("Does this passenger have a" 
-                                            + " passport? [true|false] ");
+                    + " passport? [true|false] ");
             // New passengers start off with 0 rewards points
             int rewardPoints = 0;
             String passengerCargo = null;
             // Create the new passenger
             Passenger passenger = new Passenger(passengerName,
-                                                age,
-                                                ticket,
-                                                hasPassport,
-                                                rewardPoints,
-                                                passengerCargo
-                                                );
+                    age,
+                    ticket,
+                    hasPassport,
+                    rewardPoints,
+                    passengerCargo
+                );
             // Check if the passenger is already registered
             if (operationsOffice.isRegistered(passenger)) 
             {
                 System.out.println ("Passenger is already registered");
                 passenger = null;
             } // end of  if (operationsOffice.isRegistered(passenger)) 
-            
+
             // Check that entered numbers are valid
             if (age < 0)
             {
@@ -393,7 +408,7 @@ public class OperationsOffice
             } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
             // Was the passenger added succesfully?
             boolean passengerAdditionWasSuccessful = operationsOffice
-                                                    .addCustomer(passenger);
+                .addCustomer(passenger);
             if (passengerAdditionWasSuccessful)
             {
                 System.out.println("Passenger was added!");
@@ -404,6 +419,11 @@ public class OperationsOffice
             }
             else
             {
+                // Is the database full?
+                if (operationsOffice.numberOfCustomers >= operationsOffice.customer.length)
+                {
+                    System.out.println("Customer database full");
+                } // end of if (operationsOffice.numberOfCustomers..)
                 System.out.println("Passenger could not be added!");
             } // end of if (passengerAdditionWasSuccessful) 
             // Display the customers after the addition
@@ -416,32 +436,32 @@ public class OperationsOffice
             operationsOffice.displayCustomers();
             // Gather needed data
             System.out.println("Adding reward points... Please provide" 
-                                + " information.");
+                + " information.");
             String passengerPointsName = getString("Passenger Name? ");
             int passengerPointsAge = getInt("Age? ");
             // Ticket will be initialized by searching through database
             Ticket pointsTicket = null;
             boolean hasPassportPoints = getBoolean("Does this passenger have a" 
-                                                    + " passport? [true|false] ");
+                    + " passport? [true|false] ");
             // Points will be set if passenger is found in database
             int points = 0;
             // Cargo will be set if passenger is found in database
             String passengerCargoPoints = null;
             // Create a new passenger, to be used to find them in the database
             Passenger pointsPassenger = new Passenger(passengerPointsName,
-                                                      passengerPointsAge,
-                                                      pointsTicket,
-                                                      hasPassportPoints,
-                                                      points,
-                                                      passengerCargoPoints
-                                                      );
+                    passengerPointsAge,
+                    pointsTicket,
+                    hasPassportPoints,
+                    points,
+                    passengerCargoPoints
+                );
             // Check that entered numbers are valid
             if (passengerPointsAge < 0)
             {
                 // Set the plane as null
                 pointsPassenger = null;
             } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
-            
+
             int pointsToAdd = -1;
             boolean pointsAdditionWasSuccessful = false;
             // Check if the passenger is already registered
@@ -455,23 +475,23 @@ public class OperationsOffice
                     {   
                         // Check to see if this passenger is the one specified
                         if (operationsOffice.customer[i].getName()
-                            .equals(pointsPassenger.getName())
-                            && operationsOffice.customer[i].getAge() 
-                            == (pointsPassenger.getAge()))
+                        .equals(pointsPassenger.getName())
+                        && operationsOffice.customer[i].getAge() 
+                        == (pointsPassenger.getAge()))
                         {
                             pointsToAdd = operationsOffice.rewardPoints
                             (operationsOffice.customer[i]);
                             pointsAdditionWasSuccessful = operationsOffice
-                                                          .customer[i]
-                                                          .addPoints
-                                                          (pointsToAdd); 
+                            .customer[i]
+                            .addPoints
+                            (pointsToAdd); 
                             // Exit loop
                             i = operationsOffice.customer.length;
                         } // end of if (operationsOffice.customer[i]...)
                     } // end of  if (operationsOffice.customer[i] != null)   
                 } // end of for (int i = 0; i < operationsOffice...)
             }
-            
+
             // Was the passenger rewarded points succesfully?
             if (pointsAdditionWasSuccessful)
             {
@@ -485,7 +505,7 @@ public class OperationsOffice
             {
                 System.out.println("Unable to add points!");
                 System.out.println("Ensure passenger is registered and" 
-                                    + " has a valid ticket");
+                    + " has a valid ticket");
             } // end of if (pointsAdditionWasSuccessful)
             // Display the customers after the addition of points
             operationsOffice.displayCustomers();
@@ -503,24 +523,24 @@ public class OperationsOffice
             // departure and destination
             Ticket ticketToBeBooked = null;
             boolean hasPassportTicket = getBoolean("Does this passenger have a" 
-                                                   + " passport? [true|false] ");
+                    + " passport? [true|false] ");
             String cargoTicket = (getString("Cargo? "));
             String departureTicket = (getString("Departure? "));
             String destinationTicket = (getString("Destination? "));
             Passenger passengerTicket = new Passenger(nameTicket,
-                                                      ageTicket,
-                                                      ticketToBeBooked,
-                                                      hasPassportTicket,
-                                                      0,
-                                                      cargoTicket
-                                                      );
+                    ageTicket,
+                    ticketToBeBooked,
+                    hasPassportTicket,
+                    0,
+                    cargoTicket
+                );
             // Check that entered numbers are valid
             if (ageTicket < 0)
             {
                 // Set the plane as null
                 passengerTicket = null;
             } // end of if (rowsOfSeats < 0 || seatsInRow < 0)
-            
+
             boolean ticketBookingWasSuccesful = false;
             // Is the passenger registered in the customer database?
             if (operationsOffice.isRegistered(passengerTicket))
@@ -537,12 +557,12 @@ public class OperationsOffice
                         == (passengerTicket.getAge()))
                         {
                             ticketToBeBooked = operationsOffice
-                                             .createTicket
-                                             (
-                                             operationsOffice.customer[i],
-                                             departureTicket, 
-                                             destinationTicket
-                                             );
+                            .createTicket
+                            (
+                                operationsOffice.customer[i],
+                                departureTicket, 
+                                destinationTicket
+                            );
                             // Was the ticket created properly?
                             if (ticketToBeBooked != null)
                             {
@@ -568,10 +588,10 @@ public class OperationsOffice
             else
             {
                 ticketToBeBooked = operationsOffice.createTicket
-                                                    (passengerTicket,
-                                                    departureTicket, 
-                                                    destinationTicket
-                                                    );
+                (passengerTicket,
+                    departureTicket, 
+                    destinationTicket
+                );
                 // Was the ticeket created properly?
                 if (ticketToBeBooked != null)
                 {
@@ -596,7 +616,7 @@ public class OperationsOffice
             {
                 System.out.println("Ticket could not be booked!");
                 System.out.println("Enter \"view flights\" to see flights" 
-                                    + " available for booking tickets");
+                    + " available for booking tickets");
             } // end of if (passengerAdditionWasSuccessful)               
             // Display customers after booking ticket
             operationsOffice.displayCustomers();
@@ -608,12 +628,12 @@ public class OperationsOffice
             operationsOffice.displayPlanes();
             // Gather needed data
             System.out.println("Please specify the index of the" 
-                                + " plane to be removed...");
+                + " plane to be removed...");
             int indexOfPlaneToRemove = getInt("Index of plane? ");
             // Was the plane successfully removed?
             boolean planeRemovalWasSuccessful = operationsOffice
-                                              .removePlaneByIndex
-                                              (indexOfPlaneToRemove);
+                .removePlaneByIndex
+                (indexOfPlaneToRemove);
             if (planeRemovalWasSuccessful)
             {
                 System.out.println("Plane was removed!");
@@ -636,12 +656,12 @@ public class OperationsOffice
             operationsOffice.displayFlights();
             // Gather needed data
             System.out.println("Please specify the index of the flight"
-                                + " to be removed...");
+                + " to be removed...");
             int indexOfFlightToRemove = getInt("Index of flight? ");
             // Was the flight removed successfully?
             boolean flightRemovalWasSuccessful = operationsOffice
-                                               .removeFlightByIndex
-                                               (indexOfFlightToRemove);
+                .removeFlightByIndex
+                (indexOfFlightToRemove);
             if (flightRemovalWasSuccessful)
             {
                 System.out.println("Flight was removed!");
@@ -664,12 +684,12 @@ public class OperationsOffice
             operationsOffice.displayCustomers();
             // Gather needed data
             System.out.println("Please specify the index of the flight" 
-                                + " to be removed...");
+                + " to be removed...");
             int indexOfPassengerToRemove = getInt("Index of passenger? ");
             // Was the flight successfully removed?
             boolean passengerRemovalWasSuccessful = operationsOffice
-                                                    .removePassengerByIndex
-                                                    (indexOfPassengerToRemove);
+                .removePassengerByIndex
+                (indexOfPassengerToRemove);
             if (passengerRemovalWasSuccessful)
             {
                 System.out.println("Passenger was removed!");
@@ -709,8 +729,8 @@ public class OperationsOffice
             // Invalid command
             default:
             System.out.println("\n\"" + input + "\" is not a valid command."
-                                + "\nTyping \"help\" will bring up a list" 
-                                + " of possible commands.\n");
+                + "\nTyping \"help\" will bring up a list" 
+                + " of possible commands.\n");
 
         } // end of 
         // Input was handled. Save the resulting changes.
@@ -949,7 +969,7 @@ public class OperationsOffice
                 {
                     // Check if the ticket is associated with this flight
                     if (this.getCustomers()[n].getTicket().getReservedFlight()
-                        .equals(flightToBeRemoved.getFlightName()))
+                    .equals(flightToBeRemoved.getFlightName()))
                     {
                         this.getCustomers()[n].setTicket(null);
                         this.getCustomers()[n].setPossessionOfTicket(false);
@@ -1007,7 +1027,7 @@ public class OperationsOffice
                 {
                     // Check if the ticket is associated with this flight
                     if (this.getCustomers()[n].getTicket().getReservedFlight()
-                        .equals(flightToBeRemoved.getFlightName()))
+                    .equals(flightToBeRemoved.getFlightName()))
                     {
                         this.getCustomers()[n].setTicket(null);
                         this.getCustomers()[n].setPossessionOfTicket(false);
@@ -1069,7 +1089,7 @@ public class OperationsOffice
                 // Check if this plane is associated with the flight 
                 // to be removed
                 if (this.getFlights()[n].getPlane().getName()
-                    .equals(planeToBeRemoved.getName()))
+                .equals(planeToBeRemoved.getName()))
                 {
                     Flight flightToBeRemoved = this.getFlights()[n];
                     // Located any passengers of the flight to be removed
@@ -1084,8 +1104,8 @@ public class OperationsOffice
                                 // Is the passenegers ticket associated with 
                                 // the flight to be removed?
                                 if (this.getCustomers()[k].getTicket()
-                                    .getReservedFlight()
-                                    .equals(flightToBeRemoved.getFlightName()))
+                                .getReservedFlight()
+                                .equals(flightToBeRemoved.getFlightName()))
                                 {
                                     // Delete their ticket
                                     this.getCustomers()[k].setTicket(null);
@@ -1143,7 +1163,7 @@ public class OperationsOffice
                 // Check if this plane is associated with the flight 
                 // to be removed
                 if (this.getFlights()[n].getPlane().getName()
-                    .equals(planeToBeRemoved.getName()))
+                .equals(planeToBeRemoved.getName()))
                 {
                     Flight flightToBeRemoved = this.getFlights()[n];
                     // Located any passengers of the flight to be removed
@@ -1158,13 +1178,13 @@ public class OperationsOffice
                                 // Is the passenger ticket associated with the 
                                 // flight to be removed?
                                 if (this.getCustomers()[k].getTicket()
-                                    .getReservedFlight()
-                                    .equals(flightToBeRemoved.getFlightName()))
+                                .getReservedFlight()
+                                .equals(flightToBeRemoved.getFlightName()))
                                 {
                                     // Delete their ticket
                                     this.getCustomers()[k].setTicket(null);
                                     this.getCustomers()[k]
-                                        .setPossessionOfTicket(false);
+                                    .setPossessionOfTicket(false);
                                 } // end of if (this.getCustomers()[k]...)
                             } // end of if if (this.getCustomers()[k]...)
                         } // end of  if (this.getCustomers()[k] != null)
@@ -1275,7 +1295,7 @@ public class OperationsOffice
         {
             // Create connection to file
             BufferedReader fileReader = new BufferedReader
-                                    (new FileReader(textFile));
+                (new FileReader(textFile));
             String line = fileReader.readLine();
 
             // Create array to contain plane data
@@ -1322,14 +1342,14 @@ public class OperationsOffice
 
                 // Create the plane using extracted parameters
                 Plane planeToBeAdded = new Plane(
-                                                 name,
-                                                 aircraft,
-                                                 rows,
-                                                 columns,
-                                                 isScheduled,
-                                                 range,
-                                                 location
-                                                 );
+                        name,
+                        aircraft,
+                        rows,
+                        columns,
+                        isScheduled,
+                        range,
+                        location
+                    );
 
                 // Add plane to the array
                 planeData[counter] = planeToBeAdded;
@@ -1373,7 +1393,7 @@ public class OperationsOffice
         {
             // Create connection to file
             BufferedReader fileReader = new BufferedReader
-                                       (new FileReader(textFile));
+                (new FileReader(textFile));
             String line = fileReader.readLine();
 
             // Create array to contain passenger data
@@ -1422,13 +1442,13 @@ public class OperationsOffice
                 } // end of catch (NumberFormatException)
                 // Create the passenger using extracted parameters
                 Passenger customerToBeAdded = new Passenger(
-                                                            name, 
-                                                            age,  
-                                                            null, 
-                                                            hasPassport, 
-                                                            points, 
-                                                            cargo
-                                                            );
+                        name, 
+                        age,  
+                        null, 
+                        hasPassport, 
+                        points, 
+                        cargo
+                    );
                 // Create the passenger's ticket,if they have one
                 if (flightName == null && flightSeat == null)
                 {
@@ -1438,7 +1458,7 @@ public class OperationsOffice
                 else
                 {
                     customerToBeAdded.setTicket(new Ticket(flightName, 
-                                                           flightSeat));
+                            flightSeat));
                 } // end of  if (flightName == null && flightSeat == null)
                 // Add customer to the array
                 customerData[counter] = customerToBeAdded;
@@ -1482,7 +1502,7 @@ public class OperationsOffice
         {
             // Create connection to file
             BufferedReader fileReader = new BufferedReader
-                                       (new FileReader(textFile));
+                (new FileReader(textFile));
             String line = fileReader.readLine();
 
             // Create array to contain flight data
@@ -1527,7 +1547,7 @@ public class OperationsOffice
                         {
                             // Is this the flight's plane?
                             if (this.getPlanes()[planeCounter]
-                                .getName().equals(planeName))
+                            .getName().equals(planeName))
                             {
                                 planeFound = true;
                                 flightPlane = this.getPlanes()[planeCounter];
@@ -1543,14 +1563,14 @@ public class OperationsOffice
                     {
                         // Create the new flight and add it to array
                         Flight flightToBeAdded = new Flight(flightName, 
-                                                            flightCost, 
-                                                            takeoff, 
-                                                            new Location
-                                                            (destination), 
-                                                            new Location
-                                                            (departure),
-                                                            flightPlane
-                                                            );
+                                flightCost, 
+                                takeoff, 
+                                new Location
+                                (destination), 
+                                new Location
+                                (departure),
+                                flightPlane
+                            );
                         flightData[counter] = flightToBeAdded;
                         counter ++;
                     } // end of  if (planeFound == true)
@@ -1610,44 +1630,44 @@ public class OperationsOffice
                         {
                             // Locate the flight indicate on the passenger's ticket
                             if (this.getCustomers()[i].getTicket()
-                                .getReservedFlight()
-                                .equals(this.getFlights()[n].getFlightName()))
+                            .getReservedFlight()
+                            .equals(this.getFlights()[n].getFlightName()))
                             {
                                 // Locate the seat indicated on the ticket
                                 for(int j = 0; 
-                                    j < this.getFlights()[n]
-                                    .getPlane().getSeat().length; 
-                                    j++)
-                                    {
+                                j < this.getFlights()[n]
+                                .getPlane().getSeat().length; 
+                                j++)
+                                {
                                     for(int k = 0; 
-                                        k < this.getFlights()[n].getPlane()
-                                        .getSeat()[j].length; 
-                                        k++)
-                                        {
+                                    k < this.getFlights()[n].getPlane()
+                                    .getSeat()[j].length; 
+                                    k++)
+                                    {
                                         if (this.getFlights()[n].getPlane()
-                                            .getSeat()[j][k].getSeatName()
-                                            .equals((this.getCustomers()[i].getTicket()
-                                            .getReservedSeat())))
+                                        .getSeat()[j][k].getSeatName()
+                                        .equals((this.getCustomers()[i].getTicket()
+                                                .getReservedSeat())))
                                         {
                                             // Mark the seat as taken;
                                             this.getFlights()[n].getPlane()
-                                                .getSeat()[j][k]
-                                                .setAvailability(true);
+                                            .getSeat()[j][k]
+                                            .setAvailability(true);
                                             // Set the passenger as the 
                                             // passenger of this seat
                                             this.getFlights()[n].getPlane()
-                                                .getSeat()[j][k]
-                                                .setPassenger
+                                            .getSeat()[j][k]
+                                            .setPassenger
                                             (this.getCustomers()[i]); 
                                             // Add passenger to flight's 
                                             // passenger list
                                             this.getFlights()[n]
-                                                .addPassenger
+                                            .addPassenger
                                             (this.getCustomers()[i]);
                                             // Add the passenger's cargo 
                                             // to the flight
                                             this.getFlights()[n]
-                                                .addCargo(this.getCustomers()[i]
+                                            .addCargo(this.getCustomers()[i]
                                                 .getPassengerCargo());
                                         } // end of if (this.getFlights()[n]...)
                                     } // end of for(int k = 0; k < this..)
@@ -1758,14 +1778,14 @@ public class OperationsOffice
 
                     // Print out parameters of flight
                     fileWriter.println(
-                                        name
-                                        + "\t" + age
-                                        + "\t" + ticketFlight
-                                        + "\t" + ticketSeat
-                                        + "\t" + hasPassport
-                                        + "\t" + rewardPoints
-                                        + "\t" + cargo
-                                        );
+                        name
+                        + "\t" + age
+                        + "\t" + ticketFlight
+                        + "\t" + ticketSeat
+                        + "\t" + hasPassport
+                        + "\t" + rewardPoints
+                        + "\t" + cargo
+                    );
                 } //  if (this.getCustomers()[i] != null)
             } // end of for (int i = 0; i < this.getCustomers()...)
             // Close the file.
@@ -1802,14 +1822,14 @@ public class OperationsOffice
                 {
                     // Print out parameters of flight
                     fileWriter.println(this.getPlanes()[i].getName()
-                                       + "\t" + this.getPlanes()[i]
-                                       .getMaximumNumberOfItemsOfCargo()
-                                       + "\t" + this.getPlanes()[i].getAircraftType()
-                                       + "\t" + this.getPlanes()[i].getSeat().length
-                                       + "\t" + this.getPlanes()[i].getSeat()[0].length
-                                       + "\t" + this.getPlanes()[i].isScheduled()
-                                       + "\t" + this.getPlanes()[i].getRange()
-                                       + "\t" + this.getPlanes()[i].getLocation());
+                        + "\t" + this.getPlanes()[i]
+                        .getMaximumNumberOfItemsOfCargo()
+                        + "\t" + this.getPlanes()[i].getAircraftType()
+                        + "\t" + this.getPlanes()[i].getSeat().length
+                        + "\t" + this.getPlanes()[i].getSeat()[0].length
+                        + "\t" + this.getPlanes()[i].isScheduled()
+                        + "\t" + this.getPlanes()[i].getRange()
+                        + "\t" + this.getPlanes()[i].getLocation());
                 } // end of if (this.getPlanes()[i] != null)
             } // end of  for (int i = 0; i < this.getPlanes().length; i++)
             // Close the file
@@ -1855,7 +1875,7 @@ public class OperationsOffice
                         .getLocationName()
                         + "\t" + this.getFlights()[i].getPlane().getName());
                 } // end of if (this.getFlights()[i] != null)
-           } // end of for (int i = 0; i < this.getFlights().length; i++)
+            } // end of for (int i = 0; i < this.getFlights().length; i++)
             // Close the file
             fileWriter.close();
         }
@@ -1919,7 +1939,7 @@ public class OperationsOffice
 
         // Calculate distance of flight
         Double flightDistance = calculateDistanceKm(flightDeparture,
-                                                    flightDestination);
+                flightDestination);
 
         // Using the distance of the flight, determine the range of flight
         String flightRange = "";
@@ -1955,8 +1975,8 @@ public class OperationsOffice
             if (this.getPlanes()[counter] == null) return null;
             // Does this plane have the required parameters?
             if (this.getPlanes()[counter].getRange().equals(flightRange) && 
-                this.getPlanes()[counter].getLocation().equals(departure) 
-                && this.getPlanes()[counter].isScheduled() == false)
+            this.getPlanes()[counter].getLocation().equals(departure) 
+            && this.getPlanes()[counter].isScheduled() == false)
             {
                 flightPlane = this.plane[counter];  
                 // Exit loop
@@ -1971,11 +1991,11 @@ public class OperationsOffice
         {
             // Create a new flight
             Flight flight1 = new Flight(flightName, 
-                                        cost, 
-                                        date, 
-                                        flightDestination, 
-                                        flightDeparture, 
-                                        flightPlane); 
+                    cost, 
+                    date, 
+                    flightDestination, 
+                    flightDeparture, 
+                    flightPlane); 
             // Set the plane as scheduled
             flightPlane.setSchedule(true);
             return flight1;
@@ -1999,9 +2019,9 @@ public class OperationsOffice
          * implementing the Haversine formula.
          */
         double a = Math.sin(latitudeDifference/2) * 
-                Math.sin(latitudeDifference/2) + Math.cos(latitude1) * 
-                Math.cos(latitude2) * Math.sin(longitudeDifference/2) * 
-                Math.sin(longitudeDifference/2); 
+            Math.sin(latitudeDifference/2) + Math.cos(latitude1) * 
+            Math.cos(latitude2) * Math.sin(longitudeDifference/2) * 
+            Math.sin(longitudeDifference/2); 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         double distance = EARTH_RADIUS * c;
         return distance;
@@ -2087,14 +2107,14 @@ public class OperationsOffice
                             if(ticketFlight.isCargoFull()) return null;
 
                             ticketSeat = ticketFlight
-                                        .getPlane()
-                                        .getSeat()[row][column]
-                                        .getSeatName();
+                            .getPlane()
+                            .getSeat()[row][column]
+                            .getSeatName();
 
                             // Create a ticket and assign it to the passenger.
                             Ticket ticket = new Ticket(ticketFlight
-                                                        .getFlightName(), 
-                                                        ticketSeat);
+                                    .getFlightName(), 
+                                    ticketSeat);
 
                             // Once ticket is made, exit method
                             return ticket;
@@ -2146,7 +2166,7 @@ public class OperationsOffice
             if (this.getFlights()[i] != null)
             {
                 if (this.getFlights()[i].getFlightName()
-                    .equals(passenger.getTicket().getReservedFlight()))
+                .equals(passenger.getTicket().getReservedFlight()))
                 {
                     passengerFlight = this.getFlights()[i];
                     // Exit loop
@@ -2177,9 +2197,9 @@ public class OperationsOffice
             if (this.getCustomers()[i] != null)
             {
                 if (this.getCustomers()[i].getName()
-                    .equals(passenger.getName())
-                    && this.getCustomers()[i].getAge() 
-                    == (passenger.getAge()))
+                .equals(passenger.getName())
+                && this.getCustomers()[i].getAge() 
+                == (passenger.getAge()))
                 {
                     return true;
                 } // end of if (this.getCustomers()[i]...)
@@ -2317,7 +2337,7 @@ public class OperationsOffice
         }
         else
         {
-              System.out.println("Customers");
+            System.out.println("Customers");
         } // end of if (numberOfCustomers == 0)
         for (int i = 0; i < this.numberOfCustomers; i++)
         {
@@ -2326,6 +2346,7 @@ public class OperationsOffice
                 + ", Age:" + customer[i].getAge() 
                 + ", Ticket:" + customer[i].getTicket()
                 + ", Possesion of Ticket:" + customer[i].hasTicket()
+                + ", Has Passport: " + customer[i].hasPassport()
                 + ", Points:" + customer[i].getRewardPoints()
                 + ", Cargo:" + customer[i].getPassengerCargo()
             );
